@@ -6,5 +6,5 @@ XRPTools is A JaveEE based XRP Wallet tool that enables users to create wallet, 
 
 To Do: Show Wallet Transaction, Perform Wallet Creation, Add avg. XRP Crypto Price on Header, Perform XRP Transaction, Add XRP Chart
 
-Automated WebApp Deployment using Heroku:
+Automated WebApp Deployment using Heroku: or by clicking Environments
 https://xrptools.herokuapp.com/
