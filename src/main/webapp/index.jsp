@@ -22,7 +22,7 @@
 <body data-new-gr-c-s-check-loaded="8.874.0" data-gr-ext-installed="">
 <div class="limiter">
     <div class="container-login100">
-        <div class="wrap-login100">
+        <div class="wrap-main">
             <div class="login100-pic js-tilt" data-tilt="" style="will-change: transform; transform: perspective(300px) rotateX(0deg) rotateY(0deg);">
                 <img src="images/img-01.png" alt="IMG">
             </div>

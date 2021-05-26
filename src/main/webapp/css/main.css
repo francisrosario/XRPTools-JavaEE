@@ -191,6 +191,22 @@ iframe {
   padding: 177px 130px 33px 95px;
 }
 
+.wrap-main {
+  width: 960px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 130px 33px 95px;
+}
+
 /*------------------------------------------------------------------
 [  ]*/
 .login100-pic {
