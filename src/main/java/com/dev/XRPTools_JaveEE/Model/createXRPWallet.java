@@ -43,7 +43,7 @@ public class createXRPWallet {
 
         createXRPWallet obj = new createXRPWallet();
         StringBuilder sb = new StringBuilder();
-        sb.append(xAddress);
+        sb.append("X-ADDRESS: ").append(xAddress).append(" CLASSIC ADDRESS: ").append(classicAddress).append(" PUBLIC KEY : ").append(testWallet.publicKey());
         walletAddress = sb.toString();
 
         /**
