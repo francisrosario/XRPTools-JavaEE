@@ -13,9 +13,9 @@ import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 
-public class emptyModel {
+public class testCode {
     public static void main(String[] args) throws JsonRpcClientErrorException {
-
+        /**
         // Construct a network client
         HttpUrl rippledUrl = HttpUrl.get("https://s.altnet.rippletest.net:51234/");
         System.out.println("Constructing an XrplClient connected to " + rippledUrl);
