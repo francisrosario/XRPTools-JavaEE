@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="XRPTools-JaveEE:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>XRPTools-JaveEE</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="XRPTools-JaveEE-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="XRPTools-JaveEE:war exploded" />
+    </root>
+  </artifact>
+</component>
