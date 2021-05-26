@@ -26,7 +26,7 @@ public class createXRPWallet {
         // Get the Classic and X-Addresses from testWallet
         final Address classicAddress = testWallet.classicAddress();
         final XAddress xAddress = testWallet.xAddress();
-        walletAddress = "X-ADDRESS: " + xAddress + " CLASSIC ADDRESS: " + classicAddress + " PUBLIC KEY : " + testWallet.publicKey();
+        walletAddress = "X-ADDRESS: " + xAddress + " <br>CLASSIC ADDRESS: " + classicAddress + " <br>PUBLIC KEY : " + testWallet.publicKey();
     }
 
 

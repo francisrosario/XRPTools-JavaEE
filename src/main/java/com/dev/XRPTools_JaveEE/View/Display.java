@@ -22,7 +22,7 @@ public class Display extends HttpServlet {
                 "</head>" +
                 "<body>" +
                 "<h2></h2>" +
-                "<p>Wallet Test Address #:" + wallet.getWalletAddress() + "</p>" +
+                "<p>" + wallet.getWalletAddress() + "</p>" +
                 "<p></p>" +
                 "<form action=\"index.jsp\">" +
                 "    <input type=\"submit\" value=\"GO BACK\">" +
