@@ -75,3 +75,4 @@ fabric.properties
 
 # Project exclude paths
 /target/
+.idea/vcs.xml
