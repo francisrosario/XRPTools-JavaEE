@@ -20,8 +20,13 @@ public class createWalletController extends HttpServlet{
             } catch (JsonRpcClientErrorException e) {
                 e.printStackTrace();
             }
-            req.setAttribute("54vc3r", wallet);
+            req.setAttribute("xrpwallet", wallet);
             RequestDispatcher dispatcher = req.getRequestDispatcher("display.jsp");
             dispatcher.forward(req, resp);
         }
+
+    public void destroy() {
+        System.out.println("servlet taken out of service.");
+    }
+
 }

@@ -15,19 +15,18 @@ import org.xrpl.xrpl4j.wallet.WalletFactory;
 
 public class createXRPWallet {
 
-    private String walletAddress = "";
+    private String walletAddress;
 
     public String getWalletAddress() {
         return walletAddress;
     }
-    public void setWalletAddress(String walletAddress) {
-        this.walletAddress = walletAddress;
-    }
 
+    public createXRPWallet(){
+
+    }
     public void createXRPWalletX() throws JsonRpcClientErrorException {
 
         System.out.println("Running the GetAccountInfo sample...");
-
         // Construct a network client
         final HttpUrl rippledUrl = HttpUrl.get("https://s.altnet.rippletest.net:51234/");
         System.out.println("Constructing an XrplClient connected to " + rippledUrl);
@@ -43,9 +42,11 @@ public class createXRPWallet {
         final XAddress xAddress = testWallet.xAddress();
 
         createXRPWallet obj = new createXRPWallet();
-        obj.setWalletAddress("dsadasdasd");
-        System.out.println(obj.getWalletAddress());
+        StringBuilder sb = new StringBuilder();
+        sb.append(xAddress);
+        walletAddress = sb.toString();
 
+        /**
         System.out.println("Classic Address: " + classicAddress);
         System.out.println("X-Address: " + xAddress);
 
@@ -58,7 +59,7 @@ public class createXRPWallet {
         final AccountInfoRequestParams requestParams = AccountInfoRequestParams.of(classicAddress);
         final AccountInfoResult accountInfoResult = xrplClient.accountInfo(requestParams);
         System.out.println(accountInfoResult);
-
+        **/
     }
 
 
