@@ -16,7 +16,6 @@ import org.xrpl.xrpl4j.wallet.WalletFactory;
 public class createXRPWallet {
 
     private String walletAddress;
-
     public String getWalletAddress() {
         return walletAddress;
     }
@@ -45,21 +44,6 @@ public class createXRPWallet {
         StringBuilder sb = new StringBuilder();
         sb.append("X-ADDRESS: ").append(xAddress).append(" CLASSIC ADDRESS: ").append(classicAddress).append(" PUBLIC KEY : ").append(testWallet.publicKey());
         walletAddress = sb.toString();
-
-        /**
-        System.out.println("Classic Address: " + classicAddress);
-        System.out.println("X-Address: " + xAddress);
-
-        // Fund the account using the testnet Faucet
-        final FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
-        faucetClient.fundAccount(FundAccountRequest.of(classicAddress));
-        System.out.println("Funded the account using the Testnet faucet.");
-
-        // Look up your Account Info
-        final AccountInfoRequestParams requestParams = AccountInfoRequestParams.of(classicAddress);
-        final AccountInfoResult accountInfoResult = xrplClient.accountInfo(requestParams);
-        System.out.println(accountInfoResult);
-        **/
     }
 
 
