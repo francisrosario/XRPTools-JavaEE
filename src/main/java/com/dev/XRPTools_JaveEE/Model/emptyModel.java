@@ -1,2 +1,4 @@
-package com.dev.XRPTools_JaveEE.Model;public class emptyModel {
+package com.dev.XRPTools_JaveEE.Model;
+
+public class emptyModel {
 }

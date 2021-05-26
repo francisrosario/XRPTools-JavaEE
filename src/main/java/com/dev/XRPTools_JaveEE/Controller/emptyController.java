@@ -1,2 +1,4 @@
-package com.dev.XRPTools_JaveEE.Controller;public class emptyController {
+package com.dev.XRPTools_JaveEE.Controller;
+
+public class emptyController {
 }
