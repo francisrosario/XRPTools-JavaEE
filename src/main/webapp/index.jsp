@@ -32,8 +32,10 @@
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn">Create XRP Wallet</button>
                 </div><div class="container-login100-form-btn">
+                <button class="login100-form-btn">Perform NFT(XRP) Transaction</button>
+            <div></div></div><div class="container-login100-form-btn">
                 <button class="login100-form-btn">Perform XRP Transaction</button>
-            </div><div class="container-login100-form-btn">
+            <div></div></div><div class="container-login100-form-btn">
                 <button class="login100-form-btn">CHECK WALLET TRANSACTION</button>
             </div>
             </form>
