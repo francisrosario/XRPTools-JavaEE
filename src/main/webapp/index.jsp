@@ -27,7 +27,7 @@
                 <img src="images/img-01.png" alt="IMG">
             </div>
 
-            <form class="login100-form validate-form">
+            <form class="login100-form validate-form" action='process' method='post'>>
                 <span class="login100-form-title">XRP Wallet Tools</span>
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn">Create XRP Wallet</button>

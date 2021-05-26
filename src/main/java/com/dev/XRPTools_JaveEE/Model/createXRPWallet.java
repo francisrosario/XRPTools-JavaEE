@@ -13,11 +13,23 @@ import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 
-public class emptyModel {
-    public static void main(String[] args) throws JsonRpcClientErrorException {
+public class createXRPWallet {
+
+    private String walletAddress = "";
+
+    public String getWalletAddress() {
+        return walletAddress;
+    }
+    public void setWalletAddress(String walletAddress) {
+        this.walletAddress = walletAddress;
+    }
+
+    public void createXRPWallet() throws JsonRpcClientErrorException {
+
+        System.out.println("Running the GetAccountInfo sample...");
 
         // Construct a network client
-        HttpUrl rippledUrl = HttpUrl.get("https://s.altnet.rippletest.net:51234/");
+        final HttpUrl rippledUrl = HttpUrl.get("https://s.altnet.rippletest.net:51234/");
         System.out.println("Constructing an XrplClient connected to " + rippledUrl);
         XrplClient xrplClient = new XrplClient(rippledUrl);
 
@@ -29,9 +41,13 @@ public class emptyModel {
         // Get the Classic and X-Addresses from testWallet
         final Address classicAddress = testWallet.classicAddress();
         final XAddress xAddress = testWallet.xAddress();
+
+        createXRPWallet obj = new createXRPWallet();
+        obj.walletAddress = "dsada";
+
         System.out.println("Classic Address: " + classicAddress);
         System.out.println("X-Address: " + xAddress);
-        /**
+
         // Fund the account using the testnet Faucet
         final FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
         faucetClient.fundAccount(FundAccountRequest.of(classicAddress));
@@ -41,6 +57,8 @@ public class emptyModel {
         final AccountInfoRequestParams requestParams = AccountInfoRequestParams.of(classicAddress);
         final AccountInfoResult accountInfoResult = xrplClient.accountInfo(requestParams);
         System.out.println(accountInfoResult);
-         **/
+
     }
+
+
 }
