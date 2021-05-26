@@ -16,19 +16,18 @@ public class Display extends HttpServlet {
         req.getAttribute("xrpwallet");
 
         System.out.println(wallet.getWalletAddress());
-        StringBuilder myvar = new StringBuilder();
-        myvar.append("<html>")
-                .append("<head>")
-                .append("    <title>MVC Model</title>")
-                .append("</head>")
-                .append("<body>")
-                .append("<h2></h2>")
-                .append("<p>Wallet Test Address #:"+ wallet.getWalletAddress() + "</p>")
-                .append("<p></p>")
-                .append("<form action=\"index.jsp\">")
-                .append("    <input type=\"submit\" value=\"GO BACK\">")
-                .append("</form>")
-                .append("</body>");
+        String myvar = "<html>" +
+                "<head>" +
+                "    <title>MVC Model</title>" +
+                "</head>" +
+                "<body>" +
+                "<h2></h2>" +
+                "<p>Wallet Test Address #:" + wallet.getWalletAddress() + "</p>" +
+                "<p></p>" +
+                "<form action=\"index.jsp\">" +
+                "    <input type=\"submit\" value=\"GO BACK\">" +
+                "</form>" +
+                "</body>";
         out.println(myvar);
         }
     }
