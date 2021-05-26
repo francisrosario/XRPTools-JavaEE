@@ -3,4 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <servlet>
+        <servlet-name>Display</servlet-name>
+        <servlet-class>com.dev.XRPTools_JaveEE.View.Display</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Display</servlet-name>
+        <url-pattern>/display.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>createWalletController</servlet-name>
+        <servlet-class>com.dev.XRPTools_JaveEE.Controller.createWalletController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createWalletController</servlet-name>
+        <url-pattern>/process</url-pattern>
+    </servlet-mapping>
+
 </web-app>

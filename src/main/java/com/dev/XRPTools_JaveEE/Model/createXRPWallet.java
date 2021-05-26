@@ -24,7 +24,7 @@ public class createXRPWallet {
         this.walletAddress = walletAddress;
     }
 
-    public void createXRPWallet() throws JsonRpcClientErrorException {
+    public void createXRPWalletX() throws JsonRpcClientErrorException {
 
         System.out.println("Running the GetAccountInfo sample...");
 
@@ -43,7 +43,8 @@ public class createXRPWallet {
         final XAddress xAddress = testWallet.xAddress();
 
         createXRPWallet obj = new createXRPWallet();
-        obj.walletAddress = "dsada";
+        obj.setWalletAddress("dsadasdasd");
+        System.out.println(obj.getWalletAddress());
 
         System.out.println("Classic Address: " + classicAddress);
         System.out.println("X-Address: " + xAddress);
