@@ -6,7 +6,11 @@ XRPTools is A JavaEE based XRP Wallet webapp tool that enables users to create w
 **xrpl4j library, This project will utlized the said library** , Will strictly use **servlets** at the same time MVC Model.
 
 
+Phase1
 To Do: Show Wallet Transaction, Perform Wallet Creation, Add avg. XRP Crypto Price on Header, Perform XRP Transaction, Add XRP Chart, Add NFT Transaction Functionalities, Re-Design frontend, Vanity Address Generator option
+
+Phase2
+On-Click NFT Creator
 
 Partially Done Adding:
 
