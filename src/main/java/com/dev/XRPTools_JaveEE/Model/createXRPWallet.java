@@ -23,7 +23,6 @@ public class createXRPWallet {
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
         SeedWalletGenerationResult genWallet = walletFactory.randomWallet(true);
 
-
         walletAddress = "X-ADDRESS: " + genWallet.wallet().xAddress() + " <br>CLASSIC ADDRESS: " + genWallet.wallet().classicAddress() + " <br>PUBLIC KEY : " + genWallet.wallet().publicKey() +
                 " <br>SEED  : " + genWallet.seed();
     }
