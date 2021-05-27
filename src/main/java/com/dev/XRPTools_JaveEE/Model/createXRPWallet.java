@@ -21,15 +21,11 @@ public class createXRPWallet {
     public void createXRPWalletX() throws JsonRpcClientErrorException {
         // Create a Wallet using a WalletFactory
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
-        SeedWalletGenerationResult testWallet = walletFactory.randomWallet(true);
-        System.out.println(testWallet);
-        walletAddress = String.valueOf(testWallet);
+        SeedWalletGenerationResult genWallet = walletFactory.randomWallet(true);
 
-        // Get the Classic and X-Addresses from testWallet
-        //final Address classicAddress = testWallet.classicAddress();
-        //final XAddress xAddress = testWallet.xAddress();
-        //walletAddress = "X-ADDRESS: " + xAddress + " <br>CLASSIC ADDRESS: " + classicAddress + " <br>PUBLIC KEY : " + testWallet.publicKey() + " <br>PRIVATE KEY : " + testWallet.privateKey();
-        //walletAddress = testWallet;
+
+        walletAddress = "X-ADDRESS: " + genWallet.wallet().xAddress() + " <br>CLASSIC ADDRESS: " + genWallet.wallet().classicAddress() + " <br>PUBLIC KEY : " + genWallet.wallet().publicKey() +
+                " <br>SEED  : " + genWallet.seed();
     }
 
 
