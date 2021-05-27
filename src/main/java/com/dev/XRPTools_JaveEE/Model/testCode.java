@@ -18,6 +18,7 @@ public class testCode {
     public static void main(String[] args) throws JsonRpcClientErrorException {
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
 
+        //Method #!
         StringBuilder sb = new StringBuilder();
         String vanityToFind = "Mharz";
 
@@ -31,6 +32,6 @@ public class testCode {
             }
             sb.setLength(0);
         }while(isFinding);
-
+        //Method#2
     }
 }
