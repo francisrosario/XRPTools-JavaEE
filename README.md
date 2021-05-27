@@ -17,12 +17,14 @@ XRP Wallet Tools is A JavaEE based XRP Wallet webapp tool that enables users to 
   - **One-Click NFT Maker**
   - Complete redesign of wallet
 
+**Progress Transparency:**
 
-Partially Done Adding:
+( Friday May 28, 2021 )
 
-* Temporary Design of Wallet, Complete redesign will be in Phase #2
-* Display created wallet based on session tracking
-* Simple vanity wallet generator Method #1
+1. Included Licensed (Purchased) Admin template frontend as XRP Wallet temporary design.
+2. Simple vanity wallet generator Method #1 & XRP Wallet creation based on seedgenerator
+
+
 
 Automated WebApp Deployment using Heroku: or by clicking Environments
 https://xrptools.herokuapp.com/
