@@ -17,6 +17,10 @@ XRP Wallet Tools is A JavaEE based XRP Wallet webapp tool that enables users to 
   - **One-Click NFT Maker**
   - Complete redesign of wallet
 
+**In-Progress Transparency:**
+1. Check if Wallet Exist then create a servlet Session to access XRP Wallet Tools
+2. Frontend Design
+
 **Progress Transparency:**
 
 ( Friday May 28, 2021 )
