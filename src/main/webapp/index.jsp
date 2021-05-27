@@ -2673,7 +2673,7 @@
           </a>
           <!--end::Logo-->
           <!--begin::Wrapper-->
-          <div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+          <div class="w-lg-600px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
             <!--begin::Form-->
             <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_in_form" action="#" method="post">
               <!--begin::Heading-->
