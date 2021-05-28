@@ -21,7 +21,7 @@ public class createXRPWallet {
     public void createXRPWalletX() throws JsonRpcClientErrorException {
         // Create a Wallet using a WalletFactory
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
-        SeedWalletGenerationResult genWallet = walletFactory.randomWallet(true);
+        SeedWalletGenerationResult genWallet = walletFactory.randomWallet(false);
 
         walletAddress = "X-ADDRESS: " + genWallet.wallet().xAddress() + " <br>CLASSIC ADDRESS: " + genWallet.wallet().classicAddress() + " <br>PUBLIC KEY : " + genWallet.wallet().publicKey() +
                 " <br>SEED  : " + genWallet.seed();
