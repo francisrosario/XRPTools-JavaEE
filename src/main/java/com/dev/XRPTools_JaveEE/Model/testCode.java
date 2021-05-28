@@ -58,11 +58,11 @@ public class testCode {
     public static void main(String[] args) throws JsonRpcClientErrorException {
         //
         //
-        // Codes to be Implemented in WebApp
+        // Features to be Implemented in WebApp
         //
         //
 
-        /**  Vanity Address Checker
+        /**  Vanity Address generator simple || Vanity Address Generator feature
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
 
         //Method #!
@@ -79,37 +79,35 @@ public class testCode {
             }
             sb.setLength(0);
         }while(isFinding);
-        //Method#2
          **/
+
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
 
-        //Wallet Generator based in SeedResult
+        //Wallet generator based on SeedResult || For Generate Wallet feature
         SeedWalletGenerationResult seedResult = walletFactory.randomWallet(true);
         Wallet wallet = walletFactory.fromSeed("sEdVdnghGZYrYzaQrVKV37ddyuD1T5R", false);
 
-        // Fund Wallet by 1000XRP per Iteration
+        // Fund Wallet by 1000XRP per Iteration || Testnet Dev faucet feature
         XrplClient xrplClient = new XrplClient(HttpUrl.get("https://s.altnet.rippletest.net:51234/"));
         FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
+        /**
         for(int x = 0; x < 1; x++){
             faucetClient.fundAccount(FundAccountRequest.of(wallet.classicAddress()));
         }
-
+        **/
 
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
         AccountObjectsResult or = xrplClient.accountObjects(AccountObjectsRequestParams.of(wallet.classicAddress()));
-        System.out.println(or.account());
 
 
-        // Check transactions by Ledger range
-        int expectedTransactions = 748;
+        //Check transactions by Ledger range || For Show Transaction feature
+
         // known ledger index range for this account that is known to have exactly 748 transactions
         LedgerIndex minLedger = LedgerIndex.of(UnsignedLong.valueOf(17896000));
-
-        //Extract Current Ledger Index
         String cLedgerIndex = String.valueOf(accountInfoResult.ledgerCurrentIndex());
         UnsignedLong cLedgerIndexLong = UnsignedLong.valueOf(cLedgerIndex.substring(9, cLedgerIndex.length() - 1));
-
         LedgerIndex maxLedger = LedgerIndex.of(UnsignedLong.valueOf(String.valueOf(cLedgerIndexLong)));
+
 
         AccountTransactionsResult results = xrplClient.accountTransactions(AccountTransactionsRequestParams.builder()
                 .account(wallet.classicAddress())
@@ -120,7 +118,6 @@ public class testCode {
         assertThat(results.marker()).isNotEmpty();
 
         int transactionsFound = results.transactions().size();
-        int pages = 1;
         while (results.marker().isPresent()) {
             results = xrplClient.accountTransactions(AccountTransactionsRequestParams.builder()
                     .account(wallet.classicAddress())
@@ -130,12 +127,11 @@ public class testCode {
                     .build());
             assertThat(results.transactions()).isNotEmpty();
             transactionsFound += results.transactions().size();
-            pages++;
         }
-        System.out.println(results.transactions());
 
-        System.out.println("Transaction Found : " + transactionsFound + " Expected Transaction " + expectedTransactions);
-        System.out.println("Wallet Classic Address" + wallet.classicAddress() + " Wallet Seed: ");
+        System.out.println("Raw Transactions output :\n" + results );
+        System.out.println("Transaction Found : " + transactionsFound);
+        System.out.println("Wallet Classic Address: " + wallet.classicAddress());
 
     }
 }
