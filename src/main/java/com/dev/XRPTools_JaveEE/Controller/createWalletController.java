@@ -14,11 +14,6 @@ public class createWalletController extends HttpServlet{
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             createXRPWallet wallet = new createXRPWallet();
             try {
-                session.setMaxInactiveInterval(10);
-                createXRPWallet wallet = new createXRPWallet();
-                session.setAttribute("xrpwallet", wallet);
-
-                isGenerated = 1;
                 wallet.createXRPWalletX();
             } catch (JsonRpcClientErrorException e) {
                 e.printStackTrace();
