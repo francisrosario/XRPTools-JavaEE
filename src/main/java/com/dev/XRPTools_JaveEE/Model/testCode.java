@@ -48,6 +48,7 @@ import static org.assertj.core.api.Assertions.contentOf; // use with File assert
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -103,7 +104,13 @@ public class testCode {
         int expectedTransactions = 748;
         // known ledger index range for this account that is known to have exactly 748 transactions
         LedgerIndex minLedger = LedgerIndex.of(UnsignedLong.valueOf(17896000));
-        LedgerIndex maxLedger = LedgerIndex.of(UnsignedLong.valueOf(18896000));
+
+        //Extract Current Ledger Index
+        String cLedgerIndex = String.valueOf(accountInfoResult.ledgerCurrentIndex());
+        UnsignedLong cLedgerIndexLong = UnsignedLong.valueOf(cLedgerIndex.substring(9, cLedgerIndex.length() - 1));
+
+        LedgerIndex maxLedger = LedgerIndex.of(UnsignedLong.valueOf(String.valueOf(cLedgerIndexLong)));
+
         AccountTransactionsResult results = xrplClient.accountTransactions(AccountTransactionsRequestParams.builder()
                 .account(wallet.classicAddress())
                 .ledgerIndexMin(minLedger)
@@ -127,9 +134,7 @@ public class testCode {
         }
         System.out.println(results.transactions());
 
-        //assertThat(transactionsFound).isEqualTo(expectedTransactions);
-        assertThat(pages).isEqualTo(2);
-        ;
+        System.out.println("Transaction Found : " + transactionsFound + " Expected Transaction " + expectedTransactions);
         System.out.println("Wallet Classic Address" + wallet.classicAddress() + " Wallet Seed: ");
 
     }
