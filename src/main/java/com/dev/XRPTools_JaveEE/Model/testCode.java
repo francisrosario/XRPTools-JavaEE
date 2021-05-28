@@ -1,5 +1,6 @@
 package com.dev.XRPTools_JaveEE.Model;
 
+import com.google.common.primitives.UnsignedInteger;
 import com.google.common.primitives.UnsignedLong;
 import okhttp3.HttpUrl;
 import org.slf4j.Logger;
@@ -29,9 +30,6 @@ import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
-
-
-
 import static org.assertj.core.api.Assertions.assertThat;  // main one
 import static org.assertj.core.api.Assertions.atIndex; // for List assertions
 import static org.assertj.core.api.Assertions.entry;  // for Map assertions
@@ -42,9 +40,6 @@ import static org.assertj.core.api.Assertions.filter; // for Iterable/Array asse
 import static org.assertj.core.api.Assertions.offset; // for floating number assertions
 import static org.assertj.core.api.Assertions.anyOf; // use with Condition
 import static org.assertj.core.api.Assertions.contentOf; // use with File assertions
-
-
-
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
@@ -58,7 +53,8 @@ public class testCode {
     public static void main(String[] args) throws JsonRpcClientErrorException {
         //
         //
-        // Features to be Implemented in WebApp
+        // Features to be Implemented in WebApp || Test the codes first in Command line then implement it to the webb app
+        // Webapp will strictly use MVC MODEL and Servlets other JavaEE API will also be implemented.
         //
         //
 
@@ -114,8 +110,6 @@ public class testCode {
                 .ledgerIndexMin(minLedger)
                 .ledgerIndexMax(maxLedger)
                 .build());
-        assertThat(results.transactions()).isNotEmpty();
-        assertThat(results.marker()).isNotEmpty();
 
         int transactionsFound = results.transactions().size();
         while (results.marker().isPresent()) {
@@ -124,8 +118,8 @@ public class testCode {
                     .ledgerIndexMin(minLedger)
                     .ledgerIndexMax(maxLedger)
                     .marker(results.marker().get())
+                    .limit(UnsignedInteger.valueOf(1))
                     .build());
-            assertThat(results.transactions()).isNotEmpty();
             transactionsFound += results.transactions().size();
         }
 
