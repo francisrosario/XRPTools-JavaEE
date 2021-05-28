@@ -22,8 +22,11 @@ public class createWalletController extends HttpServlet{
                 session.setMaxInactiveInterval(10);
                 createXRPWallet wallet = new createXRPWallet();
                 session.setAttribute("xrpwallet", wallet);
-
-                isGenerated = 1;
+                if(session.isNew() && isGenerated == 1){
+                    isGenerated = 0;
+                }else{
+                    isGenerated = 1;
+                }
                 wallet.createXRPWalletX();
             } catch (JsonRpcClientErrorException e) {
                 e.printStackTrace();
