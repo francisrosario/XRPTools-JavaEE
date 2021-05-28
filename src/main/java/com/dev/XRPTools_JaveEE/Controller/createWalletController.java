@@ -19,7 +19,7 @@ public class createWalletController extends HttpServlet{
                 e.printStackTrace();
             }
             req.setAttribute("xrpwallet", wallet);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("display.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("display_generated_wallet.jsp");
             dispatcher.forward(req, resp);
         }
 

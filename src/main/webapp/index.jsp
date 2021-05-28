@@ -2712,7 +2712,7 @@
                 <div class="text-center text-muted text-uppercase fw-bolder mb-5">DEV DEBUG: PERFORM DIRECT FUNCTION</div>
                 <!--end::Separator-->
                 <!--begin::Google link-->
-                <button type="submit" id="kt_sign_in_submit" formaction="process" class="btn btn-lg btn-primary w-100 mb-5">
+                <button type="submit" id="kt_sign_in_submit" formaction="process.walletcreation" class="btn btn-lg btn-primary w-100 mb-5">
   <img alt="Logo" src="https://www.pinclipart.com/picdir/middle/12-122739_xrp-logo-png-clipart.png" class="h-20px me-3">
                   <span class="indicator-label">Create XRP Wallet</span>
                   <span class="indicator-progress">Please wait...

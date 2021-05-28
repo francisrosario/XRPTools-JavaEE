@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Display extends HttpServlet {
+public class DisplayWalletCreation extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
