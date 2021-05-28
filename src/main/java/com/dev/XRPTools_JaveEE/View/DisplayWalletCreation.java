@@ -1,19 +1,24 @@
 package com.dev.XRPTools_JaveEE.View;
 
 import com.dev.XRPTools_JaveEE.Model.createXRPWallet;
+import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 public class DisplayWalletCreation extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        createXRPWallet wallet = (createXRPWallet)
-        req.getAttribute("xrpwallet");
+        HttpSession session = req.getSession(false);
+
+        createXRPWallet wallet = (createXRPWallet) session.getAttribute("xrpwallet");
 
         out.println("<html lang=\"en\"><!--begin::Head--><head><base href=\"\">\n" +
                 "\t<meta charset=\"utf-8\">\n" +

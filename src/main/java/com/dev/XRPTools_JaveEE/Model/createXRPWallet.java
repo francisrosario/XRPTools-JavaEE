@@ -11,6 +11,7 @@ import org.xrpl.xrpl4j.wallet.WalletFactory;
 public class createXRPWallet {
 
     private String walletAddress;
+
     public String getWalletAddress() {
         return walletAddress;
     }
