@@ -32,7 +32,10 @@ XRP Wallet Tools is A JavaEE based XRP Wallet webapp tool that enables users to 
 1. Included Licensed (Purchased) Admin template frontend as XRP Wallet temporary design.
 2. Simple vanity wallet generator Method #1 & XRP Wallet creation based on seedgenerator
 
+( Sat May 29. 2021 )
 
+1. Conducted controller test from index.jsp -> XRP Wallet Tools dashboard
+2. Get transaction on currentWallet will be using Stringbuilder for creating transaction display.
 
 Automated WebApp Deployment using Heroku: or by clicking Environments
 https://xrptools.herokuapp.com/
