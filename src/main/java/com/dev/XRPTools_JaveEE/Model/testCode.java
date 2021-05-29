@@ -59,24 +59,28 @@ public class testCode {
         //
         //
 
-        /**  Vanity Address generator simple || Vanity Address Generator feature
-        WalletFactory walletFactory = DefaultWalletFactory.getInstance();
+        boolean seatchforAddress = false;
 
-        //Method #!
-        StringBuilder sb = new StringBuilder();
-        String vanityToFind = "Mharz";
+        //Vanity Address generator simple || Vanity Address Generator feature
+        if(seatchforAddress) {
+            WalletFactory walletFactory = DefaultWalletFactory.getInstance();
 
-        boolean isFinding = true;
-        do{
-            SeedWalletGenerationResult genWallet = walletFactory.randomWallet(false);
-            System.out.println(genWallet.wallet().classicAddress() + "  SEED:  " + genWallet.seed());
-            sb.append(genWallet.wallet().classicAddress());
-            if(sb.toString().startsWith("r"+vanityToFind)){
-                break;
-            }
-            sb.setLength(0);
-        }while(isFinding);
-         **/
+            //Method #!
+            StringBuilder sb = new StringBuilder();
+            String vanityToFind = "Mharz";
+
+            boolean isFinding = true;
+            do {
+                SeedWalletGenerationResult genWallet = walletFactory.randomWallet(false);
+                System.out.println(genWallet.wallet().classicAddress() + "  SEED:  " + genWallet.seed());
+                sb.append(genWallet.wallet().classicAddress());
+                if (sb.toString().startsWith("r" + vanityToFind)) {
+                    break;
+                }
+                sb.setLength(0);
+            } while (isFinding);
+        }
+
 
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
 
@@ -103,11 +107,11 @@ public class testCode {
                     .account(wallet.classicAddress())
                     .ledgerIndex(LedgerIndex.VALIDATED)
                     .build();
-            System.out.println(xrplClient.accountInfo(params).validated());
+            System.out.println("Account is Activated/Not : " + xrplClient.accountInfo(params).validated());
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-        
+
         //Check transactions by Ledger range || For Show Transaction feature
 
         // known ledger index range for this account that is known to have exactly 748 transactions
