@@ -41,6 +41,7 @@ import static org.assertj.core.api.Assertions.offset; // for floating number ass
 import static org.assertj.core.api.Assertions.anyOf; // use with Condition
 import static org.assertj.core.api.Assertions.contentOf; // use with File assertions
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -96,6 +97,17 @@ public class testCode {
         AccountObjectsResult or = xrplClient.accountObjects(AccountObjectsRequestParams.of(wallet.classicAddress()));
 
 
+        //Check if Wallet is Validated in Ledger || If Account is Validted in Ledger proceed to XRP Wallet Tools dashboard
+        try {
+            AccountInfoRequestParams params = AccountInfoRequestParams.builder()
+                    .account(wallet.classicAddress())
+                    .ledgerIndex(LedgerIndex.VALIDATED)
+                    .build();
+            System.out.println(xrplClient.accountInfo(params).validated());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        
         //Check transactions by Ledger range || For Show Transaction feature
 
         // known ledger index range for this account that is known to have exactly 748 transactions
@@ -118,12 +130,11 @@ public class testCode {
                     .ledgerIndexMin(minLedger)
                     .ledgerIndexMax(maxLedger)
                     .marker(results.marker().get())
-                    .limit(UnsignedInteger.valueOf(1))
                     .build());
             transactionsFound += results.transactions().size();
         }
 
-        System.out.println("Raw Transactions output :\n" + results );
+        System.out.println("Raw Transactions output :\n" + results.transactions());
         System.out.println("Transaction Found : " + transactionsFound);
         System.out.println("Wallet Classic Address: " + wallet.classicAddress());
 
