@@ -1,4 +1,8 @@
-<h1 align="center"> XRP Wallet Tools - JavaEE</h1> <br>
+<h1 align="center"> XRP Wallet Tools - JavaEE
+  
+![](XRPWALLET.gif)
+  
+</h1> <br>
 
 # Quick Introduction
 
