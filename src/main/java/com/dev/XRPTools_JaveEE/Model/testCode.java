@@ -106,10 +106,10 @@ public class testCode {
         XrplClient xrplClient = new XrplClient(HttpUrl.get("https://s.altnet.rippletest.net:51234/"));
         FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
         /**
-        for(int x = 0; x < 1; x++){
-            faucetClient.fundAccount(FundAccountRequest.of(wallet.classicAddress()));
-        }
-        **/
+         for(int x = 0; x < 1; x++){
+         faucetClient.fundAccount(FundAccountRequest.of(wallet.classicAddress()));
+         }
+         **/
 
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
         AccountObjectsResult or = xrplClient.accountObjects(AccountObjectsRequestParams.of(wallet.classicAddress()));
@@ -170,17 +170,18 @@ public class testCode {
         //con.setRequestProperty("Content-Type", "application/json; utf-8");
         //con.setRequestProperty("Accept", "application/json");
         HttpUrl.setDoOutput(true);
+
         String jsonInputString = "{\n" +
                 "    \"method\": \"account_info\",\n" +
                 "    \"params\": [\n" +
                 "        {\n" +
-                "            \"account\": \"rG1QQv2nh2gr7RCZ1P8YYcBUKCCN633jCn\",\n" +
+                "   \"account\": \""+wallet.classicAddress()+"\"," +
                 "            \"strict\": true,\n" +
                 "            \"ledger_index\": \"current\",\n" +
                 "            \"queue\": true\n" +
                 "        }\n" +
                 "    ]\n" +
-                "}\n";
+                "}";
 
         try(OutputStream os = HttpUrl.getOutputStream()) {
             byte[] input = jsonInputString.getBytes("utf-8");
@@ -203,19 +204,18 @@ public class testCode {
 
         // Example i want to check rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
         /**
-        ArrayList<String> cars = new ArrayList<String>();
-        JsonRpcResponse<String>
-        JsonRpcClient jsonRpcClient = JsonRpcClient.construct(HttpUrl.get("https://s.altnet.rippletest.net:51234/"));
-        //JavaType type = TypeFactory.defaultInstance().constructType(.class);
-        try{
-            JsonRpcRequest request = JsonRpcRequest.builder()
-                    .method("ledger_closed")
-                    .build();
-            jsonRpcClient.send(request, c);
+         JsonRpcResponse<String>
+         JsonRpcClient jsonRpcClient = JsonRpcClient.construct(HttpUrl.get("https://s.altnet.rippletest.net:51234/"));
+         //JavaType type = TypeFactory.defaultInstance().constructType(.class);
+         try{
+         JsonRpcRequest request = JsonRpcRequest.builder()
+         .method("ledger_closed")
+         .build();
+         jsonRpcClient.send(request, c);
 
-        }catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
-    **/
+         }catch (Exception e) {
+         throw new RuntimeException(e.getMessage(), e);
+         }
+         **/
     }
 }
