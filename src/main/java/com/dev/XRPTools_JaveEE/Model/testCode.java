@@ -73,15 +73,20 @@ public class testCode {
         //
         //
 
+        //URLS
+        String faucetURL = "https://faucet.altnet.rippletest.net";
+        String testnetURL = "https://s.altnet.rippletest.net:51234/";
+        //Main Wallet seed to use in testing
+        String mainWalletSeed = "sEdVdnghGZYrYzaQrVKV37ddyuD1T5R";
         //Simple Vanity address generator - Testnet
         boolean seatchforAddress = false;
         //Fund Wallet - Testnet
-        int rounds = 6;
+        int rounds = 3;
         boolean doFunding = false;
         //Check Wallet Transaction
         boolean checkRAWTransaction = false;
         //Check if Account is Activated or not
-        boolean checkAccActivated = false;
+        boolean checkAccActivated = true;
 
         //Vanity Address generator simple || Vanity Address Generator feature
         if(seatchforAddress) {
@@ -108,11 +113,11 @@ public class testCode {
 
         //Wallet generator based on SeedResult || For Generate Wallet feature
         SeedWalletGenerationResult seedResult = walletFactory.randomWallet(true);
-        Wallet wallet = walletFactory.fromSeed("sEdVdnghGZYrYzaQrVKV37ddyuD1T5R", false);
+        Wallet wallet = walletFactory.fromSeed(mainWalletSeed, false);
 
         // Fund Wallet by 1000XRP per Iteration || Testnet Dev faucet feature
-        XrplClient xrplClient = new XrplClient(HttpUrl.get("https://s.altnet.rippletest.net:51234/"));
-        FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
+        XrplClient xrplClient = new XrplClient(HttpUrl.get(testnetURL));
+        FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get(faucetURL));
 
         if(doFunding){
             for(int x = 1; x < rounds; x++){
@@ -175,7 +180,7 @@ public class testCode {
 
         System.out.println("\n\nUsing HttpURLConnection for JSON Request");
         // Method #1 JSON req using HttpURLConnection
-        URL endpoint = new URL ("https://s.altnet.rippletest.net:51234/");
+        URL endpoint = new URL (testnetURL);
         HttpURLConnection HttpUrl = (HttpURLConnection)endpoint.openConnection();
         HttpUrl.setRequestMethod("POST");
         HttpUrl.setDoOutput(true);
