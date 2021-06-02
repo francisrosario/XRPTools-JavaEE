@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class DisplayWalletCreation extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
