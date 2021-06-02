@@ -40,14 +40,6 @@ import java.net.URL;
 public class testCode {
 
     public static class ledger implements XrplResult {
-
-        public ledger() {
-
-        }
-
-        @JsonRawValue
-        public String result;
-
         @Override
         public Optional<String> status() {
             return Optional.empty();
@@ -207,6 +199,7 @@ public class testCode {
 
         // Method #2 using xrp4j lib.
         try {
+
             JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(testnetURL));
             ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
                     .account(Address.of(String.valueOf(wallet.classicAddress())))
