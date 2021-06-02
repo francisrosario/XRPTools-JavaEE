@@ -2,6 +2,7 @@ package com.dev.XRPTools_JaveEE.Model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedLong;
 import okhttp3.HttpUrl;
 import org.xrpl.xrpl4j.client.*;
@@ -23,6 +24,7 @@ import static org.assertj.core.api.Assertions.filter; // for Iterable/Array asse
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.awt.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +39,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
+@SuppressWarnings({"ConstantConditions", "StatementWithEmptyBody"})
 public class testCode {
 
     public static class ledger implements XrplResult {
@@ -46,6 +49,7 @@ public class testCode {
         }
 
     }
+    @SuppressWarnings("LoopConditionNotUpdatedInsideLoop")
     public static void main(String[] args) throws JsonRpcClientErrorException, IOException {
         //
         //
@@ -181,14 +185,14 @@ public class testCode {
                 "}";
 
         try(OutputStream os = HttpUrl.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes("utf-8");
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
 
         try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(HttpUrl.getInputStream(), "utf-8"))) {
+                new InputStreamReader(HttpUrl.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
-            String responseLine = null;
+            String responseLine;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
@@ -207,7 +211,7 @@ public class testCode {
 
             JsonRpcRequest request = JsonRpcRequest.builder()
                     .method("account_lines")
-                    .params(Collections.singleton(params))
+                    .params(ImmutableSet.of(params))
                     .build();
             jsonRpcClient.send(request, ledger.class);
             System.out.println("RAW Result:" + jsonRpcClient.postRpcRequest(request));
