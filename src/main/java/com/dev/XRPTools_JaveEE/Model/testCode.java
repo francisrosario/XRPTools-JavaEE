@@ -39,7 +39,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-@SuppressWarnings({"ConstantConditions", "StatementWithEmptyBody"})
+@SuppressWarnings({"ConstantConditions", "StatementWithEmptyBody", "LoopConditionNotUpdatedInsideLoop"})
 public class testCode {
 
     public static class ledger implements XrplResult {
@@ -49,7 +49,6 @@ public class testCode {
         }
 
     }
-    @SuppressWarnings("LoopConditionNotUpdatedInsideLoop")
     public static void main(String[] args) throws JsonRpcClientErrorException, IOException {
         //
         //
