@@ -8,6 +8,8 @@
 
 XRP Wallet Tools is A JavaEE based XRP Wallet webapp tool that enables users to create wallet, perform ledger transactions like sending XRP and creating NFT coins. Recently XRP released **xrpl4j library, This project will utilized the said library** , Will strictly use **servlets** at the same time MVC Model.
 
+**Temporary UI: Metronic Bootstrap Design**
+
 <b>Phase #1</b>
   - Perform creation of XRP Wallet
   - Show Wallet Transaction
