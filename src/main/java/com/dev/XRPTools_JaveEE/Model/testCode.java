@@ -1,13 +1,18 @@
 package com.dev.XRPTools_JaveEE.Model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.google.common.primitives.UnsignedLong;
 import okhttp3.HttpUrl;
 import org.xrpl.xrpl4j.client.*;
 import org.xrpl.xrpl4j.client.faucet.FaucetClient;
 import org.xrpl.xrpl4j.client.faucet.FundAccountRequest;
+import org.xrpl.xrpl4j.model.client.XrplRequestParams;
 import org.xrpl.xrpl4j.model.client.XrplResult;
 import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
+import org.xrpl.xrpl4j.model.jackson.ObjectMapperFactory;
+import org.xrpl.xrpl4j.model.transactions.Address;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
@@ -17,6 +22,10 @@ import static org.assertj.core.api.Assertions.fail; // use when writing exceptio
 import static org.assertj.core.api.Assertions.filter; // for Iterable/Array assertions
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.offset; // for floating number assertions
@@ -31,7 +40,12 @@ import java.net.URL;
 public class testCode {
 
     public static class ledger implements XrplResult {
-        @JsonProperty("result")
+
+        public ledger() {
+
+        }
+
+        @JsonRawValue
         public String result;
 
         @Override
@@ -39,8 +53,6 @@ public class testCode {
             return Optional.empty();
         }
 
-        public ledger() {
-        }
     }
     public static void main(String[] args) throws JsonRpcClientErrorException, IOException {
         //
@@ -194,20 +206,21 @@ public class testCode {
 
 
         // Method #2 using xrp4j lib.
-        // Example i want to check rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
-         //JavaType type = TypeFactory.defaultInstance().constructType(.class);
-        ledger led = new ledger();
         try {
             JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(testnetURL));
+            ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
+                    .account(Address.of(String.valueOf(wallet.classicAddress())))
+                    .build();
+
             JsonRpcRequest request = JsonRpcRequest.builder()
-                    .method("ledger_closed")
+                    .method("account_lines")
+                    .params(Collections.singleton(params))
                     .build();
             jsonRpcClient.send(request, ledger.class);
-            System.out.println("Output: " + jsonRpcClient.postRpcRequest(request));
+            System.out.println("RAW Result:" + jsonRpcClient.postRpcRequest(request));
+            System.out.println("Output: " + jsonRpcClient.postRpcRequest(request).get("result").get("status").asText());
+
         } catch (Exception e) {
-            if (e.getMessage().equals("")) {
-                //Go to error page
-            }
             throw new RuntimeException(e.getMessage(), e);
         }
 
