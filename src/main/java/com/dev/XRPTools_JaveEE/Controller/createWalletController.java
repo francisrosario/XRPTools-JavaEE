@@ -10,6 +10,7 @@ import com.dev.XRPTools_JaveEE.Model.createXRPWallet;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 
 public class createWalletController extends HttpServlet{
+        @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             createXRPWallet wallet = new createXRPWallet();
             try {
@@ -21,7 +22,7 @@ public class createWalletController extends HttpServlet{
             RequestDispatcher dispatcher = req.getRequestDispatcher("display_generated_wallet.jsp");
             dispatcher.forward(req, resp);
         }
-
+    @Override
     public void destroy() {
         System.out.println("servlet taken out of service.");
     }
