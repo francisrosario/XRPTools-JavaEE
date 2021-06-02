@@ -1,70 +1,47 @@
 package com.dev.XRPTools_JaveEE.Model;
 
-import com.fasterxml.jackson.databind.DatabindContext;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.google.common.primitives.UnsignedInteger;
 import com.google.common.primitives.UnsignedLong;
-import kotlin.reflect.KParameter;
 import okhttp3.HttpUrl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xrpl.xrpl4j.client.*;
 import org.xrpl.xrpl4j.client.faucet.FaucetClient;
 import org.xrpl.xrpl4j.client.faucet.FundAccountRequest;
-import org.xrpl.xrpl4j.crypto.PrivateKey;
-import org.xrpl.xrpl4j.crypto.Seed;
-import org.xrpl.xrpl4j.keypairs.KeyPair;
 import org.xrpl.xrpl4j.model.client.XrplResult;
 import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
-import org.xrpl.xrpl4j.model.client.ledger.LedgerRequestParams;
-import org.xrpl.xrpl4j.model.client.ledger.LedgerResult;
-import org.xrpl.xrpl4j.model.client.path.RipplePathFindRequestParams;
-import org.xrpl.xrpl4j.model.client.path.RipplePathFindResult;
-import org.xrpl.xrpl4j.model.client.transactions.TransactionRequestParams;
-import org.xrpl.xrpl4j.model.client.transactions.TransactionResult;
-import org.xrpl.xrpl4j.model.ledger.LedgerObject;
-import org.xrpl.xrpl4j.model.transactions.Address;
-import org.xrpl.xrpl4j.model.transactions.Hash256;
-import org.xrpl.xrpl4j.model.client.server.ServerInfoResult;
-import org.xrpl.xrpl4j.model.transactions.IssuedCurrencyAmount;
-import org.xrpl.xrpl4j.model.transactions.Transaction;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 import static org.assertj.core.api.Assertions.assertThat;  // main one
-import static org.assertj.core.api.Assertions.atIndex; // for List assertions
-import static org.assertj.core.api.Assertions.entry;  // for Map assertions
-import static org.assertj.core.api.Assertions.tuple; // when extracting several properties at once
 import static org.assertj.core.api.Assertions.fail; // use when writing exception tests
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown; // idem
 import static org.assertj.core.api.Assertions.filter; // for Iterable/Array assertions
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.offset; // for floating number assertions
 import static org.assertj.core.api.Assertions.anyOf; // use with Condition
 import static org.assertj.core.api.Assertions.contentOf; // use with File assertions
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.Instant;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 
 
 public class testCode {
 
+    public static class ledger implements XrplResult {
+        @JsonProperty("result")
+        public String result;
+
+        @Override
+        public Optional<String> status() {
+            return Optional.empty();
+        }
+
+        public ledger() {
+        }
+    }
     public static void main(String[] args) throws JsonRpcClientErrorException, IOException {
         //
         //
@@ -94,7 +71,7 @@ public class testCode {
 
             //Method #!
             StringBuilder sb = new StringBuilder();
-            String vanityToFind = "Mharz";
+            String vanityToFind = "francis";
 
             boolean isFinding = true;
             do {
@@ -179,7 +156,9 @@ public class testCode {
         }
 
         System.out.println("\n\nUsing HttpURLConnection for JSON Request");
+
         // Method #1 JSON req using HttpURLConnection
+
         URL endpoint = new URL (testnetURL);
         HttpURLConnection HttpUrl = (HttpURLConnection)endpoint.openConnection();
         HttpUrl.setRequestMethod("POST");
@@ -189,7 +168,7 @@ public class testCode {
                 "    \"method\": \"account_info\",\n" +
                 "    \"params\": [\n" +
                 "        {\n" +
-                "   \"account\": \""+wallet.classicAddress()+"\"," +
+                "            \"account\": \""+wallet.classicAddress()+"\"," +
                 "            \"strict\": true,\n" +
                 "            \"ledger_index\": \"current\",\n" +
                 "            \"queue\": true\n" +
@@ -215,14 +194,22 @@ public class testCode {
 
 
         // Method #2 using xrp4j lib.
-
         // Example i want to check rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
-         //JsonRpcClient jsonRpcClient = JsonRpcClient.construct(HttpUrl.get("https://s.altnet.rippletest.net:51234/"));
          //JavaType type = TypeFactory.defaultInstance().constructType(.class);
-         JsonRpcRequest request = JsonRpcRequest.builder()
-         .method("ledger_closed")
-         .build();
-
+        ledger led = new ledger();
+        try {
+            JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(testnetURL));
+            JsonRpcRequest request = JsonRpcRequest.builder()
+                    .method("ledger_closed")
+                    .build();
+            jsonRpcClient.send(request, ledger.class);
+            System.out.println("Output: " + jsonRpcClient.postRpcRequest(request));
+        } catch (Exception e) {
+            if (e.getMessage().equals("")) {
+                //Go to error page
+            }
+            throw new RuntimeException(e.getMessage(), e);
+        }
 
     }
 }
