@@ -1,42 +1,30 @@
 package com.dev.XRPTools_JaveEE.Model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedLong;
 import okhttp3.HttpUrl;
-import org.xrpl.xrpl4j.client.*;
+import org.xrpl.xrpl4j.client.JsonRpcClient;
+import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
+import org.xrpl.xrpl4j.client.JsonRpcRequest;
+import org.xrpl.xrpl4j.client.XrplClient;
 import org.xrpl.xrpl4j.client.faucet.FaucetClient;
 import org.xrpl.xrpl4j.client.faucet.FundAccountRequest;
-import org.xrpl.xrpl4j.model.client.XrplRequestParams;
 import org.xrpl.xrpl4j.model.client.XrplResult;
 import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
-import org.xrpl.xrpl4j.model.jackson.ObjectMapperFactory;
 import org.xrpl.xrpl4j.model.transactions.Address;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
-import static org.assertj.core.api.Assertions.assertThat;  // main one
-import static org.assertj.core.api.Assertions.fail; // use when writing exception tests
-import static org.assertj.core.api.Assertions.filter; // for Iterable/Array assertions
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.awt.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.offset; // for floating number assertions
-import static org.assertj.core.api.Assertions.anyOf; // use with Condition
-import static org.assertj.core.api.Assertions.contentOf; // use with File assertions
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 
 @SuppressWarnings({"ConstantConditions", "StatementWithEmptyBody", "LoopConditionNotUpdatedInsideLoop"})
@@ -200,16 +188,15 @@ public class testCode {
 
 
 
-        // Method #2 using xrp4j lib.
+        // Method #2 using xrp4j lib. - Account_lines
         try {
-
             JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(testnetURL));
             ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
                     .account(Address.of(String.valueOf(wallet.classicAddress())))
                     .build();
 
             JsonRpcRequest request = JsonRpcRequest.builder()
-                    .method("account_lines")
+                    .method("server_state")
                     .params(ImmutableSet.of(params))
                     .build();
             jsonRpcClient.send(request, ledger.class);
