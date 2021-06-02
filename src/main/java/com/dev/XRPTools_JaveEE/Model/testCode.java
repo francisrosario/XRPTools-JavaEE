@@ -194,7 +194,7 @@ public class testCode {
             ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
                     .account(Address.of(String.valueOf(wallet.classicAddress())))
                     .build();
-
+                    System.out.println("RAW Output of Params: " + params);
             JsonRpcRequest request = JsonRpcRequest.builder()
                     .method("server_state")
                     .params(ImmutableSet.of(params))
