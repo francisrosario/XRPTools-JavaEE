@@ -36,9 +36,6 @@ public class XRPConn {
     public String getErrorString() {
         return errorString;
     }
-    public String getWalletseed() {
-        return walletseed;
-    }
     public void setWalletseed(String walletseed) {
         this.walletseed = walletseed;
     }
