@@ -13,18 +13,20 @@ import com.dev.XRPTools_JaveEE.Model.XRPConn;
 public class dashboardController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        XRPConn cwallet = new XRPConn();
         try {
-            HttpSession session = req.getSession();
+            session.setAttribute("dashboard", cwallet);
             String walletseed = req.getParameter("walletseed");
-            System.out.println(walletseed);
-            XRPConn cwallet = new XRPConn();
             cwallet.setWalletseed(walletseed);
             cwallet.isActived();
-            session.setAttribute("dashboard", cwallet);
             RequestDispatcher dispatcher = req.getRequestDispatcher("index-temp2.jsp");
             dispatcher.forward(req, resp);
         } catch (Exception e) {
-            e.printStackTrace();
+            session.setAttribute("error", cwallet);
+            cwallet.setErrorString(e.getMessage());
+            RequestDispatcher dispatcher = req.getRequestDispatcher("error.jsp");
+            dispatcher.forward(req, resp);
         }
     }
     @Override

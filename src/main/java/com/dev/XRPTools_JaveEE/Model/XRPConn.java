@@ -28,7 +28,14 @@ public class XRPConn {
     // Getters and Setters
     private String walletseed;
     private BigDecimal accountBalance;
+    private String errorString;
 
+    public void setErrorString(String errorString) {
+        this.errorString = errorString;
+    }
+    public String getErrorString() {
+        return errorString;
+    }
     public BigDecimal getAccountBalance() {
         return accountBalance;
     }
@@ -46,17 +53,13 @@ public class XRPConn {
 
     }
 
-    public void isActived(){
+    public void isActived() throws  JsonRpcClientErrorException{
         doConn();
-        try {
-            AccountInfoRequestParams params = AccountInfoRequestParams.builder()
-                    .account(wallet.classicAddress())
-                    .ledgerIndex(LedgerIndex.VALIDATED)
-                    .build();
-            //System.out.println("Account is Activated/Not : " + xrplClient.accountInfo(params).validated());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
+        AccountInfoRequestParams params = AccountInfoRequestParams.builder()
+                .account(wallet.classicAddress())
+                .ledgerIndex(LedgerIndex.VALIDATED)
+                .build();
+
     }
     public void accountBalance() throws JsonRpcClientErrorException {
         doConn();
