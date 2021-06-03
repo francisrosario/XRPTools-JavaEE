@@ -13,13 +13,13 @@ import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class XRPConn {
+    //////////////////////
+    //XRP4j
     final AtomicReference<String> testnetURL = new AtomicReference<>("https://s.altnet.rippletest.net:51234/");
     private Wallet wallet;
     private XrplClient xrplClient;
 
-    //////////////////////
-    //XRP4j
-    public void doConn(){
+    private void doConn(){
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
         wallet = walletFactory.fromSeed(walletseed, false);
         xrplClient = new XrplClient(HttpUrl.get(testnetURL.get()));
