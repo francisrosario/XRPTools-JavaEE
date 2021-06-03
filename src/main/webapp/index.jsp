@@ -2710,12 +2710,12 @@
                 <!--end::Separator-->
                 <!--begin::Google link-->
                 <button type="submit" formaction="process.walletcreation" class="btn btn-lg btn-primary w-100 mb-5">
-  <img alt="Logo" src="https://www.pinclipart.com/picdir/middle/12-122739_xrp-logo-png-clipart.png" class="h-20px me-3">
+  <img alt="Logo" src="https://cryptologos.cc/logos/xrp-xrp-logo.svg" class="h-20px me-3">
                   <a>Create XRP Wallet</a>
                 </button><button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                   <a>WIP Perform XRP Transaction</a>
                 </button><button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
-                  <a>>WIP Create Vanity XRP Wallet Address</a>
+                  <a>WIP Create Vanity XRP Wallet Address</a>
                 </button><button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
                   <a>WIP One-Click NFT Creator</a>
                 </button><button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
