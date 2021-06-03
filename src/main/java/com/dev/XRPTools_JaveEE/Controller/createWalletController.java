@@ -6,21 +6,24 @@ import javax.servlet.ServletException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.dev.XRPTools_JaveEE.Model.createXRPWallet;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 
 public class createWalletController extends HttpServlet{
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            createXRPWallet wallet = new createXRPWallet();
-            try {
-                wallet.createXRPWalletX();
-            } catch (JsonRpcClientErrorException e) {
-                e.printStackTrace();
-            }
-            req.setAttribute("xrpwallet", wallet);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("display_generated_wallet.jsp");
-            dispatcher.forward(req, resp);
+            HttpSession session = req.getSession();
+                try {
+                    createXRPWallet wallet = new createXRPWallet();
+                    wallet.createXRPWalletX();
+                    session.setAttribute("xrpwallet", wallet);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("createwallet.jsp");
+                    dispatcher.forward(req, resp);
+                } catch (JsonRpcClientErrorException e) {
+                    e.printStackTrace();
+                }
         }
     @Override
     public void destroy() {

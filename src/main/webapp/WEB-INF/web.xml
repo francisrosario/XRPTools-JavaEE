@@ -4,15 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>DisplayWalletCreation</servlet-name>
-        <servlet-class>com.dev.XRPTools_JaveEE.View.DisplayWalletCreation</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DisplayWalletCreation</servlet-name>
-        <url-pattern>/display_generated_wallet.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>createWalletController</servlet-name>
         <servlet-class>com.dev.XRPTools_JaveEE.Controller.createWalletController</servlet-class>
     </servlet>
@@ -20,5 +11,12 @@
         <servlet-name>createWalletController</servlet-name>
         <url-pattern>/process.walletcreation</url-pattern>
     </servlet-mapping>
-
+    <servlet>
+        <servlet-name>dashboardController</servlet-name>
+        <servlet-class>com.dev.XRPTools_JaveEE.Controller.dashboardController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dashboardController</servlet-name>
+        <url-pattern>/process.dashboard</url-pattern>
+    </servlet-mapping>
 </web-app>
