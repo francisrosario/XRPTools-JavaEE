@@ -1,5 +1,7 @@
 package com.dev.XRPTools_JaveEE.Model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedLong;
 import okhttp3.HttpUrl;
@@ -21,11 +23,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
-
+import org.json.JSONObject;
 
 @SuppressWarnings({"ConstantConditions", "StatementWithEmptyBody", "LoopConditionNotUpdatedInsideLoop"})
 public class testCode {
@@ -183,12 +186,14 @@ public class testCode {
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            System.out.println(response.toString());
+            System.out.println(response);
+            JSONObject jsonObject = new JSONObject(response.toString());
+            System.out.println("Account Balance: " + jsonObject.optJSONObject("result").optJSONObject("account_data").getDouble("Balance") / 1000000 + "\n\n\n");
         }
 
 
-
         // Method #2 using xrp4j lib. - Account_lines
+        System.out.println("XRP4J Custom - Account_lines for JSON Request");
         try {
             JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(testnetURL));
             ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
