@@ -3893,7 +3893,7 @@
                           <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">Account Balance</a>
                           <div class="text-muted fs-7 fw-bold">Your XRP Balance</div>
                         </div>
-                        <div class="fw-bolder fs-3 text-primary"><p><%=wallet.getAccountBalance()%> XRP</p></div>
+                        <div class="fw-bolder fs-3 text-primary"><p><%=wallet.accountBalance()%> XRP</p></div>
                       </div>
                     </div>
                     <!--end::Stats-->

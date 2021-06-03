@@ -10,24 +10,24 @@ import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 
 import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class XRPConn {
-    final String testnetURL = "https://s.altnet.rippletest.net:51234/";
-    private WalletFactory walletFactory;
+    final AtomicReference<String> testnetURL = new AtomicReference<>("https://s.altnet.rippletest.net:51234/");
     private Wallet wallet;
     private XrplClient xrplClient;
+
     //////////////////////
     //XRP4j
     public void doConn(){
-        walletFactory = DefaultWalletFactory.getInstance();
+        WalletFactory walletFactory = DefaultWalletFactory.getInstance();
         wallet = walletFactory.fromSeed(walletseed, false);
-        xrplClient = new XrplClient(HttpUrl.get(testnetURL));
+        xrplClient = new XrplClient(HttpUrl.get(testnetURL.get()));
     }
 
     //////////////////////
     // Getters and Setters
     private String walletseed;
-    private BigDecimal accountBalance;
     private String errorString;
 
     public void setErrorString(String errorString) {
@@ -35,12 +35,6 @@ public class XRPConn {
     }
     public String getErrorString() {
         return errorString;
-    }
-    public BigDecimal getAccountBalance() {
-        return accountBalance;
-    }
-    public void setAccountBalance(BigDecimal accountBalance) {
-        this.accountBalance = accountBalance;
     }
     public String getWalletseed() {
         return walletseed;
@@ -52,19 +46,17 @@ public class XRPConn {
     public XRPConn() {
 
     }
-
-    public void isActived() throws  JsonRpcClientErrorException{
+    public boolean isActive() throws  JsonRpcClientErrorException{
         doConn();
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                 .account(wallet.classicAddress())
                 .ledgerIndex(LedgerIndex.VALIDATED)
                 .build();
-
+        return xrplClient.accountInfo(params).validated();
     }
-    public void accountBalance() throws JsonRpcClientErrorException {
+    public BigDecimal accountBalance() throws JsonRpcClientErrorException {
         doConn();
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
-        accountBalance = accountInfoResult.accountData().balance().toXrp();
-        System.out.println(accountBalance);
+        return accountInfoResult.accountData().balance().toXrp();
     }
 }

@@ -19,7 +19,7 @@ public class dashboardController extends HttpServlet{
             session.setAttribute("dashboard", cwallet);
             String walletseed = req.getParameter("walletseed");
             cwallet.setWalletseed(walletseed);
-            cwallet.isActived();
+            cwallet.isActive();
             RequestDispatcher dispatcher = req.getRequestDispatcher("index-temp2.jsp");
             dispatcher.forward(req, resp);
         } catch (Exception e) {
