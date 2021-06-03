@@ -2689,12 +2689,11 @@
               <!--begin::Input group-->
               <div class="fv-row mb-10 fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
                 <!--begin::Label-->
-                <label class="form-label fs-6 fw-bolder text-dark">Access XRP Wallet Tools : Enter Private Key (WIP)</label>
+                <label class="form-label fs-6 fw-bolder text-dark">Access XRP Wallet Tools : Enter Private Key TESTNET (WIP) </label>
                 <!--end::Label-->
                 <!--begin::Input-->
-                <div class="fx-relay-email-input-wrapper"><input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" style="padding-right: 50px;"><div class="fx-relay-icon" style="top: 0px; bottom: 0px;"><button class="fx-relay-button" id="fx-relay-button" type="button" title="Generate new alias"></button></div></div>
+                <input class="form-control form-control-lg form-control-solid" type="text" name="walletseed" autocomplete="off" style="padding-right: 50px;"><div class="fx-relay-icon" style="top: 0px; bottom: 0px;"></div></div>
                 <!--end::Input-->
-              <div class="fv-plugins-message-container invalid-feedback"></div><div class="fv-plugins-message-container invalid-feedback"></div></div>
               <!--end::Input group-->
               <!--begin::Input group-->
               
@@ -2702,46 +2701,27 @@
               <!--begin::Actions-->
               <div class="text-center">
                 <!--begin::Submit button-->
-                <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-                  <span class="indicator-label">Continue</span>
-                  <span class="indicator-progress">Please wait...
-                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button>
+                  <button type="submit" formaction="process.dashboard" class="btn btn-lg btn-primary w-100 mb-5">
+                      Submit
+                  </button>
                 <!--end::Submit button-->
                 <!--begin::Separator-->
                 <div class="text-center text-muted text-uppercase fw-bolder mb-5">DEV DEBUG: PERFORM DIRECT FUNCTION</div>
                 <!--end::Separator-->
                 <!--begin::Google link-->
-                <button type="submit" id="kt_sign_in_submit" formaction="process.walletcreation" class="btn btn-lg btn-primary w-100 mb-5">
+                <button type="submit" formaction="process.walletcreation" class="btn btn-lg btn-primary w-100 mb-5">
   <img alt="Logo" src="https://www.pinclipart.com/picdir/middle/12-122739_xrp-logo-png-clipart.png" class="h-20px me-3">
-                  <span class="indicator-label">Create XRP Wallet</span>
-                  <span class="indicator-progress">Please wait...
-                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button><button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-  
-                  <span class="indicator-label">WIP Perform XRP Transaction</span>
-                  <span class="indicator-progress">Please wait...
-                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button><button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-  
-                  <span class="indicator-label">WIP Create Vanity XRP Wallet Address</span>
-                  <span class="indicator-progress">Please wait...
-                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button><button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-  
-                  <span class="indicator-label">WIP One-Click NFT Creator</span>
-                  <span class="indicator-progress">Please wait...
-                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button><button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-  
-                  <span class="indicator-label">WIP Perform NFT Transaction</span>
-                  <span class="indicator-progress">Please wait...
-                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button><button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-  
-                  <span class="indicator-label">WIP Account Merge</span>
-                  <span class="indicator-progress">Please wait...
-                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                  <a>rCeate XRP Wallet</a>
+                </button><button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
+                  <a>WIP Perform XRP Transaction</a>
+                </button><button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
+                  <a>>WIP Create Vanity XRP Wallet Address</a>
+                </button><button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
+                  <a>WIP One-Click NFT Creator</a>
+                </button><button type="submit"  class="btn btn-lg btn-primary w-100 mb-5">
+                  <a>WIP Perform NFT Transaction</a>
+                </button><button type="submit" formaction="process.dashboard" class="btn btn-lg btn-primary w-100 mb-5">
+                  <a>WIP Account Merge</a>
                 </button>
                 <!--end::Google link-->
                 <!--begin::Google link-->
