@@ -6,12 +6,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.dev.XRPTools_JaveEE.Model.createXRPWallet" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="com.dev.XRPTools_JaveEE.Model.XRPConn" %>
 <%
     request.getSession(false);
     XRPConn cwallet = (XRPConn)session.getAttribute("error");
+
+    ////////////////
+    //Additional Message
+    if(cwallet.getErrorString().contains("Account not found.")){
+        cwallet.setErrorString("Account not found. Possible solution is to activate your XRP Wallet.");
+    }else if(cwallet.getErrorString().contains("Checksum does not validate")){
+        cwallet.setErrorString("Checksum does not validate. Possible solution is to check if Wallet Seed is a valid or properly copy-pasted.");
+    }
+
 %>
 <html class="" lang="en"><!--begin::Head--><head><base href="">
     <meta charset="utf-8">
@@ -3406,7 +3413,7 @@
                                 <div class="text-center">
                                     <div class="fw-bolder fs-1 mb-5">ERROR!</div>
                                     <div class="separator separator-dashed border-danger opacity-25 mb-5"></div>
-                                    <div class="mb-9">ERROR RESPONSE: <%= cwallet.getErrorString() %>
+                                    <div class="mb-9">ERROR RESPONSE: <br><%= cwallet.getErrorString() %>
                                         </div>
                                     <!--begin::Buttons-->
                                     <div class="d-flex flex-center flex-wrap">
