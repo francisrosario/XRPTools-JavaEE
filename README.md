@@ -50,3 +50,11 @@ https://xrptools-web-dev.herokuapp.com/
 1. Conducted research on Implementing **One-Click NFT Maker** , I've found the commands that neededs to be automated https://gist.github.com/WietseWind/06e563a9988ad25043f24c091fceaba8
 2. Refining controller from index.jsp to dashboard in local git. If Wallet is not activated then don't permit going to XRP Wallet Tools dashboard
 3. Conducted research if security library (AES Encryption & Decryption) will be implemented for this project.
+
+
+( Sun Jun 6, 2021 )
+
+1. Implemented textbox for performing XRP Transaction in Dashboard
+2. Temporary business logic for creating xrp wallet, sending xrp, getting xrp balance.
+3. Added feature for finding 3 letters vanity address
+4. Trying parametized string builder for json request in creating NFT Coin.
