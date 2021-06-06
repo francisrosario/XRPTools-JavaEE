@@ -2668,7 +2668,7 @@
         <!--begin::Content-->
         <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
           <!--begin::Logo-->
-          <a href="index.html" class="mb-12">
+          <a href="index.jsp" class="mb-12">
             <img alt="Logo" src="assets/media/logos/logo-2-dark.svg" class="h-45px">
           </a>
           <!--end::Logo-->
@@ -2689,7 +2689,7 @@
               <!--begin::Input group-->
               <div class="fv-row mb-10 fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
                 <!--begin::Label-->
-                <label class="form-label fs-6 fw-bolder text-dark">Access XRP Wallet Tools : Enter Private Key TESTNET (WIP) </label>
+                <label class="form-label fs-6 fw-bolder text-dark">Access XRP Wallet Tools : Enter Private Key (TESTNET) </label>
                 <!--end::Label-->
                 <!--begin::Input-->
                 <input class="form-control form-control-lg form-control-solid" type="text" name="walletseed" autocomplete="off" style="padding-right: 50px;"><div class="fx-relay-icon" style="top: 0px; bottom: 0px;"></div></div>
