@@ -8,21 +8,25 @@ import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
-
 import java.math.BigDecimal;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.Logger;
 
+@SuppressWarnings("UnstableApiUsage")
 public class XRPConn {
     //////////////////////
+    //Utils
+    private final Logger logger = Logger.getLogger(XRPConn.class.getName());
+    //////////////////////
     //XRP4j
-    final AtomicReference<String> testnetURL = new AtomicReference<>("https://s.altnet.rippletest.net:51234/");
+    final String testnetURL = "https://s.altnet.rippletest.net:51234/";
     private Wallet wallet;
     private XrplClient xrplClient;
+
 
     private void doConn(){
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
         wallet = walletFactory.fromSeed(walletseed, false);
-        xrplClient = new XrplClient(HttpUrl.get(testnetURL.get()));
+        xrplClient = new XrplClient(HttpUrl.get(testnetURL));
     }
 
     //////////////////////
@@ -52,7 +56,6 @@ public class XRPConn {
         return xrplClient.accountInfo(params).validated();
     }
     public BigDecimal accountBalance() throws JsonRpcClientErrorException {
-        doConn();
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
         return accountInfoResult.accountData().balance().toXrp();
     }
