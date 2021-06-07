@@ -11,6 +11,7 @@ XRP Wallet Tools is A JavaEE based XRP Wallet webapp tool that enables users to 
 Automated WebApp Deployment using Heroku: or by clicking Environments
 https://xrptools-web-dev.herokuapp.com/
 
+[![DeepSource](https://deepsource.io/gh/francisrosario/XRPTools-JaveEE.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/francisrosario/XRPTools-JaveEE/?ref=repository-badge)
 
 **Temporary UI: Metronic Bootstrap Design**
 
