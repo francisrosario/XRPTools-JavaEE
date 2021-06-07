@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>createWalletController</servlet-name>
-        <servlet-class>com.dev.XRPTools_JaveEE.Controller.createWalletController</servlet-class>
+        <servlet-class>com.dev.xrpwebtools.Controller.createWalletController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>createWalletController</servlet-name>
@@ -13,7 +13,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>dashboardController</servlet-name>
-        <servlet-class>com.dev.XRPTools_JaveEE.Controller.dashboardController</servlet-class>
+        <servlet-class>com.dev.xrpwebtools.Controller.dashboardController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>dashboardController</servlet-name>

@@ -1,4 +1,4 @@
-package com.dev.XRPTools_JaveEE.Controller;
+package com.dev.xrpwebtools.Controller;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dev.XRPTools_JaveEE.Model.XRPConn;
+import com.dev.xrpwebtools.Model.XRPConn;
 
 public class dashboardController extends HttpServlet{
     @Override

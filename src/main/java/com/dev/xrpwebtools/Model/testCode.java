@@ -1,7 +1,5 @@
-package com.dev.XRPTools_JaveEE.Model;
+package com.dev.xrpwebtools.Model;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedLong;
 import okhttp3.HttpUrl;
@@ -23,7 +21,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;

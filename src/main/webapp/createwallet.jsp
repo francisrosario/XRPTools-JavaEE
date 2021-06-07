@@ -1,5 +1,5 @@
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.dev.XRPTools_JaveEE.Model.createXRPWallet" %>
+<%@ page import="com.dev.xrpwebtools.Model.createXRPWallet" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
 	request.getSession(false);

@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.dev.XRPTools_JaveEE.Model.XRPConn" %>
+<%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
 <%
     request.getSession(false);
     XRPConn cwallet = (XRPConn)session.getAttribute("error");

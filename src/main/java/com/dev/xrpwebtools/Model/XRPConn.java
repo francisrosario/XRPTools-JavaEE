@@ -1,4 +1,4 @@
-package com.dev.XRPTools_JaveEE.Model;
+package com.dev.xrpwebtools.Model;
 
 import okhttp3.HttpUrl;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;

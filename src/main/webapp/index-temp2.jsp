@@ -1,6 +1,6 @@
 
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.dev.XRPTools_JaveEE.Model.XRPConn" %>
+<%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
   request.getSession(false);
