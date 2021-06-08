@@ -7,12 +7,18 @@ import org.xrpl.xrpl4j.client.faucet.FaucetClient;
 import org.xrpl.xrpl4j.client.faucet.FundAccountRequest;
 import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
+import org.xrpl.xrpl4j.model.client.fees.FeeResult;
+import org.xrpl.xrpl4j.model.client.transactions.SubmitResult;
 import org.xrpl.xrpl4j.model.transactions.Address;
+import org.xrpl.xrpl4j.model.transactions.Hash256;
+import org.xrpl.xrpl4j.model.transactions.Payment;
+import org.xrpl.xrpl4j.model.transactions.XrpCurrencyAmount;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -38,14 +44,24 @@ public class XRPConn {
 
     //Wallet
     private String walletseed;
-    private String createdwalletData;
+    private String destinationwallet;
+    private String amountofxrp;
+    private String destinationtag;
 
+    public void setDestinationwallet(String destinationwallet) {
+        this.destinationwallet = destinationwallet;
+    }
+
+    public void setAmountofxrp(String amountofxrp) {
+        this.amountofxrp = amountofxrp;
+    }
+
+    public void setDestinationtag(String destinationtag) {
+        this.destinationtag = destinationtag;
+    }
     //Others
     private String errorString;
 
-    public String getCreatedwalletData() {
-        return createdwalletData;
-    }
     public void setErrorString(String errorString) {
         this.errorString = errorString;
     }
@@ -77,6 +93,7 @@ public class XRPConn {
     public Address classicAddress() {
         return wallet.classicAddress();
     }
+
     //////////////////////
     // XRP Account Modification / Transaction
     public String createXRPAccount(DefaultWalletFactory walletFactory){
@@ -87,6 +104,33 @@ public class XRPConn {
             faucetClient.fundAccount(FundAccountRequest.of(seedResult.wallet().classicAddress()));
         }
         //Example is JSP: <%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
-        return createdwalletData = "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
+        return "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
+    }
+    public Optional<Hash256> performXRPTransaction() throws JsonRpcClientErrorException {
+        FeeResult feeResult = xrplClient.fee();
+        AccountInfoRequestParams params = AccountInfoRequestParams.builder()
+                .account(wallet.classicAddress())
+                .ledgerIndex(LedgerIndex.VALIDATED)
+                .build();
+        xrplClient.accountInfo(params);
+        AccountInfoResult accountInfo = xrplClient.accountInfo(params);
+
+        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(amountofxrp)));
+        Payment payment = Payment.builder()
+                .account(wallet.classicAddress())
+                .fee(feeResult.drops().openLedgerFee())
+                .sequence(accountInfo.accountData().sequence())
+                .destination(Address.of(destinationwallet))
+                .amount(amount)
+                .signingPublicKey(wallet.publicKey())
+                .build();
+
+        SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
+        System.out.println("Payment successful: https://testnet.xrpl.org/transactions/" +
+                result.transactionResult().transaction().hash()
+                        .orElseThrow(() -> new RuntimeException("Result didn't have hash."))
+        );
+
+        return result.transactionResult().transaction().hash();
     }
 }
