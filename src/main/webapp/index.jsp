@@ -1375,16 +1375,10 @@
               <!--begin::Form-->
               <form class="form fv-plugins-bootstrap fv-plugins-framework" method="post" action="#" novalidate="novalidate" actionid="kt_login_signin_form">
                 <!--begin::Title-->
-                <form method="post" action="process.walletcreation">
                 <div class="pb-13 pt-lg-0 pt-5">
                   <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">Welcome to XRP Wallet Tools</h3>
-                  <span class="text-muted font-weight-bold font-size-h4">Don't have a XRP Wallet Seed?
-                  <button type="submit" formaction="process.walletcreation" class="btn btn-light-primary font-weight-bolder px-8 py-4 my-3 font-size-lg">
-                  <span class="svg-icon svg-icon-md">
-                    <!--begin::Svg Icon | path:assets/media/svg/social-icons/google.svg-->
-
-                    <!--end::Svg Icon-->
-                  </span>Create an XRP Wallet Seed</button>
+                  <span class="text-muted font-weight-bold font-size-h4">Don't have a XRP Wallet Seed? Click the "Create XRP Wallet"
+                  </span>
                 </div>
                 </form>
                 <!--begin::Title-->
