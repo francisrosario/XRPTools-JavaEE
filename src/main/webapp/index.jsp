@@ -1380,7 +1380,6 @@
                   <span class="text-muted font-weight-bold font-size-h4">Don't have a XRP Wallet Seed? Click the "Create XRP Wallet"
                   </span>
                 </div>
-                </form>
                 <!--begin::Title-->
                 <!--begin::Form group-->
                 <div class="form-group fv-plugins-icon-container">
