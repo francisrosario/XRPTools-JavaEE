@@ -74,7 +74,7 @@ public class XRPConn {
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
         return accountInfoResult.accountData().balance().toXrp();
     }
-    public Address classicAddress() throws JsonRpcClientErrorException{
+    public Address classicAddress() {
         return wallet.classicAddress();
     }
     //////////////////////
