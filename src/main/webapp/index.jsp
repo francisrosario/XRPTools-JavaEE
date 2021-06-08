@@ -1384,7 +1384,7 @@
                     <!--begin::Svg Icon | path:assets/media/svg/social-icons/google.svg-->
 
                     <!--end::Svg Icon-->
-                  </span>Create XRP Wallet Seed</button>
+                  </span>Create an XRP Wallet Seed</button>
                 </div>
                 </form>
                 <!--begin::Title-->
