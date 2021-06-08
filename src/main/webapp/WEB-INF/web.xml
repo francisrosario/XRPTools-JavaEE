@@ -19,4 +19,12 @@
         <servlet-name>dashboardController</servlet-name>
         <url-pattern>/process.dashboard</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>performXRPTransactionController</servlet-name>
+        <servlet-class>com.dev.xrpwebtools.Controller.performXRPTransactionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>performXRPTransactionController</servlet-name>
+        <url-pattern>/process.xrptransaction</url-pattern>
+    </servlet-mapping>
 </web-app>
