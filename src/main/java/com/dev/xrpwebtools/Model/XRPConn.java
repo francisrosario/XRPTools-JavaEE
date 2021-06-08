@@ -5,6 +5,7 @@ import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 import org.xrpl.xrpl4j.client.XrplClient;
 import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
+import org.xrpl.xrpl4j.model.transactions.Address;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
@@ -31,7 +32,12 @@ public class XRPConn {
 
     //////////////////////
     // Getters and Setters
+
+    //Wallet
     private String walletseed;
+    private String walletclassicaddress;
+
+    //Others
     private String errorString;
 
     public void setErrorString(String errorString) {
@@ -43,6 +49,10 @@ public class XRPConn {
     public void setWalletseed(String walletseed) {
         this.walletseed = walletseed;
     }
+    public String getWalletclassicaddress() {
+        return walletclassicaddress;
+    }
+
 
     public XRPConn() {
 
@@ -58,5 +68,8 @@ public class XRPConn {
     public BigDecimal accountBalance() throws JsonRpcClientErrorException {
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
         return accountInfoResult.accountData().balance().toXrp();
+    }
+    public Address classicAddress() throws JsonRpcClientErrorException{
+        return wallet.classicAddress();
     }
 }

@@ -1,3 +1,10 @@
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%
+  request.getSession(false);
+  XRPConn wallet = (XRPConn)session.getAttribute("dashboard");
+%>
 <html lang="en"><!--begin::Head--><head>
   <meta charset="utf-8">
   <title>XRP Wallet Tools</title>
@@ -4114,7 +4121,7 @@
                   <div class="card-header border-0 bg-danger py-5">
                     <h3 class="card-title align-items-start flex-column">
                       <span class="fw-bolder mb-2 text-white">Your XRP Address :</span>
-                      <span class="fw-bold fs-5 text-white">...</span>
+                      <span class="fw-bold fs-5 text-white"><%=wallet.classicAddress()%></span>
                     </h3>
 
 
@@ -4457,7 +4464,7 @@
                           <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">Account Balance</a>
                           <div class="text-muted fs-7 fw-bold">Your XRP Balance</div>
                         </div>
-                        <div class="fw-bolder fs-3 text-primary"><p>3000 XRP</p></div>
+                        <div class="fw-bolder fs-3 text-primary"><p><%=wallet.accountBalance()%> XRP</p></div>
                       </div>
                     </div>
                     <!--end::Stats-->
