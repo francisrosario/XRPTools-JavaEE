@@ -106,7 +106,7 @@ public class XRPConn {
         //Example is JSP: <%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
         return "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
     }
-    public Optional<Hash256> performXRPTransaction() throws JsonRpcClientErrorException {
+    public Optional<Hash256> sendXRP() throws JsonRpcClientErrorException {
         FeeResult feeResult = xrplClient.fee();
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                 .account(wallet.classicAddress())
