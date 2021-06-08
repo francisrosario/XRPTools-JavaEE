@@ -1,9 +1,12 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.dev.xrpwebtools.Model.createXRPWallet" %>
+<%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="org.xrpl.xrpl4j.wallet.DefaultWalletFactory" %>
 <%
 	request.getSession(false);
 	createXRPWallet wallet = (createXRPWallet)session.getAttribute("xrpwallet");
+	XRPConn xrpconn = new XRPConn();
 %>
 <html lang="en"><!--begin::Head--><head><base href="">
 	<meta charset="utf-8">
@@ -65,7 +68,9 @@
 											</div>
             <!--ADD CODE BELOW HERE-->
 
-<%= wallet.getWalletAddress() %>
+					<%= wallet.getWalletAddress() %>
+						<br><br>
+					<%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
 						<!--ADD CODE ABOVE HERE-->
 					<div></div><div></div></form>
 					<!--end::Form-->

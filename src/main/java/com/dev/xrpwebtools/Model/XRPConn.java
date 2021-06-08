@@ -83,10 +83,10 @@ public class XRPConn {
         SeedWalletGenerationResult seedResult = walletFactory.randomWallet(true);
         // Perform wallet activation if current network is TESTNET
         if(URL == "https://s.altnet.rippletest.net:51234/"){
-            FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get(URL));
+            FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
             faucetClient.fundAccount(FundAccountRequest.of(seedResult.wallet().classicAddress()));
         }
-        //createdwalletData = "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
+        //Example is JSP: <%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
         return createdwalletData = "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
     }
 }
