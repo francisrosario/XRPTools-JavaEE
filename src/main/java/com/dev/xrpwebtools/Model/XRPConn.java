@@ -29,7 +29,7 @@ public class XRPConn {
     private final Logger logger = Logger.getLogger(XRPConn.class.getName());
     //////////////////////
     //XRP4j
-    final String URL = "https://s.altnet.rippletest.net:512342/";
+    final String URL = "https://s.altnet.rippletest.net:51234/";
     private Wallet wallet;
     private XrplClient xrplClient;
 
