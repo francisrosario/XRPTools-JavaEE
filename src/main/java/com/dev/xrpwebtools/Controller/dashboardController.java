@@ -22,6 +22,7 @@ public class dashboardController extends HttpServlet{
         try {
             session.setAttribute("dashboard", cwallet);
             String walletseed = req.getParameter("walletseed");
+            walletseed = walletseed.replaceAll("\\s+","");
             cwallet.setWalletseed(walletseed);
             cwallet.isActive();
             RequestDispatcher dispatcher = req.getRequestDispatcher("index-temp2.jsp");
