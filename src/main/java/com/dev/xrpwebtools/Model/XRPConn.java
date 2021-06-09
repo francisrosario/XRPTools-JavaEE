@@ -1,5 +1,6 @@
 package com.dev.xrpwebtools.Model;
 
+import com.google.common.primitives.UnsignedInteger;
 import okhttp3.HttpUrl;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 import org.xrpl.xrpl4j.client.XrplClient;
@@ -28,7 +29,7 @@ public class XRPConn {
     private final Logger logger = Logger.getLogger(XRPConn.class.getName());
     //////////////////////
     //XRP4j
-    final String URL = "https://s.altnet.rippletest.net:51234/";
+    final String URL = "https://s.altnet.rippletest.net:512342/";
     private Wallet wallet;
     private XrplClient xrplClient;
 
@@ -122,6 +123,7 @@ public class XRPConn {
                 .sequence(accountInfo.accountData().sequence())
                 .destination(Address.of(destinationwallet))
                 .amount(amount)
+                .destinationTag(UnsignedInteger.valueOf(destinationtag))
                 .signingPublicKey(wallet.publicKey())
                 .build();
 
@@ -130,7 +132,6 @@ public class XRPConn {
                 result.transactionResult().transaction().hash()
                         .orElseThrow(() -> new RuntimeException("Result didn't have hash."))
         );
-
         return result.transactionResult().transaction().hash();
     }
 }
