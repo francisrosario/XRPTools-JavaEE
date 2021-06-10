@@ -27,6 +27,8 @@ https://xrptools-web-dev.herokuapp.com/
 <b>Phase #2</b>
 
   - Complete redesign of wallet design
+  - Implementation of NFT Marketplace
+  - XRP Wallet Tools NFT Browser / Viewer
 
 **In-Progress Transparency:**
 1. Check if Wallet Exist then create a servlet Session to access XRP Wallet Tools
