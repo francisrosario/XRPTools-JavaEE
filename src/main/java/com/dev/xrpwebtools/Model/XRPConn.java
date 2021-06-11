@@ -57,6 +57,11 @@ public class XRPConn {
     private String destinationwallet;
     private String amountofxrp;
     private String destinationtag;
+    private int nftcounter = 0;
+
+    public int getNftcounter() {
+        return nftcounter;
+    }
 
     public void setDestinationwallet(String destinationwallet) {
         this.destinationwallet = destinationwallet;
@@ -176,6 +181,7 @@ public class XRPConn {
                 }else{
                     currencies[x] = jsonArray.get(x).asText();
                 }
+                nftcounter++;
             }
             StringBuilder nftCoins = new StringBuilder();
             for(int x = 0; x < jsonArray.size(); x++){
