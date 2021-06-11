@@ -1,11 +1,17 @@
 package com.dev.xrpwebtools.Model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedInteger;
 import okhttp3.HttpUrl;
+import org.xrpl.xrpl4j.client.JsonRpcClient;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
+import org.xrpl.xrpl4j.client.JsonRpcRequest;
 import org.xrpl.xrpl4j.client.XrplClient;
 import org.xrpl.xrpl4j.client.faucet.FaucetClient;
 import org.xrpl.xrpl4j.client.faucet.FundAccountRequest;
+import org.xrpl.xrpl4j.model.client.XrplMethods;
+import org.xrpl.xrpl4j.model.client.XrplResult;
 import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.model.client.fees.FeeResult;
@@ -18,6 +24,8 @@ import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
+
+import javax.xml.bind.DatatypeConverter;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -76,6 +84,13 @@ public class XRPConn {
 
     public XRPConn() {
 
+    }
+
+    public static class xrpledger implements XrplResult {
+        @Override
+        public Optional<String> status() {
+            return Optional.empty();
+        }
     }
     //////////////////////
     // Wallet related data
@@ -139,4 +154,34 @@ public class XRPConn {
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
         return accountInfoResult.accountData().ownerCount();
     }
+
+    public StringBuilder nftCoins() throws JsonRpcClientErrorException {
+            JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(URL));
+            ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
+                    .account(Address.of(String.valueOf(wallet.classicAddress())))
+                    .build();
+            System.out.println("RAW Output of Params: " + params);
+            JsonRpcRequest request = JsonRpcRequest.builder()
+                    .method(XrplMethods.ACCOUNT_CURRENCIES)
+                    .params(ImmutableSet.of(params))
+                    .build();
+            jsonRpcClient.send(request, xrpledger.class);
+            JsonNode jsonArray = jsonRpcClient.postRpcRequest(request).get("result").get("send_currencies");
+            String[] currencies = new String[jsonArray.size()];
+            for(int x = 0; x < jsonArray.size(); x++){
+                if(jsonArray.get(x).asText().length() == 40){
+                    currencies[x] = jsonArray.get(x).asText();
+                    byte[] s = DatatypeConverter.parseHexBinary(currencies[x]);
+                    currencies[x] = new String(s).replaceAll("\\p{C}", "");
+                }else{
+                    currencies[x] = jsonArray.get(x).asText();
+                }
+            }
+            StringBuilder nftCoins = new StringBuilder();
+            for(int x = 0; x < jsonArray.size(); x++){
+                nftCoins.append(currencies[x]).append(" ");
+            }
+            return nftCoins;
+    }
+
 }
