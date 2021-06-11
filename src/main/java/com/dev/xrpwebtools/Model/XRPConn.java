@@ -134,4 +134,9 @@ public class XRPConn {
         );
         return result.transactionResult().transaction().hash();
     }
+
+    public UnsignedInteger ownerCount() throws JsonRpcClientErrorException {
+        AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
+        return accountInfoResult.accountData().ownerCount();
+    }
 }
