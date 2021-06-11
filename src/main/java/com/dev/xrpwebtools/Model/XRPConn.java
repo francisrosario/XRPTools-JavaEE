@@ -57,7 +57,7 @@ public class XRPConn {
     private String destinationwallet;
     private String amountofxrp;
     private String destinationtag;
-    private int nftcounter = 0;
+    private int nftcounter;
 
     public int getNftcounter() {
         return nftcounter;
