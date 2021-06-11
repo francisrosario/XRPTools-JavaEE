@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedInteger;
 import okhttp3.HttpUrl;
+import org.apache.commons.lang3.StringUtils;
 import org.xrpl.xrpl4j.client.JsonRpcClient;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 import org.xrpl.xrpl4j.client.JsonRpcRequest;
@@ -155,7 +156,7 @@ public class XRPConn {
         return accountInfoResult.accountData().ownerCount();
     }
 
-    public StringBuilder nftCoins() throws JsonRpcClientErrorException {
+    public String nftCoins() throws JsonRpcClientErrorException {
             JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(URL));
             ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
                     .account(Address.of(String.valueOf(wallet.classicAddress())))
@@ -178,9 +179,9 @@ public class XRPConn {
             }
             StringBuilder nftCoins = new StringBuilder();
             for(int x = 0; x < jsonArray.size(); x++){
-                nftCoins.append(currencies[x]).append(" ");
+                nftCoins.append(currencies[x]+",").append(" ");
             }
-            return nftCoins;
+            return StringUtils.removeEnd(nftCoins.toString(), ", ");
     }
 
 }

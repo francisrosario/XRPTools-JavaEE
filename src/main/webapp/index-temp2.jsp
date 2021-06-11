@@ -4001,7 +4001,7 @@
           <!--begin::Container-->
           <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack"><div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
             <!--begin::Title-->
-            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Dashboard Demo WIP - Account Balance is the only working atm..
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">XRP Wallet Tools Dashboard WIP
               <!--begin::Separator-->
               <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
               <!--end::Separator-->
@@ -4471,7 +4471,7 @@
                       <div class="d-flex flex-stack flex-wrap">
                         <div class="me-2">
                           <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">NFT Coins</a>
-                          <div class="text-muted fs-7 fw-bold">NFT Coins you own</div>
+                          <div class="text-bold fs-7 fw-bold">NFT Coins you own ( <%=wallet.nftCoins()%> ) </div>
                         </div>
                         <div class="fw-bolder fs-3 text-primary"><p><%=wallet.ownerCount()%></p></div>
                       </div>
