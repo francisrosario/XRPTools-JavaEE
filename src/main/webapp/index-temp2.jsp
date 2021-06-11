@@ -4471,7 +4471,7 @@
                           <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">NFT Coins</a>
                           <div class="text-muted fs-7 fw-bold">NFT Coins you own</div>
                         </div>
-                        <div class="fw-bolder fs-3 text-primary"><p>WIP</p></div>
+                        <div class="fw-bolder fs-3 text-primary"><p><%=wallet.ownerCount()%></p></div>
                       </div>
                     </div>
                     <!--end::Stats-->
