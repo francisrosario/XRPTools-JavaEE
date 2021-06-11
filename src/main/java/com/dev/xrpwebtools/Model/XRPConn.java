@@ -181,6 +181,9 @@ public class XRPConn {
             for(int x = 0; x < jsonArray.size(); x++){
                 nftCoins.append(currencies[x]+",").append(" ");
             }
+            if(nftCoins.length() == 0){
+                nftCoins.append("No NFT Issued to you.");
+            }
             return StringUtils.removeEnd(nftCoins.toString(), ", ");
     }
 
