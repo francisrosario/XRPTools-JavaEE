@@ -160,7 +160,6 @@ public class XRPConn {
             ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
                     .account(Address.of(String.valueOf(wallet.classicAddress())))
                     .build();
-            System.out.println("RAW Output of Params: " + params);
             JsonRpcRequest request = JsonRpcRequest.builder()
                     .method(XrplMethods.ACCOUNT_CURRENCIES)
                     .params(ImmutableSet.of(params))
