@@ -4123,7 +4123,7 @@
                       <span class="fw-bolder mb-2 text-white">Your XRP Address :</span>
                       <span class="fw-bold fs-5 text-white"><%=wallet.classicAddress()%></span>
                       <p></p>
-                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=<%=wallet.classicAddress()%>&amp;bgcolor=f1416c" alt="" title="">
+                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=<%=wallet.classicAddress()%>&amp;bgcolor=f1416c&color=fff" alt="" title="">
                     </h3>
 
 
