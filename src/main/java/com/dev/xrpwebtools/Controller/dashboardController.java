@@ -25,10 +25,10 @@ public class dashboardController extends HttpServlet{
             walletseed = walletseed.replaceAll("\\s+","");
             cwallet.setWalletseed(walletseed);
             cwallet.isActive();
-            resp.sendRedirect("index-temp2.jsp");
+            resp.sendRedirect("dashboard.jsp");
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
-            resp.sendRedirect("error.jsp");
+            resp.sendRedirect("view/error.jsp");
         }
     }
 }

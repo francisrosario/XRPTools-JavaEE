@@ -30,10 +30,10 @@ public class performXRPTransactionController extends HttpServlet{
             cwallet.setTransferamount(transferamount);
             cwallet.setTransactiontag(transactiontag);
             cwallet.sendXRP();
-            resp.sendRedirect("info.jsp");
+            resp.sendRedirect("view/info.jsp");
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
-            resp.sendRedirect("error.jsp");
+            resp.sendRedirect("view/error.jsp");
         }
     }
 }

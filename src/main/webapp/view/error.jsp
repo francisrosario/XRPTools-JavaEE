@@ -21,7 +21,7 @@
         cwallet.setErrorString("Kindly check Destination Address, Amount of XRP and Destination Tag input field.");
     }
 %>
-<html class="" lang="en"><!--begin::Head--><head><base href="">
+<html class="" lang="en"><!--begin::Head--><head><base href="../">
     <meta charset="utf-8">
     <title>Metronic Bootstrap 5 Theme | Keenthemes</title>
     <meta name="description" content="Metronic admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets.">
