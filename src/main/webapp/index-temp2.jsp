@@ -2,7 +2,7 @@
 <%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
-  request.getSession(false);
+  ///request.getSession(false);
   XRPConn wallet = (XRPConn)session.getAttribute("dashboard");
 %>
 <html lang="en"><!--begin::Head--><head>
@@ -4533,35 +4533,29 @@
                   <div class="card-header border-0">
                     <h3 class="card-title fw-bolder text-dark">Perform XRP Transaction</h3>
                     <div class="card-toolbar">
-                      <!--begin::Menu-->
-
-                      <!--begin::Menu 3-->
-                      <!--end::Menu 3-->
-                      <!--end::Menu-->
                     </div>
                   </div>
-                  <!--end::Header-->
-                  <!--begin::Body-->
-
                   <div class="card-body pt-2">
-                    <form method="post" action="#">
+                    <form  action="process.xrptransaction" method="post" novalidate="novalidate">
 
                       <div class="mb-10">
                         <label class="form-label">Destination Address: </label>
-                        <input type="text" class="form-control form-control-solid" id="transferaddress" placeholder="Classic Address">
+                        <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
                       </div>
                       <div class="mb-10">
                         <label class="form-label">Amount of XRP: </label>
-                        <input id="transferamount" class="form-control form-control-solid" type="number" placeholder="1">
-                      </div><div class="mb-10">
+                        <input name="transferamount" class="form-control form-control-solid" type="number" placeholder="1">
+                      </div>
+                      <div class="mb-10">
                       <label class="form-label">Destination Tag / Wallet Tag: </label>
-                      <input class="form-control form-control-solid" type="number" placeholder="1" id="destinationtag">
+                      <input class="form-control form-control-solid" type="number" placeholder="" name="destinationtag">
                     </div>
-                      <button type="submit" class="btn btn-lg btn-primary w-100 mb-5" formaction="process.xrptransaction">
+                      <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                         Submit Transaction
                       </button>
                     </form>
-                  </div><!--end::Body-->
+                  </div>
+                  <!--end::Body-->
                 </div>
                 <!--end::Col-->
                 <!--begin::Col-->
