@@ -78,8 +78,8 @@ public class XRPConn {
     public void setTransactiontag(int transactiontag) {
         this.transactiontag = transactiontag;
     }
-    private String transactionHASH;
-    public String getTransactionHASH() {
+    private Hash256 transactionHASH;
+    public Hash256 getTransactionHASH() {
         return transactionHASH;
     }
 
@@ -155,7 +155,7 @@ public class XRPConn {
                 .build();
 
         SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
-        transactionHASH = "Transaction Info <br> Payment Hash: " +  result.transactionResult().transaction().hash().get();
+        transactionHASH = result.transactionResult().transaction().hash().get();
         /**
         System.out.println("Payment successful: https://testnet.xrpl.org/transactions/" +
                 result.transactionResult().transaction().hash()
