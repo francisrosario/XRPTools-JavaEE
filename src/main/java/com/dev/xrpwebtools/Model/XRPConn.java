@@ -127,7 +127,7 @@ public class XRPConn {
     public String createXRPAccount(DefaultWalletFactory walletFactory){
         SeedWalletGenerationResult seedResult = walletFactory.randomWallet(true);
         // Perform wallet activation if current network is TESTNET
-        if(URL == "https://s.altnet.rippletest.net:51234/"){
+        if(URL.equals("https://s.altnet.rippletest.net:51234/")){
             FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
             faucetClient.fundAccount(FundAccountRequest.of(seedResult.wallet().classicAddress()));
         }
