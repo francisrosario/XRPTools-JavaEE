@@ -21,8 +21,11 @@ public class performXRPTransactionController extends HttpServlet{
         XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
         try {
             String transferaddress = req.getParameter("transferaddress");
+            // Remove all spaces in transferaddress
+            transferaddress = transferaddress.replaceAll("\\s+","");
             String transferamount = req.getParameter("transferamount");
             int transactiontag = Integer.parseInt(req.getParameter("transactiontag"));
+            // Set Transactiontag default to 0
             if(transactiontag == 0){
                 cwallet.setTransactiontag(0);
             }
