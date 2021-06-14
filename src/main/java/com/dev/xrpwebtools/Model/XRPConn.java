@@ -74,7 +74,7 @@ public class XRPConn {
     public void setTransferamount(String transferamount) {
         this.transferamount = transferamount;
     }
-    private int transactiontag = 0;
+    private int transactiontag;
     public void setTransactiontag(int transactiontag) {
         this.transactiontag = transactiontag;
     }
