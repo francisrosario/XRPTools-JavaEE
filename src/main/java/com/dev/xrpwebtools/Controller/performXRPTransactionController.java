@@ -25,10 +25,6 @@ public class performXRPTransactionController extends HttpServlet{
             transferaddress = transferaddress.replaceAll("\\s+","");
             String transferamount = req.getParameter("transferamount");
             int transactiontag = Integer.parseInt(req.getParameter("transactiontag"));
-            // Set Transactiontag default to 0
-            if(transactiontag == 0){
-                cwallet.setTransactiontag(0);
-            }
 
             cwallet.setTransferaddress(transferaddress);
             cwallet.setTransferamount(transferamount);
