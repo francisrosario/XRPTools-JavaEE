@@ -17,7 +17,7 @@ public class dashboardController extends HttpServlet{
     private final Logger logger = Logger.getLogger(dashboardController.class.getName());
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
+        HttpSession session = req.getSession(true);
         XRPConn cwallet = new XRPConn();
         session.setAttribute("dashboard", cwallet);
         try {

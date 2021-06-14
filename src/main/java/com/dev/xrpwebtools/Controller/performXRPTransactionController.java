@@ -17,7 +17,7 @@ public class performXRPTransactionController extends HttpServlet{
     private final Logger logger = Logger.getLogger(dashboardController.class.getName());
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(true);
+        HttpSession session = req.getSession(false);
         XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
         System.out.println(req.getParameter("transferaddress"));
         try {
