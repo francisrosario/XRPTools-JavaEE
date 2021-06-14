@@ -17,19 +17,20 @@ public class performXRPTransactionController extends HttpServlet{
     private final Logger logger = Logger.getLogger(dashboardController.class.getName());
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
+        HttpSession session = req.getSession(true);
+        XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
+        System.out.println(req.getParameter("transferaddress"));
         try {
-            String walletseed = req.getParameter("walletseed");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("");
-            dispatcher.forward(req, resp);
+            String transferaddress = req.getParameter("transferaddress");
+            String transferamount = req.getParameter("transferamount");
+            cwallet.setDestination(transferaddress);
+            cwallet.setXrpamount(transferamount);
+            cwallet.sendXRP();
+
+            resp.sendRedirect("index-temp2.jsp");
         } catch (Exception e) {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("error.jsp");
-            dispatcher.forward(req, resp);
+            cwallet.setErrorString(e.getMessage());
+            resp.sendRedirect("error.jsp");
         }
     }
-    @Override
-    public void destroy() {
-        logger.info("servlet taken out of service.");
-    }
-
 }

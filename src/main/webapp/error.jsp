@@ -8,8 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
 <%
-    request.getSession(false);
-    XRPConn cwallet = (XRPConn)session.getAttribute("error");
+    XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
 
     ////////////////
     //Additional Message

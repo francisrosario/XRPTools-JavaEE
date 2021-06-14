@@ -17,26 +17,18 @@ public class dashboardController extends HttpServlet{
     private final Logger logger = Logger.getLogger(dashboardController.class.getName());
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
         XRPConn cwallet = new XRPConn();
+        session.setAttribute("dashboard", cwallet);
         try {
-            session.setAttribute("dashboard", cwallet);
             String walletseed = req.getParameter("walletseed");
             walletseed = walletseed.replaceAll("\\s+","");
             cwallet.setWalletseed(walletseed);
             cwallet.isActive();
-            RequestDispatcher dispatcher = req.getRequestDispatcher("index-temp2.jsp");
-            dispatcher.forward(req, resp);
+            resp.sendRedirect("index-temp2.jsp");
         } catch (Exception e) {
-            session.setAttribute("error", cwallet);
             cwallet.setErrorString(e.getMessage());
-            RequestDispatcher dispatcher = req.getRequestDispatcher("error.jsp");
-            dispatcher.forward(req, resp);
+            resp.sendRedirect("error.jsp");
         }
     }
-    @Override
-    public void destroy() {
-        logger.info("servlet taken out of service.");
-    }
-
 }

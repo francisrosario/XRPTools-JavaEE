@@ -17,6 +17,8 @@ import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.model.client.fees.FeeResult;
 import org.xrpl.xrpl4j.model.client.transactions.SubmitResult;
+import org.xrpl.xrpl4j.model.client.transactions.TransactionRequestParams;
+import org.xrpl.xrpl4j.model.client.transactions.TransactionResult;
 import org.xrpl.xrpl4j.model.transactions.Address;
 import org.xrpl.xrpl4j.model.transactions.Hash256;
 import org.xrpl.xrpl4j.model.transactions.Payment;
@@ -28,6 +30,7 @@ import org.xrpl.xrpl4j.wallet.WalletFactory;
 
 import javax.xml.bind.DatatypeConverter;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -54,38 +57,36 @@ public class XRPConn {
 
     //Wallet
     private String walletseed;
-    private String destinationwallet;
-    private String amountofxrp;
-    private String destinationtag;
     private int nftcounter;
+    private String xrpamount;
+    private String destination;
 
+    public void setWalletseed(String walletseed) {
+        this.walletseed = walletseed;
+    }
     public int getNftcounter() {
         return nftcounter;
     }
-
-    public void setDestinationwallet(String destinationwallet) {
-        this.destinationwallet = destinationwallet;
+    public void setXrpamount(String xrpamount) {
+        this.xrpamount = xrpamount;
+    }
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
-    public void setAmountofxrp(String amountofxrp) {
-        this.amountofxrp = amountofxrp;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setDestinationtag(String destinationtag) {
-        this.destinationtag = destinationtag;
-    }
     //Others
     private String errorString;
-
     public void setErrorString(String errorString) {
         this.errorString = errorString;
     }
     public String getErrorString() {
         return errorString;
     }
-    public void setWalletseed(String walletseed) {
-        this.walletseed = walletseed;
-    }
+
 
 
     public XRPConn() {
@@ -128,7 +129,7 @@ public class XRPConn {
         //Example of usage in JSP: <%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
         return "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
     }
-    public Optional<Hash256> sendXRP() throws JsonRpcClientErrorException {
+    public void sendXRP() throws JsonRpcClientErrorException {
         FeeResult feeResult = xrplClient.fee();
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                 .account(wallet.classicAddress())
@@ -137,14 +138,13 @@ public class XRPConn {
         xrplClient.accountInfo(params);
         AccountInfoResult accountInfo = xrplClient.accountInfo(params);
 
-        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(amountofxrp)));
+        XrpCurrencyAmount amount = XrpCurrencyAmount.ofDrops(12345);
         Payment payment = Payment.builder()
                 .account(wallet.classicAddress())
                 .fee(feeResult.drops().openLedgerFee())
                 .sequence(accountInfo.accountData().sequence())
-                .destination(Address.of(destinationwallet))
+                .destination(Address.of(destination))
                 .amount(amount)
-                .destinationTag(UnsignedInteger.valueOf(destinationtag))
                 .signingPublicKey(wallet.publicKey())
                 .build();
 
@@ -153,7 +153,12 @@ public class XRPConn {
                 result.transactionResult().transaction().hash()
                         .orElseThrow(() -> new RuntimeException("Result didn't have hash."))
         );
-        return result.transactionResult().transaction().hash();
+
+        TransactionResult<Payment> transactionResult = xrplClient.transaction(
+                TransactionRequestParams.of(Hash256.of(String.valueOf(result.transactionResult().transaction().hash().get()))),
+                Payment.class
+        );
+        System.out.println(transactionResult.metadata().get().transactionResult());
     }
 
     public UnsignedInteger ownerCount() throws JsonRpcClientErrorException {
