@@ -49,12 +49,13 @@ public class testCode {
         String faucetURL = "https://faucet.altnet.rippletest.net";
         String testnetURL = "https://s.altnet.rippletest.net:51234/";
         //Main Wallet seed to use in testing
-        String mainWalletSeed = "sEdVdnghGZYrYzaQrVKV37ddyuD1T5R";
+        //String mainWalletSeed = "sEdVdnghGZYrYzaQrVKV37ddyuD1T5R";
+        String mainWalletSeed = "sEdTKC69ZCCA67Rcaj99ZzsG66fG8iL";
         //Simple Vanity address generator - Testnet
         boolean seatchforAddress = false;
         //Fund Wallet - Testnet
-        int rounds = 3;
-        boolean doFunding = false;
+        int rounds = 150;
+        boolean doFunding = true;
         //Check Wallet Transaction
         boolean checkRAWTransaction = false;
         //Check if Account is Activated or not
