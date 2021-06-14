@@ -4548,7 +4548,7 @@
                       </div>
                       <div class="mb-10">
                       <label class="form-label">Destination Tag / Wallet Tag: </label>
-                      <input class="form-control form-control-solid" type="number" placeholder="" name="destinationtag">
+                      <input class="form-control form-control-solid" type="number" placeholder="" name="transactiontag">
                     </div>
                       <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                         Submit Transaction

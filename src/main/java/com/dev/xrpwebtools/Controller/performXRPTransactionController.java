@@ -19,15 +19,15 @@ public class performXRPTransactionController extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
-        System.out.println(req.getParameter("transferaddress"));
         try {
             String transferaddress = req.getParameter("transferaddress");
             String transferamount = req.getParameter("transferamount");
-            cwallet.setDestination(transferaddress);
-            cwallet.setXrpamount(transferamount);
+            int transactiontag = Integer.parseInt(req.getParameter("transactiontag"));
+            cwallet.setTransferaddress(transferaddress);
+            cwallet.setTransferamount(transferamount);
+            cwallet.setTransactiontag(transactiontag);
             cwallet.sendXRP();
-
-            resp.sendRedirect("index-temp2.jsp");
+            resp.sendRedirect("info.jsp");
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
             resp.sendRedirect("error.jsp");

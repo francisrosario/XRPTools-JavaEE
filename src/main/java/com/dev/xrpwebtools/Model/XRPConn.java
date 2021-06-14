@@ -34,7 +34,7 @@ import java.math.BigInteger;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-@SuppressWarnings("UnstableApiUsage")
+@SuppressWarnings({"UnstableApiUsage", "DanglingJavadoc"})
 public class XRPConn {
     //////////////////////
     //Utils
@@ -57,25 +57,30 @@ public class XRPConn {
 
     //Wallet
     private String walletseed;
-    private int nftcounter;
-    private String xrpamount;
-    private String destination;
-
     public void setWalletseed(String walletseed) {
         this.walletseed = walletseed;
     }
+    private int nftcounter;
     public int getNftcounter() {
         return nftcounter;
     }
-    public void setXrpamount(String xrpamount) {
-        this.xrpamount = xrpamount;
-    }
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
 
-    public String getDestination() {
-        return destination;
+    //Wallet Transaction
+    private String transferaddress;
+    public void setTransferaddress(String transferaddress) {
+        this.transferaddress = transferaddress;
+    }
+    private String transferamount;
+    public void setTransferamount(String transferamount) {
+        this.transferamount = transferamount;
+    }
+    private int transactiontag = 0;
+    public void setTransactiontag(int transactiontag) {
+        this.transactiontag = transactiontag;
+    }
+    private String transactionHASH;
+    public String getTransactionHASH() {
+        return transactionHASH;
     }
 
     //Others
@@ -138,27 +143,32 @@ public class XRPConn {
         xrplClient.accountInfo(params);
         AccountInfoResult accountInfo = xrplClient.accountInfo(params);
 
-        XrpCurrencyAmount amount = XrpCurrencyAmount.ofDrops(12345);
+        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transferamount)));
         Payment payment = Payment.builder()
                 .account(wallet.classicAddress())
                 .fee(feeResult.drops().openLedgerFee())
                 .sequence(accountInfo.accountData().sequence())
-                .destination(Address.of(destination))
+                .destination(Address.of(transferaddress))
+                .destinationTag(UnsignedInteger.valueOf(transactiontag))
                 .amount(amount)
                 .signingPublicKey(wallet.publicKey())
                 .build();
 
         SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
+        transactionHASH = "Transaction Info <br> Payment Hash: " +  result.transactionResult().transaction().hash().get();
+        /**
         System.out.println("Payment successful: https://testnet.xrpl.org/transactions/" +
                 result.transactionResult().transaction().hash()
                         .orElseThrow(() -> new RuntimeException("Result didn't have hash."))
         );
-
+         **/
+        // We just need the Transaction Hash, Below this is optional
+        /**
         TransactionResult<Payment> transactionResult = xrplClient.transaction(
                 TransactionRequestParams.of(Hash256.of(String.valueOf(result.transactionResult().transaction().hash().get()))),
                 Payment.class
         );
-        System.out.println(transactionResult.metadata().get().transactionResult());
+         **/
     }
 
     public UnsignedInteger ownerCount() throws JsonRpcClientErrorException {

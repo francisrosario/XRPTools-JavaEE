@@ -12,12 +12,15 @@
 
     ////////////////
     //Additional Message
+    /**
     if(cwallet.getErrorString().contains("Account not found.")){
         cwallet.setErrorString("Account not found. Possible solution is to activate your XRP Wallet.");
     }else if(cwallet.getErrorString().contains("Checksum does not validate")){
         cwallet.setErrorString("Checksum does not validate. Possible solution is to check if Wallet Seed is a valid or properly copy-pasted.");
-    }
+    }else{
 
+    }
+    **/
 %>
 <html class="" lang="en"><!--begin::Head--><head><base href="">
     <meta charset="utf-8">
