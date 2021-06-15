@@ -363,6 +363,66 @@
                 </div>
               </div>
             </div>
+            <div class="row gy-5 gx-xl-8">
+              <div class="col-xxl-12">
+                <div class="card card-xxl-stretch mb-xl-3">
+                  <div class="card-header border-0">
+                    <h3 class="card-title fw-bolder text-dark">One-Click NFT Wallet Based Creator</h3>
+                    <div class="card-toolbar">
+                    </div>
+                  </div>
+                  <div class="card-body pt-2">
+                    <form  action="process.xrptransaction" method="post" novalidate="novalidate">
+                      <div class="mb-10">
+                        <label class="form-label">WIP: </label>
+                        <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
+                      </div>
+                      <div class="mb-10">
+                        <label class="form-label">WIP: </label>
+                        <input name="transferamount" class="form-control form-control-solid" type="number" placeholder="1">
+                      </div>
+                      <div class="mb-10">
+                        <label class="form-label">WIP: </label>
+                        <input class="form-control form-control-solid" type="number" placeholder="" value="0" name="transactiontag">
+                      </div>
+                      <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
+                        Submit Transaction
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row gy-5 gx-xl-8">
+              <div class="col-xxl-12">
+                <div class="card card-xxl-stretch mb-xl-3">
+                  <div class="card-header border-0">
+                    <h3 class="card-title fw-bolder text-dark">One-Click Token Creator</h3>
+                    <div class="card-toolbar">
+                    </div>
+                  </div>
+                  <div class="card-body pt-2">
+                    <form  action="process.xrptransaction" method="post" novalidate="novalidate">
+                      <div class="mb-10">
+                        <label class="form-label">WIP: </label>
+                        <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
+                      </div>
+                      <div class="mb-10">
+                        <label class="form-label">WIP: </label>
+                        <input name="transferamount" class="form-control form-control-solid" type="number" placeholder="1">
+                      </div>
+                      <div class="mb-10">
+                        <label class="form-label">WIP: </label>
+                        <input class="form-control form-control-solid" type="number" placeholder="" value="0" name="transactiontag">
+                      </div>
+                      <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
+                        Submit Transaction
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
