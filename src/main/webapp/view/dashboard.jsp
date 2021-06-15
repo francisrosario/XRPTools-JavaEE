@@ -8,9 +8,8 @@
 <html lang="en"><!--begin::Head--><head><base href="../">
   <meta charset="utf-8">
   <title>XRP Wallet Tools</title>
-  <meta name="description" content="Metronic admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets.">
-  <meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard">
-  <link rel="canonical" href="Https://preview.keenthemes.com/metronic8">
+  <meta name="description" content="XRP Wallet Tools, All in one platform manage XRP Wallet, Mint NFT and Sell/Buy NFT.">
+  <meta name="keywords" content="XRP Wallet Tools">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="/metronic8/demo1/assets/media/logos/favicon.ico">
   <!--begin::Fonts-->
@@ -21,12 +20,9 @@
   <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css">
   <!--end::Global Stylesheets Bundle-->
   <!--begin:: Hotjar Tracking Code for keenthemes.com -->
-  <script src="https://connect.facebook.net/signals/config/738802870177541?v=2.9.40&amp;r=stable" async=""></script><script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5FS8GGP"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-CDVH4VH813&amp;l=dataLayer&amp;cx=c"></script><script src="https://connect.facebook.net/signals/config/738802870177541?v=2.9.40&amp;r=stable" async=""></script><script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5FS8GGP"></script><script src="https://connect.facebook.net/signals/config/738802870177541?v=2.9.40&amp;r=stable" async=""></script><script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5FS8GGP"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-CDVH4VH813&amp;l=dataLayer&amp;cx=c"></script><script src="https://connect.facebook.net/signals/config/738802870177541?v=2.9.40&amp;r=stable" async=""></script><script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-CDVH4VH813&amp;l=dataLayer&amp;cx=c"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5FS8GGP"></script><script>(function(h,o,t,j,a,r){ h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)}; h._hjSettings={hjid:1070954,hjsv:6}; a=o.getElementsByTagName('head')[0]; r=o.createElement('script');r.async=1; r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv; a.appendChild(r); })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script><script async="" src="https://static.hotjar.com/c/hotjar-1070954.js?sv=6"></script><script async="" src="https://static.hotjar.com/c/hotjar-1070954.js?sv=6"></script><script async="" src="https://static.hotjar.com/c/hotjar-1070954.js?sv=6"></script><script async="" src="https://static.hotjar.com/c/hotjar-1070954.js?sv=6"></script>
   <!--end:: Hotjar Tracking Code for keenthemes.com -->
   <!--Begin::Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-5FS8GGP');</script>
-  <!--End::Google Tag Manager -->
-  <script async="" src="https://script.hotjar.com/modules.db29179a0bade389a8b8.js" charset="utf-8"></script><style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style><style type="text/css">.apexcharts-canvas {
+  <style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style><style type="text/css">.apexcharts-canvas {
   position: relative;
   user-select: none;
   /* cannot give overflow: hidden as it will crop tooltips which overflow outside chart area */
