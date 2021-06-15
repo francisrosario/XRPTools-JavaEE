@@ -203,7 +203,7 @@ public class XRPConn {
                 nftCoins.append(currencies[x]+",").append(" ");
             }
             if(nftCoins.length() == 0){
-                nftCoins.append("No NFT Issued to you.");
+                nftCoins.append("No Tokens/IOU issued to you.");
             }
             return StringUtils.removeEnd(nftCoins.toString(), ", ");
     }
