@@ -19,8 +19,7 @@ public class createWalletController extends HttpServlet{
                     createXRPWallet wallet = new createXRPWallet();
                     wallet.createXRPWalletX();
                     session.setAttribute("xrpwallet", wallet);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("view/createwallet.jsp");
-                    dispatcher.forward(req, resp);
+                    resp.sendRedirect("view/createwallet.jsp");
                 } catch (JsonRpcClientErrorException e) {
                     e.printStackTrace();
                 }
