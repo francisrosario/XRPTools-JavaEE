@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="/metronic8/demo1/assets/media/logos/favicon.ico">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
-  <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css">
+  <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
   <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css">
   <link href="assets/dashboard.css" rel="stylesheet" type="text/css">
   </head>
@@ -345,6 +345,7 @@
                 </div>
               </div>
             </div>
+            <p></p>
             <div class="row gy-5 gx-xl-8">
               <div class="col-xxl-12">
                 <div class="card card-xxl-stretch mb-xl-3">
@@ -354,7 +355,7 @@
                     </div>
                   </div>
                   <div class="card-body pt-2">
-                    <form  action="" method="post" novalidate="novalidate">
+                    <form  action="process.nftcreation" method="post" novalidate="novalidate" enctype="multipart/form-data">
                       <div class="mb-10">
                         <label class="form-label">WIP: </label>
                         <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
@@ -367,6 +368,26 @@
                         <label class="form-label">WIP: </label>
                         <input class="form-control form-control-solid" type="number" placeholder="" value="0" name="transactiontag">
                       </div>
+                      <!--begin::Input group-->
+                      <div class="fv-row">
+                        <!--begin::Dropzone-->
+                        <div class="dropzone" id="kt_dropzonejs">
+                          <!--begin::Message-->
+                          <div class="dz-message needsclick">
+                            <!--begin::Icon-->
+                            <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
+                            <!--end::Icon-->
+                            <!--begin::Info-->
+                            <div class="ms-4">
+                              <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Drop files here or click to upload.</h3>
+                              <span class="fs-7 fw-bold text-gray-400">Upload a file</span>
+                            </div>
+                            <!--end::Info-->
+                          </div>
+                        </div>
+                        <!--end::Dropzone-->
+                      </div>
+                      <!--end::Input group-->
                       <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                         Submit Transaction
                       </button>
@@ -441,5 +462,16 @@
   <script src="assets/js/scripts.bundle.js"></script>
   <script src="assets/js/custom/widgets.js"></script>
   <script src="assets/js/custom/intro.js"></script>
+  <script src="assets/js/custom/documentation/forms/dropzonejs.js"></script>
+  <script>
+    var myDropzone = new Dropzone("#kt_dropzonejs", {
+      url: "process.nftcreation",
+      paramName: "file", // The name that will be used to transfer the file
+      maxFiles: 1,
+      maxFilesize: 10, // MB
+      addRemoveLinks: true,
+      acceptedFiles: ".jpeg,.jpg,.png,.gif"
+    });
+  </script>
 </div>
 </body></html>

@@ -27,4 +27,12 @@
         <servlet-name>performXRPTransactionController</servlet-name>
         <url-pattern>/process.xrptransaction</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>nftCreatorController</servlet-name>
+        <servlet-class>com.dev.xrpwebtools.Controller.nftCreatorController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>nftCreatorController</servlet-name>
+        <url-pattern>/process.nftcreation</url-pattern>
+    </servlet-mapping>
 </web-app>
