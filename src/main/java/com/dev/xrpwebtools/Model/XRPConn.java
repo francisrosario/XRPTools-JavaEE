@@ -83,6 +83,22 @@ public class XRPConn {
         return transactionHASH;
     }
 
+    //NFT Creation / Token Creation
+    private boolean photoUploaded = false;
+    public boolean isPhotoUploaded() {
+        return photoUploaded;
+    }
+    public void setPhotoUploaded(boolean photoUploaded) {
+        this.photoUploaded = photoUploaded;
+    }
+    private String photobase64;
+    public String getPhotobase64() {
+        return photobase64;
+    }
+    public void setPhotobase64(String photobase64) {
+        this.photobase64 = photobase64;
+    }
+
     //Others
     private String errorString;
     public void setErrorString(String errorString) {
@@ -207,5 +223,8 @@ public class XRPConn {
             }
             return StringUtils.removeEnd(nftCoins.toString(), ", ");
     }
+    //////////////////////
+    // NFT ONE-CLICK CREATOR WALLET BASED
+
 
 }

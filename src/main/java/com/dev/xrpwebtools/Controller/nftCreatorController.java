@@ -21,13 +21,20 @@ public class nftCreatorController extends HttpServlet{
         HttpSession session = req.getSession(false);
         XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
         try {
-            Part img = req.getPart("file");
-            InputStream imgraw = img.getInputStream();
-            byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
-            String base64 = Base64.getEncoder().encodeToString(fileAsByteArray);
-            Logger.getLogger(base64);
+            if(cwallet.isPhotoUploaded()){
+                System.out.println(cwallet.getPhotobase64());
+                //Set PhotoUploaded back to false
+                cwallet.setPhotoUploaded(false);
+                resp.sendRedirect("view/info.jsp");
+            }else{
+                Part img = req.getPart("file");
+                InputStream imgraw = img.getInputStream();
+                byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
+                cwallet.setPhotobase64(Base64.getEncoder().encodeToString(fileAsByteArray));
 
-            resp.sendRedirect("view/info.jsp");
+                //Set PhotoUploaded to True
+                cwallet.setPhotoUploaded(true);
+            }
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");
