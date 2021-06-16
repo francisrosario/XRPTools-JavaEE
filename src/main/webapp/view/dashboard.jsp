@@ -1,6 +1,4 @@
-<%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
 <%
   ///request.getSession(false);
   XRPConn wallet = (XRPConn)session.getAttribute("dashboard");
@@ -22,7 +20,7 @@
   <div class="page d-flex flex-row flex-column-fluid">
     <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle" style="">
       <div class="aside-logo flex-column-auto" id="kt_aside_logo">
-        <a href="/metronic8/demo1/index.html">
+        <a href="view/dashboard.jsp">
           <img alt="Logo" src="/metronic8/demo1/assets/media/logos/logo-1.svg" class="h-15px logo">
         </a>
         <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize">
@@ -41,7 +39,7 @@
         <div class="hover-scroll-overlay-y my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="0" style="height: 298px;">
           <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
             <div class="menu-item">
-              <a class="menu-link active" href="/metronic8/demo1/index.html">
+              <a class="menu-link active" href="view/dashboard.jsp">
                     <span class="menu-icon">
                       <span class="svg-icon svg-icon-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -54,7 +52,7 @@
               </a>
             </div>
             <div class="menu-item">
-              <a class="menu-link" href="/metronic8/demo1/landing.html">
+              <a class="menu-link" href="view/nftmarketplace.jsp">
                     <span class="menu-icon">
                       <span class="svg-icon svg-icon-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -63,27 +61,11 @@
                         </svg>
                       </span>
                     </span>
-                <span class="menu-title">NFT One-Click Creator</span>
+                <span class="menu-title">NFT Marketplace</span>
               </a>
             </div>
           </div>
         </div>
-      </div>
-      <div class="aside-footer flex-column-auto pt-5 pb-7 px-5" id="kt_aside_footer">
-        <a href="/metronic8/demo1/documentation/getting-started.html" class="btn btn-custom btn-primary w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-delay-show="8000" title="" data-bs-original-title="Check out the complete documentation with over 100 components">
-          <span class="btn-label">Docs &amp; Components</span>
-          <span class="svg-icon btn-icon svg-icon-2">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <rect x="0" y="0" width="24" height="24"></rect>
-                    <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3"></path>
-                    <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000"></path>
-                    <rect fill="#000000" opacity="0.3" x="7" y="10" width="5" height="2" rx="1"></rect>
-                    <rect fill="#000000" opacity="0.3" x="7" y="14" width="9" height="2" rx="1"></rect>
-                  </g>
-                </svg>
-              </span>
-        </a>
       </div>
     </div>
     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
@@ -103,7 +85,7 @@
             </div>
           </div>
           <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-            <a href="/metronic8/demo1/index.html" class="d-lg-none">
+            <a href="view/dashboard.jsp" class="d-lg-none">
               <img alt="Logo" src="/metronic8/demo1/assets/media/logos/logo-3.svg" class="h-30px">
             </a>
           </div>
@@ -111,7 +93,7 @@
             <div class="d-flex align-items-stretch" id="kt_header_nav"><div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_body', lg: '#kt_header_nav'}" style="">
               <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
                 <div class="menu-item me-lg-1">
-                  <a class="menu-link active py-3" href="/metronic8/demo1/index.html">
+                  <a class="menu-link active py-3" href="view/dashboard.jsp">
                     <span class="menu-title">Dashboard</span>
                   </a>
                 </div>
@@ -367,12 +349,12 @@
               <div class="col-xxl-12">
                 <div class="card card-xxl-stretch mb-xl-3">
                   <div class="card-header border-0">
-                    <h3 class="card-title fw-bolder text-dark">One-Click NFT Wallet Based Creator</h3>
+                    <h3 class="card-title fw-bolder text-dark">One-Click NFT Wallet Based Creator (Photo)</h3>
                     <div class="card-toolbar">
                     </div>
                   </div>
                   <div class="card-body pt-2">
-                    <form  action="process.xrptransaction" method="post" novalidate="novalidate">
+                    <form  action="" method="post" novalidate="novalidate">
                       <div class="mb-10">
                         <label class="form-label">WIP: </label>
                         <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
@@ -402,18 +384,18 @@
                     </div>
                   </div>
                   <div class="card-body pt-2">
-                    <form  action="process.xrptransaction" method="post" novalidate="novalidate">
+                    <form  action="process.tokencreation" method="post" novalidate="novalidate">
                       <div class="mb-10">
-                        <label class="form-label">WIP: </label>
-                        <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
+                        <label class="form-label">Recipient Account: </label>
+                        <input class="form-control form-control-solid" name="tokendestination" placeholder="Wallet Seed">
                       </div>
                       <div class="mb-10">
-                        <label class="form-label">WIP: </label>
-                        <input name="transferamount" class="form-control form-control-solid" type="number" placeholder="1">
+                        <label class="form-label">Currency Code : </label>
+                        <input name="tokencurrency" class="form-control form-control-solid" type="text" placeholder="ABC">
                       </div>
                       <div class="mb-10">
-                        <label class="form-label">WIP: </label>
-                        <input class="form-control form-control-solid" type="number" placeholder="" value="0" name="transactiontag">
+                        <label class="form-label">Number of Tokens : </label>
+                        <input class="form-control form-control-solid" type="number" placeholder="" value="10" name="tokencoins">
                       </div>
                       <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                         Submit Transaction
@@ -428,89 +410,17 @@
         <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
           <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
             <div class="text-dark order-2 order-md-1">
-              <span class="text-muted fw-bold me-1">2021Â©</span>
-              <a href="" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
+              <span class="text-muted fw-bold me-1">2021©</span>
+              <a href="view/dashboard.jsp" target="_blank" class="text-gray-800 text-hover-primary">XWT</a>
             </div>
             <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
               <li class="menu-item">
-                <a href="https://keenthemes.com/faqs" target="_blank" class="menu-link px-2">About</a>
+                <a href="" target="_blank" class="menu-link px-2">About</a>
               </li>
               <li class="menu-item">
-                <a href="https://keenthemes.com/support" target="_blank" class="menu-link px-2">Support</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
+                <a href="" target="_blank" class="menu-link px-2">Support</a>
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="kt_activities" class="bg-white drawer drawer-end" data-kt-drawer="true" data-kt-drawer-name="activities" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'lg': '900px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_activities_toggle" data-kt-drawer-close="#kt_activities_close" style="width: 900px !important;">
-    <div class="card shadow-none">
-      <div class="card-header" id="kt_activities_header">
-        <h3 class="card-title fw-bolder text-dark">Activity Logs</h3>
-        <div class="card-toolbar">
-          <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="kt_activities_close">
-            <span class="svg-icon svg-icon-1">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                  <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
-                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"></rect>
-                    <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1"></rect>
-                  </g>
-                </svg>
-              </span>
-          </button>
-        </div>
-      </div>
-      <div class="card-body position-relative" id="kt_activities_body">
-        <div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_activities_body" data-kt-scroll-dependencies="#kt_activities_header, #kt_activities_footer" data-kt-scroll-offset="5px" style="height: 273px;">
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-line w-40px"></div>
-              <div class="timeline-icon symbol symbol-circle symbol-40px me-4">
-                <div class="symbol-label bg-light">
-                  <span class="svg-icon svg-icon-2 svg-icon-gray-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <polygon fill="#000000" opacity="0.3" points="5 15 3 21.5 9.5 19.5"></polygon>
-                        <path d="M13.5,21 C8.25329488,21 4,16.7467051 4,11.5 C4,6.25329488 8.25329488,2 13.5,2 C18.7467051,2 23,6.25329488 23,11.5 C23,16.7467051 18.7467051,21 13.5,21 Z M9,8 C8.44771525,8 8,8.44771525 8,9 C8,9.55228475 8.44771525,10 9,10 L18,10 C18.5522847,10 19,9.55228475 19,9 C19,8.44771525 18.5522847,8 18,8 L9,8 Z M9,12 C8.44771525,12 8,12.4477153 8,13 C8,13.5522847 8.44771525,14 9,14 L14,14 C14.5522847,14 15,13.5522847 15,13 C15,12.4477153 14.5522847,12 14,12 L9,12 Z" fill="#000000"></path>
-                      </svg>
-                    </span>
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-line w-40px"></div>
-              <div class="timeline-icon symbol symbol-circle symbol-40px">
-                <div class="symbol-label bg-light">
-                  <span class="svg-icon svg-icon-2 svg-icon-gray-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <path d="M11.6734943,8.3307728 L14.9993074,6.09979492 L14.1213255,5.22181303 C13.7308012,4.83128874 13.7308012,4.19812376 14.1213255,3.80759947 L15.535539,2.39338591 C15.9260633,2.00286161 16.5592283,2.00286161 16.9497526,2.39338591 L22.6066068,8.05024016 C22.9971311,8.44076445 22.9971311,9.07392943 22.6066068,9.46445372 L21.1923933,10.8786673 C20.801869,11.2691916 20.168704,11.2691916 19.7781797,10.8786673 L18.9002333,10.0007208 L16.6692373,13.3265608 C16.9264145,14.2523264 16.9984943,15.2320236 16.8664372,16.2092466 L16.4344698,19.4058049 C16.360509,19.9531149 15.8568695,20.3368403 15.3095595,20.2628795 C15.0925691,20.2335564 14.8912006,20.1338238 14.7363706,19.9789938 L5.02099894,10.2636221 C4.63047465,9.87309784 4.63047465,9.23993286 5.02099894,8.84940857 C5.17582897,8.69457854 5.37719743,8.59484594 5.59418783,8.56552292 L8.79074617,8.13355557 C9.76799113,8.00149544 10.7477104,8.0735815 11.6734943,8.3307728 Z" fill="#000000"></path>
-                        <polygon fill="#000000" opacity="0.3" transform="translate(7.050253, 17.949747) rotate(-315.000000) translate(-7.050253, -17.949747)" points="5.55025253 13.9497475 5.55025253 19.6640332 7.05025253 21.9497475 8.55025253 19.6640332 8.55025253 13.9497475"></polygon>
-                      </svg>
-                    </span>
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-line w-40px"></div>
-              <div class="timeline-icon symbol symbol-circle symbol-40px">
-                <div class="symbol-label bg-light">
-                  <span class="svg-icon svg-icon-2 svg-icon-gray-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <rect x="0" y="0" width="24" height="24"></rect>
-                          <path d="M11.7573593,15.2426407 L8.75735931,15.2426407 C8.20507456,15.2426407 7.75735931,15.6903559 7.75735931,16.2426407 C7.75735931,16.7949254 8.20507456,17.2426407 8.75735931,17.2426407 L11.7573593,17.2426407 L11.7573593,18.2426407 C11.7573593,19.3472102 10.8619288,20.2426407 9.75735931,20.2426407 L5.75735931,20.2426407 C4.65278981,20.2426407 3.75735931,19.3472102 3.75735931,18.2426407 L3.75735931,14.2426407 C3.75735931,13.1380712 4.65278981,12.2426407 5.75735931,12.2426407 L9.75735931,12.2426407 C10.8619288,12.2426407 11.7573593,13.1380712 11.7573593,14.2426407 L11.7573593,15.2426407 Z" fill="#000000" opacity="0.3" transform="translate(7.757359, 16.242641) rotate(-45.000000) translate(-7.757359, -16.242641)"></path>
-                          <path d="M12.2426407,8.75735931 L15.2426407,8.75735931 C15.7949254,8.75735931 16.2426407,8.30964406 16.2426407,7.75735931 C16.2426407,7.20507456 15.7949254,6.75735931 15.2426407,6.75735931 L12.2426407,6.75735931 L12.2426407,5.75735931 C12.2426407,4.65278981 13.1380712,3.75735931 14.2426407,3.75735931 L18.2426407,3.75735931 C19.3472102,3.75735931 20.2426407,4.65278981 20.2426407,5.75735931 L20.2426407,9.75735931 C20.2426407,10.8619288 19.3472102,11.7573593 18.2426407,11.7573593 L14.2426407,11.7573593 C13.1380712,11.7573593 12.2426407,10.8619288 12.2426407,9.75735931 L12.2426407,8.75735931 Z" fill="#000000" transform="translate(16.242641, 7.757359) rotate(-45.000000) translate(-16.242641, -7.757359)"></path>
-                          <path d="M5.89339828,3.42893219 C6.44568303,3.42893219 6.89339828,3.87664744 6.89339828,4.42893219 L6.89339828,6.42893219 C6.89339828,6.98121694 6.44568303,7.42893219 5.89339828,7.42893219 C5.34111353,7.42893219 4.89339828,6.98121694 4.89339828,6.42893219 L4.89339828,4.42893219 C4.89339828,3.87664744 5.34111353,3.42893219 5.89339828,3.42893219 Z M11.4289322,5.13603897 C11.8194565,5.52656326 11.8194565,6.15972824 11.4289322,6.55025253 L10.0147186,7.96446609 C9.62419433,8.35499039 8.99102936,8.35499039 8.60050506,7.96446609 C8.20998077,7.5739418 8.20998077,6.94077682 8.60050506,6.55025253 L10.0147186,5.13603897 C10.4052429,4.74551468 11.0384079,4.74551468 11.4289322,5.13603897 Z M0.600505063,5.13603897 C0.991029355,4.74551468 1.62419433,4.74551468 2.01471863,5.13603897 L3.42893219,6.55025253 C3.81945648,6.94077682 3.81945648,7.5739418 3.42893219,7.96446609 C3.0384079,8.35499039 2.40524292,8.35499039 2.01471863,7.96446609 L0.600505063,6.55025253 C0.209980772,6.15972824 0.209980772,5.52656326 0.600505063,5.13603897 Z" fill="#000000" opacity="0.3" transform="translate(6.014719, 5.843146) rotate(-45.000000) translate(-6.014719, -5.843146)"></path>
-                          <path d="M17.9142136,15.4497475 C18.4664983,15.4497475 18.9142136,15.8974627 18.9142136,16.4497475 L18.9142136,18.4497475 C18.9142136,19.0020322 18.4664983,19.4497475 17.9142136,19.4497475 C17.3619288,19.4497475 16.9142136,19.0020322 16.9142136,18.4497475 L16.9142136,16.4497475 C16.9142136,15.8974627 17.3619288,15.4497475 17.9142136,15.4497475 Z M23.4497475,17.1568542 C23.8402718,17.5473785 23.8402718,18.1805435 23.4497475,18.5710678 L22.0355339,19.9852814 C21.6450096,20.3758057 21.0118446,20.3758057 20.6213203,19.9852814 C20.2307961,19.5947571 20.2307961,18.9615921 20.6213203,18.5710678 L22.0355339,17.1568542 C22.4260582,16.76633 23.0592232,16.76633 23.4497475,17.1568542 Z M12.6213203,17.1568542 C13.0118446,16.76633 13.6450096,16.76633 14.0355339,17.1568542 L15.4497475,18.5710678 C15.8402718,18.9615921 15.8402718,19.5947571 15.4497475,19.9852814 C15.0592232,20.3758057 14.4260582,20.3758057 14.0355339,19.9852814 L12.6213203,18.5710678 C12.2307961,18.1805435 12.2307961,17.5473785 12.6213203,17.1568542 Z" fill="#000000" opacity="0.3" transform="translate(18.035534, 17.863961) scale(1, -1) rotate(45.000000) translate(-18.035534, -17.863961)"></path>
-                        </g>
-                      </svg>
-                    </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
