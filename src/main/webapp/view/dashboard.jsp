@@ -388,6 +388,7 @@
                         <!--end::Dropzone-->
                       </div>
                       <!--end::Input group-->
+                      <p></p>
                       <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                         Submit Transaction
                       </button>
