@@ -25,7 +25,7 @@ public class nftCreatorController extends HttpServlet{
             InputStream imgraw = img.getInputStream();
             byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
             String base64 = Base64.getEncoder().encodeToString(fileAsByteArray);
-            System.out.println(base64);
+            Logger.getLogger(base64);
 
             resp.sendRedirect("view/info.jsp");
         } catch (Exception e) {
