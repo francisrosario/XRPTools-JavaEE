@@ -1,17 +1,17 @@
 package com.dev.xrpwebtools.Controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.logging.Logger;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.*;
 import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.dev.xrpwebtools.Model.XRPConn;
+import org.apache.commons.io.IOUtils;
 
+@MultipartConfig
 public class nftCreatorController extends HttpServlet{
     //////////////////////
     //Utils
@@ -21,8 +21,12 @@ public class nftCreatorController extends HttpServlet{
         HttpSession session = req.getSession(false);
         XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
         try {
-            ServletInputStream file = req.getInputStream();
-            System.out.println(file.hashCode());
+            Part img = req.getPart("file");
+            InputStream imgraw = img.getInputStream();
+            byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
+            String base64 = Base64.getEncoder().encodeToString(fileAsByteArray);
+            System.out.println(base64);
+
             resp.sendRedirect("view/info.jsp");
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
