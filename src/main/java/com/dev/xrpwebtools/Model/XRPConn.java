@@ -17,8 +17,6 @@ import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.model.client.fees.FeeResult;
 import org.xrpl.xrpl4j.model.client.transactions.SubmitResult;
-import org.xrpl.xrpl4j.model.client.transactions.TransactionRequestParams;
-import org.xrpl.xrpl4j.model.client.transactions.TransactionResult;
 import org.xrpl.xrpl4j.model.transactions.Address;
 import org.xrpl.xrpl4j.model.transactions.Hash256;
 import org.xrpl.xrpl4j.model.transactions.Payment;
@@ -30,7 +28,6 @@ import org.xrpl.xrpl4j.wallet.WalletFactory;
 
 import javax.xml.bind.DatatypeConverter;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -66,18 +63,6 @@ public class XRPConn {
     }
 
     //Wallet Transaction
-    private String transferaddress;
-    public void setTransferaddress(String transferaddress) {
-        this.transferaddress = transferaddress;
-    }
-    private String transferamount;
-    public void setTransferamount(String transferamount) {
-        this.transferamount = transferamount;
-    }
-    private int transactiontag;
-    public void setTransactiontag(int transactiontag) {
-        this.transactiontag = transactiontag;
-    }
     private Hash256 transactionHASH;
     public Hash256 getTransactionHASH() {
         return transactionHASH;
@@ -107,8 +92,6 @@ public class XRPConn {
     public String getErrorString() {
         return errorString;
     }
-
-
 
     public XRPConn() {
 
@@ -150,7 +133,7 @@ public class XRPConn {
         //Example of usage in JSP: <%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
         return "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
     }
-    public void sendXRP() throws JsonRpcClientErrorException {
+    public Hash256 sendXRP(String transfermount, int transactiontag, String transferaddress) throws JsonRpcClientErrorException {
         FeeResult feeResult = xrplClient.fee();
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                 .account(wallet.classicAddress())
@@ -159,7 +142,7 @@ public class XRPConn {
         xrplClient.accountInfo(params);
         AccountInfoResult accountInfo = xrplClient.accountInfo(params);
 
-        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transferamount)));
+        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transfermount)));
         Payment payment = Payment.builder()
                 .account(wallet.classicAddress())
                 .fee(feeResult.drops().openLedgerFee())
@@ -171,7 +154,7 @@ public class XRPConn {
                 .build();
 
         SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
-        transactionHASH = result.transactionResult().transaction().hash().get();
+        return transactionHASH = result.transactionResult().transaction().hash().get();
         /**
         System.out.println("Payment successful: https://testnet.xrpl.org/transactions/" +
                 result.transactionResult().transaction().hash()

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dev.xrpwebtools.Model.XRPConn;
+import com.google.common.primitives.UnsignedInteger;
 
 public class performXRPTransactionController extends HttpServlet{
     //////////////////////
@@ -26,10 +27,7 @@ public class performXRPTransactionController extends HttpServlet{
             String transferamount = req.getParameter("transferamount");
             int transactiontag = Integer.parseInt(req.getParameter("transactiontag"));
 
-            cwallet.setTransferaddress(transferaddress);
-            cwallet.setTransferamount(transferamount);
-            cwallet.setTransactiontag(transactiontag);
-            cwallet.sendXRP();
+            cwallet.sendXRP(transferamount,transactiontag,transferaddress);
             resp.sendRedirect("view/info.jsp");
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
