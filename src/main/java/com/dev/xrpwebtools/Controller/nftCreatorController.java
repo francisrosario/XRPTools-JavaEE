@@ -24,7 +24,7 @@ public class nftCreatorController extends HttpServlet{
             InputStream imgraw = img.getInputStream();
             byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
 
-            System.out.println("https://gateway.pinata.cloud/ipfs/"+bll.createIPFS(bll.NFThtml(bll.createIPFS(fileAsByteArray))));
+            System.out.println("https://gateway.pinata.cloud/ipfs/"+bll.createIPFS(bll.NFThtml(String.valueOf(bll.createIPFS(fileAsByteArray)))));
 
         } catch (Exception e) {
             bll.setErrorString(e.getMessage());

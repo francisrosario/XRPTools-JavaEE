@@ -6,6 +6,7 @@ import com.google.common.primitives.UnsignedInteger;
 import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
 import io.ipfs.api.NamedStreamable;
+import io.ipfs.multihash.Multihash;
 import okhttp3.HttpUrl;
 import org.apache.commons.lang3.StringUtils;
 import org.xrpl.xrpl4j.client.JsonRpcClient;
@@ -29,7 +30,6 @@ import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 
-import javax.annotation.Nullable;
 import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.IOException;
@@ -196,7 +196,7 @@ public class BLL {
     }
     //////////////////////
     // One-Click NFT Wallet Based Creator
-    public String createIPFS(byte[] data, String... path) throws IOException {
+    public Multihash createIPFS(byte[] data, String... path) throws IOException {
         IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
         MerkleNode addResult;
         if(data != null){
@@ -207,7 +207,7 @@ public class BLL {
             NamedStreamable.FileWrapper fileWrapper = new NamedStreamable.FileWrapper(new File(Arrays.toString(path)));
             addResult = ipfs.add(fileWrapper).get(0);
         }
-        return StringUtils.removeEnd(addResult.toString(), "- ");
+        return addResult.hash;
     }
 
     public byte[] NFThtml(String NFTHash){
