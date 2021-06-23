@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dev.xrpwebtools.Model.XRPConn;
-import com.google.common.primitives.UnsignedInteger;
+import com.dev.xrpwebtools.Model.BLL;
 
 public class performXRPTransactionController extends HttpServlet{
     //////////////////////
@@ -19,7 +17,7 @@ public class performXRPTransactionController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
+        BLL cwallet = (BLL)session.getAttribute("dashboard");
         try {
             String transferaddress = req.getParameter("transferaddress");
             // Remove all spaces in transferaddress

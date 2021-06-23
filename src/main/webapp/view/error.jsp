@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
+<%@ page import="com.dev.xrpwebtools.Model.BLL" %>
 <%
-    XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
+    BLL cwallet = (BLL)session.getAttribute("dashboard");
 
     ////////////////
     //Additional Message

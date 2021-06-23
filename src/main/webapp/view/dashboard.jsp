@@ -1,7 +1,7 @@
-<%@ page import="com.dev.xrpwebtools.Model.XRPConn" %>
+<%@ page import="com.dev.xrpwebtools.Model.BLL" %>
 <%
   ///request.getSession(false);
-  XRPConn wallet = (XRPConn)session.getAttribute("dashboard");
+  BLL wallet = (BLL)session.getAttribute("dashboard");
 %>
 <html lang="en"><head><base href="../">
   <meta charset="utf-8">

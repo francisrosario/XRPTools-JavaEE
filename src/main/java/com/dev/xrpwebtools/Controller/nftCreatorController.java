@@ -8,8 +8,13 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
 
-import com.dev.xrpwebtools.Model.XRPConn;
+import com.dev.xrpwebtools.Model.BLL;
+import io.ipfs.api.IPFS;
+import io.ipfs.api.MerkleNode;
+import io.ipfs.api.NamedStreamable;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+
 
 @MultipartConfig
 public class nftCreatorController extends HttpServlet{
@@ -19,22 +24,17 @@ public class nftCreatorController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        XRPConn cwallet = (XRPConn)session.getAttribute("dashboard");
+        BLL cwallet = (BLL)session.getAttribute("dashboard");
         try {
-            if(cwallet.isPhotoUploaded()){
-                System.out.println(cwallet.getPhotobase64());
-                //Set PhotoUploaded back to false
-                cwallet.setPhotoUploaded(false);
-                resp.sendRedirect("view/info.jsp");
-            }else{
-                Part img = req.getPart("file");
-                InputStream imgraw = img.getInputStream();
-                byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
-                cwallet.setPhotobase64(Base64.getEncoder().encodeToString(fileAsByteArray));
+            Part img = req.getPart("file");
+            InputStream imgraw = img.getInputStream();
+            byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
+            //cwallet.setPhotobase64(Base64.getEncoder().encodeToString(fileAsByteArray));
 
-                //Set PhotoUploaded to True
-                cwallet.setPhotoUploaded(true);
-            }
+            IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
+            NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper(" ", fileAsByteArray);
+            MerkleNode addResult = ipfs.add(file).get(0);
+            System.out.println(StringUtils.removeEnd(addResult.toString(), "- "));
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");

@@ -32,10 +32,10 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @SuppressWarnings({"UnstableApiUsage", "DanglingJavadoc"})
-public class XRPConn {
+public class BLL {
     //////////////////////
     //Utils
-    private final Logger logger = Logger.getLogger(XRPConn.class.getName());
+    private final Logger logger = Logger.getLogger(BLL.class.getName());
     //////////////////////
     //XRP4j
     final String URL = "https://s.altnet.rippletest.net:51234/";
@@ -68,22 +68,6 @@ public class XRPConn {
         return transactionHASH;
     }
 
-    //NFT Creation / Token Creation
-    private boolean photoUploaded = false;
-    public boolean isPhotoUploaded() {
-        return photoUploaded;
-    }
-    public void setPhotoUploaded(boolean photoUploaded) {
-        this.photoUploaded = photoUploaded;
-    }
-    private String photobase64;
-    public String getPhotobase64() {
-        return photobase64;
-    }
-    public void setPhotobase64(String photobase64) {
-        this.photobase64 = photobase64;
-    }
-
     //Others
     private String errorString;
     public void setErrorString(String errorString) {
@@ -93,9 +77,6 @@ public class XRPConn {
         return errorString;
     }
 
-    public XRPConn() {
-
-    }
 
     public static class xrpledger implements XrplResult {
         @Override
@@ -206,8 +187,4 @@ public class XRPConn {
             }
             return StringUtils.removeEnd(nftCoins.toString(), ", ");
     }
-    //////////////////////
-    // NFT ONE-CLICK CREATOR WALLET BASED
-
-
 }

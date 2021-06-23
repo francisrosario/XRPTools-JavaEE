@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dev.xrpwebtools.Model.XRPConn;
+import com.dev.xrpwebtools.Model.BLL;
 
 public class dashboardController extends HttpServlet{
     //////////////////////
@@ -18,7 +17,7 @@ public class dashboardController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
-        XRPConn cwallet = new XRPConn();
+        BLL cwallet = new BLL();
         session.setAttribute("dashboard", cwallet);
         try {
             String walletseed = req.getParameter("walletseed");
