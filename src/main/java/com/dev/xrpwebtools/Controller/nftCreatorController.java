@@ -24,14 +24,14 @@ public class nftCreatorController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        BLL cwallet = (BLL)session.getAttribute("dashboard");
+        BLL bll = (BLL)session.getAttribute("dashboard");
         try {
             Part img = req.getPart("file");
             InputStream imgraw = img.getInputStream();
             byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
-            System.out.println("https://gateway.pinata.cloud/ipfs/"+cwallet.NFTHash(fileAsByteArray));
+            System.out.println("https://gateway.pinata.cloud/ipfs/"+bll.NFTHash(fileAsByteArray));
         } catch (Exception e) {
-            cwallet.setErrorString(e.getMessage());
+            bll.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");
         }
     }

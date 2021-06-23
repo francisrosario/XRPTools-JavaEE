@@ -4,7 +4,7 @@
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="org.xrpl.xrpl4j.wallet.DefaultWalletFactory" %>
 <%
-    BLL wallet = (BLL)session.getAttribute("dashboard");
+    BLL bll = (BLL)session.getAttribute("dashboard");
 %>
 <html lang="en"><!--begin::Head--><head><base href="../">
     <meta charset="utf-8">
@@ -66,7 +66,7 @@
                                             </div>
             <!--ADD CODE BELOW HERE-->
                     <p>RAW Transaction Hash: </p>
-                    <%= wallet.getTransactionHASH() %>
+                    <%= bll.getTransactionHASH() %>
                         <!--ADD CODE ABOVE HERE-->
                     <div></div><div></div></form>
                     <!--end::Form-->

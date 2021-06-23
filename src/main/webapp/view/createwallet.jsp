@@ -6,7 +6,7 @@
 <%
 	request.getSession(false);
 	createXRPWallet wallet = (createXRPWallet)session.getAttribute("xrpwallet");
-	BLL xrpconn = new BLL();
+	BLL bll = new BLL();
 %>
 <html lang="en"><!--begin::Head--><head><base href="../">
 	<meta charset="utf-8">
@@ -70,7 +70,7 @@
 
 					<%= wallet.getWalletAddress() %>
 						<br><br>
-					<%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
+					<%=bll.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
 						<!--ADD CODE ABOVE HERE-->
 					<div></div><div></div></form>
 					<!--end::Form-->

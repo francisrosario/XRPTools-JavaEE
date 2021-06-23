@@ -8,17 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.dev.xrpwebtools.Model.BLL" %>
 <%
-    BLL cwallet = (BLL)session.getAttribute("dashboard");
+    BLL bll = (BLL)session.getAttribute("dashboard");
 
     ////////////////
     //Additional Message
 
-    if(cwallet.getErrorString().contains("Account not found.")){
-        cwallet.setErrorString("Account not found. Possible solution is to activate your XRP Wallet.");
-    }else if(cwallet.getErrorString().contains("Checksum does not validate")){
-        cwallet.setErrorString("Checksum does not validate. Possible solution is to check if Wallet Seed is a valid or properly copy-pasted.");
-    }else if(cwallet.getErrorString().contains("For input string: \"\"")){
-        cwallet.setErrorString("Kindly check Destination Address, Amount of XRP and Destination Tag input field.");
+    if(bll.getErrorString().contains("Account not found.")){
+        bll.setErrorString("Account not found. Possible solution is to activate your XRP Wallet.");
+    }else if(bll.getErrorString().contains("Checksum does not validate")){
+        bll.setErrorString("Checksum does not validate. Possible solution is to check if Wallet Seed is a valid or properly copy-pasted.");
+    }else if(bll.getErrorString().contains("For input string: \"\"")){
+        bll.setErrorString("Kindly check Destination Address, Amount of XRP and Destination Tag input field.");
     }
 %>
 <html class="" lang="en"><!--begin::Head--><head><base href="../">
@@ -3414,7 +3414,7 @@
                                 <div class="text-center">
                                     <div class="fw-bolder fs-1 mb-5">ERROR!</div>
                                     <div class="separator separator-dashed border-danger opacity-25 mb-5"></div>
-                                    <div class="mb-9">ERROR RESPONSE: <br><%= cwallet.getErrorString() %>
+                                    <div class="mb-9">ERROR RESPONSE: <br><%= bll.getErrorString() %>
                                         </div>
                                     <!--begin::Buttons-->
                                     <div class="d-flex flex-center flex-wrap">
