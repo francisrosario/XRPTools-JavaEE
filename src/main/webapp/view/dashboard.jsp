@@ -369,24 +369,8 @@
                         <input class="form-control form-control-solid" type="number" placeholder="" value="0" name="transactiontag">
                       </div>
                       <!--begin::Input group-->
-                      <div class="fv-row">
-                        <!--begin::Dropzone-->
-                        <div class="dropzone" id="kt_dropzonejs">
-                          <!--begin::Message-->
-                          <div class="dz-message needsclick">
-                            <!--begin::Icon-->
-                            <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                            <!--end::Icon-->
-                            <!--begin::Info-->
-                            <div class="ms-4">
-                              <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Drop files here or click to upload.</h3>
-                              <span class="fs-7 fw-bold text-gray-400">Upload a file</span>
-                            </div>
-                            <!--end::Info-->
-                          </div>
-                        </div>
-                        <!--end::Dropzone-->
-                      </div>
+                      <input type="file" name="file" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary w-100">
+                      <br>
                       <!--end::Input group-->
                       <br>
                       <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
@@ -465,6 +449,7 @@
   <script src="assets/js/custom/intro.js"></script>
   <script src="assets/js/custom/documentation/forms/dropzonejs.js"></script>
   <script>
+
     var myDropzone = new Dropzone("#kt_dropzonejs", {
       url: "process.nftcreation",
       paramName: "file", // The name that will be used to transfer the file
