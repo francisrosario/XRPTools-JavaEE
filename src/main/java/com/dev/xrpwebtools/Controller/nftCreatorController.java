@@ -1,19 +1,12 @@
 package com.dev.xrpwebtools.Controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
+import java.io.*;
 import java.util.logging.Logger;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
-
 import com.dev.xrpwebtools.Model.BLL;
-import io.ipfs.api.IPFS;
-import io.ipfs.api.MerkleNode;
-import io.ipfs.api.NamedStreamable;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 
 @MultipartConfig
@@ -29,7 +22,8 @@ public class nftCreatorController extends HttpServlet{
             Part img = req.getPart("file");
             InputStream imgraw = img.getInputStream();
             byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
-            System.out.println("https://gateway.pinata.cloud/ipfs/"+bll.NFTHash(fileAsByteArray));
+            System.out.println("https://gateway.pinata.cloud/ipfs/"+bll.createIPFS(1,bll.NFThtml(bll.createIPFS(1,fileAsByteArray))));
+
         } catch (Exception e) {
             bll.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");
