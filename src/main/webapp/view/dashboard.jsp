@@ -355,7 +355,7 @@
                     </div>
                   </div>
                   <div class="card-body pt-2">
-                    <form  action="process.nftcreation" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                    <form  action="process.nftcreation" method="post" onsubmit="return checkSize(26214400)" novalidate="novalidate" enctype="multipart/form-data">
                       <div class="mb-10">
                         <label class="form-label">WIP: </label>
                         <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
@@ -369,7 +369,7 @@
                         <input class="form-control form-control-solid" type="number" placeholder="" value="0" name="transactiontag">
                       </div>
                       <!--begin::Input group-->
-                      <input type="file" name="file" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary w-100">
+                      <input type="file" name="file" id="upload" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary w-100">
                       <br>
                       <!--end::Input group-->
                       <br>
@@ -448,16 +448,22 @@
   <script src="assets/js/custom/widgets.js"></script>
   <script src="assets/js/custom/intro.js"></script>
   <script src="assets/js/custom/documentation/forms/dropzonejs.js"></script>
-  <script>
+  <script type="text/javascript">
+    function checkSize(max_img_size)
+    {
+      var input = document.getElementById("upload");
+      if(input.files && input.files.length == 1)
+      {
+        if (input.files[0].size > max_img_size)
+        {
+          alert("The file must be less than " + (max_img_size/1024/1024) + "MB");
+          return false;
+        }
+      }
 
-    var myDropzone = new Dropzone("#kt_dropzonejs", {
-      url: "process.nftcreation",
-      paramName: "file", // The name that will be used to transfer the file
-      maxFiles: 1,
-      maxFilesize: 10, // MB
-      addRemoveLinks: true,
-      acceptedFiles: ".jpeg,.jpg,.png,.gif"
-    });
+      return true;
+    }
   </script>
+
 </div>
 </body></html>

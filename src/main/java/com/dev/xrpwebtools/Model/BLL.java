@@ -84,6 +84,11 @@ public class BLL {
         return errorString;
     }
 
+    //One-Click NFT Wallet Based Creator
+    private String contentType;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
     public static class xrpledger implements XrplResult {
         @Override
