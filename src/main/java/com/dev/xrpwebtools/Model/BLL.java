@@ -29,6 +29,7 @@ import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 
+import javax.annotation.Nullable;
 import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.IOException;
@@ -195,19 +196,10 @@ public class BLL {
     }
     //////////////////////
     // One-Click NFT Wallet Based Creator
-    /**
-    public String NFTItem(byte[] data) throws IOException {
-        //Base64.getEncoder().encodeToString(fileAsByteArray) - for Base64;
-        IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
-        NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper(" ", data);
-        MerkleNode addResult = ipfs.add(file).get(0);
-        return StringUtils.removeEnd(addResult.toString(), "- ");
-    }
-     **/
-    public String createIPFS(int type, byte[] data, String... path) throws IOException {
+    public String createIPFS(byte[] data, String... path) throws IOException {
         IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
         MerkleNode addResult;
-        if(type == 1){
+        if(data != null){
             //ByteArrayWrapper
             NamedStreamable.ByteArrayWrapper byteArrayWrapper = new NamedStreamable.ByteArrayWrapper(" ", data);
             addResult = ipfs.add(byteArrayWrapper).get(0);
@@ -222,7 +214,6 @@ public class BLL {
         String METATitle = "testpage";
 
         String Author = "FRANCIS MICO ROSARIO";
-        String AuthorWallet = "null";
         String AuthorEmail = "francismico.rosario@benilde.edu.ph";
         String Twitter = "@FrancisRosario_";
         String Website = "null";
