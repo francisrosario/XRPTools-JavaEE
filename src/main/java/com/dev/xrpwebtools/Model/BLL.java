@@ -3,6 +3,9 @@ package com.dev.xrpwebtools.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedInteger;
+import io.ipfs.api.IPFS;
+import io.ipfs.api.MerkleNode;
+import io.ipfs.api.NamedStreamable;
 import okhttp3.HttpUrl;
 import org.apache.commons.lang3.StringUtils;
 import org.xrpl.xrpl4j.client.JsonRpcClient;
@@ -27,6 +30,7 @@ import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 
 import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -186,5 +190,14 @@ public class BLL {
                 nftCoins.append("No Tokens/IOU issued to you.");
             }
             return StringUtils.removeEnd(nftCoins.toString(), ", ");
+    }
+    //////////////////////
+    // One-Click NFT Wallet Based Creator
+    public String NFTHash(byte[] data) throws IOException {
+        //Base64.getEncoder().encodeToString(fileAsByteArray) - for Base64;
+        IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
+        NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper(" ", data);
+        MerkleNode addResult = ipfs.add(file).get(0);
+        return StringUtils.removeEnd(addResult.toString(), "- ");
     }
 }

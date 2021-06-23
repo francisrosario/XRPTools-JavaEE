@@ -29,12 +29,7 @@ public class nftCreatorController extends HttpServlet{
             Part img = req.getPart("file");
             InputStream imgraw = img.getInputStream();
             byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
-            //cwallet.setPhotobase64(Base64.getEncoder().encodeToString(fileAsByteArray));
-
-            IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
-            NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper(" ", fileAsByteArray);
-            MerkleNode addResult = ipfs.add(file).get(0);
-            System.out.println(StringUtils.removeEnd(addResult.toString(), "- "));
+            System.out.println("https://gateway.pinata.cloud/ipfs/"+cwallet.NFTHash(fileAsByteArray));
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");
