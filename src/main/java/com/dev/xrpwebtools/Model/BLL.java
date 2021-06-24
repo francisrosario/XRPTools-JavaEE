@@ -78,6 +78,13 @@ public class BLL {
     public String getErrorString() {
         return errorString;
     }
+    private String infoString;
+    public String getInfoString() {
+        return infoString;
+    }
+    public void setInfoString(String infoString) {
+        this.infoString = infoString;
+    }
 
     //One-Click NFT Wallet Based Creator
     private String contentType;
@@ -534,6 +541,6 @@ public class BLL {
         domainValue(1,"ipfs", Optional.ofNullable(String.valueOf(HTMLHash)));
         domainValue(1,"ipfs-img", Optional.ofNullable(String.valueOf(NFTHash)));
 
-        return domainSet(domainValue, Optional.of("sEdSXyBmes961L81tewAsmjVvNXYkWA"));
+        return transactionHASH = domainSet(domainValue, Optional.of("sEdSXyBmes961L81tewAsmjVvNXYkWA"));
     }
 }
