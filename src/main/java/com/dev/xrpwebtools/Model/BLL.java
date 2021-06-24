@@ -126,7 +126,7 @@ public class BLL {
         //Example of usage in JSP: <%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
         return "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
     }
-    public Hash256 sendXRP(String transfermount, int transactiontag, String transferaddress) throws JsonRpcClientErrorException {
+    public Hash256 sendXRP(String transferamount, int transactiontag, String transferaddress) throws JsonRpcClientErrorException {
         FeeResult feeResult = xrplClient.fee();
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                 .account(wallet.classicAddress())
@@ -135,7 +135,7 @@ public class BLL {
         xrplClient.accountInfo(params);
         AccountInfoResult accountInfo = xrplClient.accountInfo(params);
 
-        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transfermount)));
+        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transferamount)));
         Payment payment = Payment.builder()
                 .account(wallet.classicAddress())
                 .fee(feeResult.drops().openLedgerFee())
