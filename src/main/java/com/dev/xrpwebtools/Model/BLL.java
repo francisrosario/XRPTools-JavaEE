@@ -40,15 +40,16 @@ import java.util.logging.Logger;
 
 @SuppressWarnings({"UnstableApiUsage", "DanglingJavadoc"})
 public class BLL {
+
     //////////////////////
     //Utils
     private final Logger logger = Logger.getLogger(BLL.class.getName());
+
     //////////////////////
     //XRP4j
     final String URL = "https://s.altnet.rippletest.net:51234/";
     private Wallet wallet;
     private XrplClient xrplClient;
-
 
     private void doConn(){
         WalletFactory walletFactory = DefaultWalletFactory.getInstance();
@@ -96,8 +97,10 @@ public class BLL {
             return Optional.empty();
         }
     }
+
     //////////////////////
     // Wallet related data
+
     public boolean isActive() throws  JsonRpcClientErrorException{
         doConn();
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
@@ -106,16 +109,19 @@ public class BLL {
                 .build();
         return xrplClient.accountInfo(params).validated();
     }
+
     public BigDecimal accountBalance() throws JsonRpcClientErrorException {
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
         return accountInfoResult.accountData().balance().toXrp();
     }
+
     public Address classicAddress() {
         return wallet.classicAddress();
     }
 
     //////////////////////
     // XRP Account Modification / Transaction
+
     public String createXRPAccount(DefaultWalletFactory walletFactory){
         SeedWalletGenerationResult seedResult = walletFactory.randomWallet(true);
         // Perform wallet activation if current network is TESTNET
@@ -126,6 +132,7 @@ public class BLL {
         //Example of usage in JSP: <%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
         return "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
     }
+
     public Hash256 sendXRP(String transferamount, int transactiontag, String transferaddress) throws JsonRpcClientErrorException {
         FeeResult feeResult = xrplClient.fee();
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
@@ -149,13 +156,11 @@ public class BLL {
         SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
         return transactionHASH = result.transactionResult().transaction().hash().get();
         /**
+         *   We just need the Transaction Hash, Below this is optional
         System.out.println("Payment successful: https://testnet.xrpl.org/transactions/" +
                 result.transactionResult().transaction().hash()
                         .orElseThrow(() -> new RuntimeException("Result didn't have hash."))
         );
-         **/
-        // We just need the Transaction Hash, Below this is optional
-        /**
         TransactionResult<Payment> transactionResult = xrplClient.transaction(
                 TransactionRequestParams.of(Hash256.of(String.valueOf(result.transactionResult().transaction().hash().get()))),
                 Payment.class
@@ -199,13 +204,14 @@ public class BLL {
             }
             return StringUtils.removeEnd(nftCoins.toString(), ", ");
     }
+
     //////////////////////
     // One-Click NFT Wallet Based Creator
+
     public Multihash createIPFS(byte[] data, String... path) throws IOException {
         IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
         MerkleNode addResult;
         if(data != null){
-            //ByteArrayWrapper
             NamedStreamable.ByteArrayWrapper byteArrayWrapper = new NamedStreamable.ByteArrayWrapper(" ", data);
             addResult = ipfs.add(byteArrayWrapper).get(0);
         }else{
@@ -232,10 +238,7 @@ public class BLL {
         StringBuilder sb = new StringBuilder();
         sb.append("<html lang=\"en\">\n" +
                 "    <head>\n" +
-                "        <title>XRP NFT: {{ meta.details.title }}</title>\n" +
-                "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                "    {% if meta.staticILPAddress %}\n" +
-                "        <meta name=\"monetization\" content=\"{{ meta.staticILPAddress }}\">\n" +
+                "        <title>XRP NFT:"+METATitle+"</title>\n" +
                 "    {% endif %}\n" +
                 "    </head>\n" +
                 "    <style>\n" +

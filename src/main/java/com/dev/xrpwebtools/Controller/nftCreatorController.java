@@ -21,11 +21,9 @@ public class nftCreatorController extends HttpServlet{
         BLL bll = (BLL)session.getAttribute("dashboard");
         try {
             Part img = req.getPart("file");
-            InputStream imgraw = img.getInputStream();
-            byte[] fileAsByteArray = IOUtils.toByteArray(imgraw);
+            byte[] byteArray = IOUtils.toByteArray(img.getInputStream());
 
-            System.out.println("https://gateway.pinata.cloud/ipfs/"+bll.createIPFS(bll.NFThtml(String.valueOf(bll.createIPFS(fileAsByteArray)))));
-
+            System.out.println("https://gateway.pinata.cloud/ipfs/"+bll.createIPFS(bll.NFThtml(String.valueOf(bll.createIPFS(byteArray)))));
         } catch (Exception e) {
             bll.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");
