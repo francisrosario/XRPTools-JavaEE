@@ -9,12 +9,14 @@ import io.ipfs.api.NamedStreamable;
 import io.ipfs.multihash.Multihash;
 import okhttp3.HttpUrl;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.xrpl.xrpl4j.client.JsonRpcClient;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 import org.xrpl.xrpl4j.client.JsonRpcRequest;
 import org.xrpl.xrpl4j.client.XrplClient;
 import org.xrpl.xrpl4j.client.faucet.FaucetClient;
 import org.xrpl.xrpl4j.client.faucet.FundAccountRequest;
+import org.xrpl.xrpl4j.codec.addresses.ClassicAddress;
 import org.xrpl.xrpl4j.model.client.XrplMethods;
 import org.xrpl.xrpl4j.model.client.XrplResult;
 import org.xrpl.xrpl4j.model.client.accounts.*;
@@ -122,15 +124,15 @@ public class BLL {
     //////////////////////
     // XRP Account Modification / Transaction
 
-    public String createXRPAccount(DefaultWalletFactory walletFactory){
+    public <classicAddress, walletSeed> ImmutablePair<classicAddress, walletSeed> createXRPAccount(DefaultWalletFactory walletFactory){
         SeedWalletGenerationResult seedResult = walletFactory.randomWallet(true);
         // Perform wallet activation if current network is TESTNET
         if(URL.equals("https://s.altnet.rippletest.net:51234/")){
             FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
             faucetClient.fundAccount(FundAccountRequest.of(seedResult.wallet().classicAddress()));
         }
-        //Example of usage in JSP: <%=xrpconn.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
-        return "Classic Address : " + seedResult.wallet().classicAddress() + "Seed Key : " + seedResult.seed();
+        //usage in JSP: ImmutablePair<Object, Object> data = bll.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance());
+        return (ImmutablePair<classicAddress, walletSeed>) ImmutablePair.of(seedResult.wallet().classicAddress(), seedResult.seed());
     }
 
     public Hash256 sendXRP(String transferamount, int transactiontag, String transferaddress) throws JsonRpcClientErrorException {

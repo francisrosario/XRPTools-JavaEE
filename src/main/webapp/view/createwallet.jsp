@@ -3,10 +3,13 @@
 <%@ page import="com.dev.xrpwebtools.Model.BLL" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="org.xrpl.xrpl4j.wallet.DefaultWalletFactory" %>
+<%@ page import="org.apache.commons.lang3.tuple.ImmutablePair" %>
 <%
 	request.getSession(false);
 	createXRPWallet wallet = (createXRPWallet)session.getAttribute("xrpwallet");
 	BLL bll = new BLL();
+
+	ImmutablePair<Object, Object> data = bll.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance());
 %>
 <html lang="en"><!--begin::Head--><head><base href="../">
 	<meta charset="utf-8">
@@ -70,7 +73,7 @@
 
 					<%= wallet.getWalletAddress() %>
 						<br><br>
-					<%=bll.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance())%>
+					<%= "Classic Address: "+data.left + "\nWallet Seed: " + data.right %>
 						<!--ADD CODE ABOVE HERE-->
 					<div></div><div></div></form>
 					<!--end::Form-->
