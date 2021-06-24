@@ -196,7 +196,7 @@ public class BLL {
                 .sequence(accountInfoResult.accountData().sequence())
                 .signingPublicKey(wallet.publicKey())
                 .build();
-        domainValue(3,null,null);
+        domainValue(3,null, Optional.empty());
         SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
         return transactionHASH = result.transactionResult().transaction().hash().get();
     }
@@ -541,7 +541,8 @@ public class BLL {
         Multihash nftHtml = createIPFS(sb.toString().getBytes());
         domainValue(1,"ipfs", Optional.ofNullable(String.valueOf(nftHtml)));
         domainValue(1,"ipfs-img", Optional.ofNullable(String.valueOf(nftItem)));
+        domainValue(1,"creator", Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
-        return transactionHASH = domainSet(domainValue, Optional.of("sEdSXyBmes961L81tewAsmjVvNXYkWA"));
+        return transactionHASH = domainSet(domainValue, Optional.of("sEd75LqyDkGeXyknGGSa7FFbk8Gp62d"));
     }
 }
