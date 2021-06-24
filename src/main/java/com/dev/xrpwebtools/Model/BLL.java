@@ -196,7 +196,7 @@ public class BLL {
                 .sequence(accountInfoResult.accountData().sequence())
                 .signingPublicKey(wallet.publicKey())
                 .build();
-        domainValue = "";
+        domainValue(3,null,null);
         SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
         return transactionHASH = result.transactionResult().transaction().hash().get();
     }
@@ -263,6 +263,7 @@ public class BLL {
             sb.append(key+":"+value.get()+"\n");
         }else if(type == 3){
             sb.setLength(0);
+            return domainValue = sb.toString();
         }
         return domainValue += sb.toString();
     }
