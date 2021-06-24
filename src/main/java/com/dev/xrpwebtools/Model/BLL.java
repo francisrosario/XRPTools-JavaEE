@@ -268,8 +268,8 @@ public class BLL {
         return domainValue += sb.toString();
     }
 
-    public Hash256 NFThtml(byte[] image) throws JsonRpcClientErrorException, IOException {
-        Multihash NFTHash = createIPFS(image);
+    public Hash256 NFThtml(byte[] item) throws JsonRpcClientErrorException, IOException {
+        Multihash nftItem = createIPFS(item);
 
         String METATitle = "testpage";
         String Author = "FRANCIS MICO ROSARIO";
@@ -280,7 +280,7 @@ public class BLL {
         String NFTBuilder = "https://github.com/francisrosario/XRPTools-JaveEE";
 
         String photo = "<div id=\"card\">\n" +
-                "            <img src=\"https://gateway.pinata.cloud/ipfs/"+NFTHash+"\" width=\"620\">\n" +
+                "            <img src=\"https://gateway.pinata.cloud/ipfs/"+nftItem+"\" width=\"620\">\n" +
                 "        </div>";
 
         StringBuilder sb = new StringBuilder();
@@ -538,9 +538,9 @@ public class BLL {
                 "    </script>\n" +
                 "</body></html>");
         sb.toString();
-        Multihash HTMLHash = createIPFS(sb.toString().getBytes());
-        domainValue(1,"ipfs", Optional.ofNullable(String.valueOf(HTMLHash)));
-        domainValue(1,"ipfs-img", Optional.ofNullable(String.valueOf(NFTHash)));
+        Multihash nftHtml = createIPFS(sb.toString().getBytes());
+        domainValue(1,"ipfs", Optional.ofNullable(String.valueOf(nftHtml)));
+        domainValue(1,"ipfs-img", Optional.ofNullable(String.valueOf(nftItem)));
 
         return transactionHASH = domainSet(domainValue, Optional.of("sEdSXyBmes961L81tewAsmjVvNXYkWA"));
     }
