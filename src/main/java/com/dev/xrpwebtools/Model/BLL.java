@@ -22,10 +22,7 @@ import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.model.client.fees.FeeResult;
 import org.xrpl.xrpl4j.model.client.transactions.SubmitResult;
-import org.xrpl.xrpl4j.model.transactions.Address;
-import org.xrpl.xrpl4j.model.transactions.Hash256;
-import org.xrpl.xrpl4j.model.transactions.Payment;
-import org.xrpl.xrpl4j.model.transactions.XrpCurrencyAmount;
+import org.xrpl.xrpl4j.model.transactions.*;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
@@ -57,6 +54,8 @@ public class BLL {
 
     //Wallet
     private String walletseed;
+    private Optional<String> walletSeed;
+
     public void setWalletseed(String walletseed) {
         this.walletseed = walletseed;
     }
@@ -84,6 +83,13 @@ public class BLL {
     private String contentType;
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+    private String domainValue = "";
+    public String getDomainValue() {
+        return domainValue;
+    }
+    public void setDomainValue(String domainValue) {
+        this.domainValue = domainValue;
     }
 
     public static class xrpledger implements XrplResult {
@@ -130,7 +136,6 @@ public class BLL {
             FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
             faucetClient.fundAccount(FundAccountRequest.of(seedResult.wallet().classicAddress()));
         }
-        //usage in JSP: ImmutablePair<Object, Object> data = bll.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance());
         return (ImmutablePair<classicAddress, walletSeed>) ImmutablePair.of(seedResult.wallet().classicAddress(), seedResult.seed());
     }
 
@@ -167,6 +172,26 @@ public class BLL {
                 Payment.class
         );
          **/
+    }
+
+    public Hash256 domainSet(String domainSet, Optional<String> walletSeed) throws JsonRpcClientErrorException {
+        this.walletSeed = Optional.ofNullable(walletseed);
+        String hex = DatatypeConverter.printHexBinary(domainSet.getBytes());
+        wallet = walletFactory().fromSeed(walletSeed.get(),true);
+
+        AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
+        FeeResult feeResult = xrplClient.fee();
+        AccountSet domainset = AccountSet.builder()
+                .account(wallet.classicAddress())
+                .fee(feeResult.drops().openLedgerFee())
+                .domain(hex)
+                .setFlag(AccountSet.AccountSetFlag.ACCOUNT_TXN_ID)
+                .sequence(accountInfoResult.accountData().sequence())
+                .signingPublicKey(wallet.publicKey())
+                .build();
+        domainValue = "";
+        SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
+        return transactionHASH = result.transactionResult().transaction().hash().get();
     }
 
     public UnsignedInteger ownerCount() throws JsonRpcClientErrorException {
@@ -222,9 +247,23 @@ public class BLL {
         return addResult.hash;
     }
 
-    public byte[] NFThtml(String NFTHash){
-        String METATitle = "testpage";
+    public String domainValue(int type, String key, Optional<String> value){
+        StringBuilder sb = new StringBuilder();
+        if(domainValue.equals("")){
+            sb.append("@xnft:\n");
+        }
+        if(type == 1){
+            sb.append(key+":"+value.get()+"\n");
+        }else if(type == 3){
+            sb.setLength(0);
+        }
+        return domainValue += sb.toString();
+    }
 
+    public Hash256 NFThtml(byte[] image) throws JsonRpcClientErrorException, IOException {
+        Multihash NFTHash = createIPFS(image);
+
+        String METATitle = "testpage";
         String Author = "FRANCIS MICO ROSARIO";
         String AuthorEmail = "francismico.rosario@benilde.edu.ph";
         String Twitter = "@FrancisRosario_";
@@ -240,7 +279,6 @@ public class BLL {
         sb.append("<html lang=\"en\">\n" +
                 "    <head>\n" +
                 "        <title>XRP NFT:"+METATitle+"</title>\n" +
-                "    {% endif %}\n" +
                 "    </head>\n" +
                 "    <style>\n" +
                 "        body,html {\n" +
@@ -394,7 +432,8 @@ public class BLL {
                 "                </g>\n" +
                 "            </g>\n" +
                 "        </svg> NFT\n" +
-                "    </div>\n" + photo +
+                "    </div><br><br><br><br><br><br><br><br>" +
+                "    \n" + photo +
                 "        <div id=\"content\">\n" +
                 "            <h1>"+METATitle+"</h1>\n" +
                 "                    <table class=\"styled-table\">\n" +
@@ -490,6 +529,11 @@ public class BLL {
                 "        loop();\n" +
                 "    </script>\n" +
                 "</body></html>");
-        return sb.toString().getBytes();
+        sb.toString();
+        Multihash HTMLHash = createIPFS(sb.toString().getBytes());
+        domainValue(1,"ipfs", Optional.ofNullable(String.valueOf(HTMLHash)));
+        domainValue(1,"ipfs-img", Optional.ofNullable(String.valueOf(NFTHash)));
+
+        return domainSet(domainValue, Optional.of("sEdSXyBmes961L81tewAsmjVvNXYkWA"));
     }
 }

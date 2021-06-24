@@ -7,6 +7,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
 import com.dev.xrpwebtools.Model.BLL;
+import io.ipfs.multihash.Multihash;
 import org.apache.commons.io.IOUtils;
 
 
@@ -22,8 +23,7 @@ public class nftCreatorController extends HttpServlet{
         try {
             Part img = req.getPart("file");
             byte[] byteArray = IOUtils.toByteArray(img.getInputStream());
-
-            System.out.println("https://gateway.pinata.cloud/ipfs/"+bll.createIPFS(bll.NFThtml(String.valueOf(bll.createIPFS(byteArray)))));
+            System.out.println(bll.NFThtml(byteArray));
         } catch (Exception e) {
             bll.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");
