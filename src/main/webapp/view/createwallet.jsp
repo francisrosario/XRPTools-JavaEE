@@ -9,7 +9,7 @@
 	createXRPWallet wallet = (createXRPWallet)session.getAttribute("xrpwallet");
 	BLL bll = new BLL();
 
-	ImmutablePair<Object, Object> data = bll.createXRPAccount((DefaultWalletFactory) DefaultWalletFactory.getInstance());
+	ImmutablePair<Object, Object> data = bll.createXRPAccount();
 %>
 <html lang="en"><!--begin::Head--><head><base href="../">
 	<meta charset="utf-8">

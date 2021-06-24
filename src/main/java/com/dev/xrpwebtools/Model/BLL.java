@@ -16,7 +16,6 @@ import org.xrpl.xrpl4j.client.JsonRpcRequest;
 import org.xrpl.xrpl4j.client.XrplClient;
 import org.xrpl.xrpl4j.client.faucet.FaucetClient;
 import org.xrpl.xrpl4j.client.faucet.FundAccountRequest;
-import org.xrpl.xrpl4j.codec.addresses.ClassicAddress;
 import org.xrpl.xrpl4j.model.client.XrplMethods;
 import org.xrpl.xrpl4j.model.client.XrplResult;
 import org.xrpl.xrpl4j.model.client.accounts.*;
@@ -52,12 +51,6 @@ public class BLL {
     final String URL = "https://s.altnet.rippletest.net:51234/";
     private Wallet wallet;
     private XrplClient xrplClient;
-
-    private void doConn(){
-        WalletFactory walletFactory = DefaultWalletFactory.getInstance();
-        wallet = walletFactory.fromSeed(walletseed, false);
-        xrplClient = new XrplClient(HttpUrl.get(URL));
-    }
 
     //////////////////////
     // Getters and Setters
@@ -103,8 +96,14 @@ public class BLL {
     //////////////////////
     // Wallet related data
 
+    private WalletFactory walletFactory(){
+        WalletFactory walletFactory = DefaultWalletFactory.getInstance();
+        xrplClient = new XrplClient(HttpUrl.get(URL));
+        return walletFactory;
+    }
+
     public boolean isActive() throws  JsonRpcClientErrorException{
-        doConn();
+        wallet = walletFactory().fromSeed(walletseed,true);
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                 .account(wallet.classicAddress())
                 .ledgerIndex(LedgerIndex.VALIDATED)
@@ -124,8 +123,8 @@ public class BLL {
     //////////////////////
     // XRP Account Modification / Transaction
 
-    public <classicAddress, walletSeed> ImmutablePair<classicAddress, walletSeed> createXRPAccount(DefaultWalletFactory walletFactory){
-        SeedWalletGenerationResult seedResult = walletFactory.randomWallet(true);
+    public <classicAddress, walletSeed> ImmutablePair<classicAddress, walletSeed> createXRPAccount(){
+        SeedWalletGenerationResult seedResult = walletFactory().randomWallet(true);
         // Perform wallet activation if current network is TESTNET
         if(URL.equals("https://s.altnet.rippletest.net:51234/")){
             FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
