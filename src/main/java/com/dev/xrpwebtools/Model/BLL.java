@@ -240,14 +240,14 @@ public class BLL {
     //////////////////////
     // One-Click NFT Wallet Based Creator
 
-    public Multihash createIPFS(byte[] data, String... path) throws IOException {
+    public Multihash createIPFS(byte[] data, Optional<String> path) throws IOException {
         IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
         MerkleNode addResult;
         if(data != null){
             NamedStreamable.ByteArrayWrapper byteArrayWrapper = new NamedStreamable.ByteArrayWrapper(" ", data);
             addResult = ipfs.add(byteArrayWrapper).get(0);
         }else{
-            NamedStreamable.FileWrapper fileWrapper = new NamedStreamable.FileWrapper(new File(Arrays.toString(path)));
+            NamedStreamable.FileWrapper fileWrapper = new NamedStreamable.FileWrapper(new File(path.get()));
             addResult = ipfs.add(fileWrapper).get(0);
         }
         return addResult.hash;
@@ -268,7 +268,7 @@ public class BLL {
     }
 
     public Hash256 NFThtml(byte[] item) throws JsonRpcClientErrorException, IOException {
-        Multihash nftItem = createIPFS(item);
+        Multihash nftItem = createIPFS(item,Optional.empty());
 
         String METATitle = "testpage";
         String Author = "FRANCIS MICO ROSARIO";
@@ -537,7 +537,7 @@ public class BLL {
                 "    </script>\n" +
                 "</body></html>");
         sb.toString();
-        Multihash nftHtml = createIPFS(sb.toString().getBytes());
+        Multihash nftHtml = createIPFS(sb.toString().getBytes(),Optional.empty());
         domainValue(1,"ipfs", Optional.of(String.valueOf(nftHtml)));
         domainValue(1,"ipfs-img", Optional.of(String.valueOf(nftItem)));
         domainValue(1,"creator", Optional.of("https://xrptools-web-dev.herokuapp.com/"));
