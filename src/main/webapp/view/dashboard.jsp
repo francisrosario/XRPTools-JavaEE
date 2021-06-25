@@ -355,27 +355,31 @@
                     </div>
                   </div>
                   <div class="card-body pt-2">
-                    <form  action="process.nftcreation" method="post" onsubmit="return checkSize(26214400)" novalidate="novalidate" enctype="multipart/form-data">
+                    <form action="process.nftcreation" method="post" onsubmit="return checkSize(26214400)" novalidate="novalidate" enctype="multipart/form-data">
                       <div class="mb-10">
-                        <label class="form-label">WIP: </label>
-                        <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
+                        <label class="form-label">NFT Name:</label>
+                        <input class="form-control form-control-solid" type="text" name="nftName" placeholder="Amazing NFT!">
                       </div>
                       <div class="mb-10">
-                        <label class="form-label">WIP: </label>
-                        <input name="transferamount" class="form-control form-control-solid" type="number" placeholder="1">
+                        <label class="form-label">Author Name:</label>
+                        <input class="form-control form-control-solid" type="text" name="nftAuthor" placeholder="Mr.NoOne">
                       </div>
                       <div class="mb-10">
-                        <label class="form-label">WIP: </label>
-                        <input class="form-control form-control-solid" type="number" placeholder="" value="0" name="transactiontag">
-                      </div>
+                        <label class="form-label">Author Email:</label>
+                        <input class="form-control form-control-solid" placeholder="" type="text" name="nftEmail">
+                      </div><div class="mb-10">
+                      <label class="form-label">Your Twitter:</label>
+                      <input class="form-control form-control-solid" placeholder="" type="text" name="nftTwitter">
+                    </div><div class="mb-10">
+                      <label class="form-label">NFT Description:</label>
+                      <input placeholder="" type="text" name="nftDescription" class="form-control form-control-solid">
+                    </div>
                       <!--begin::Input group-->
                       <input type="file" name="file" id="upload" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary w-100">
                       <br>
                       <!--end::Input group-->
                       <br>
-                      <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
-                        Submit Transaction
-                      </button>
+                      <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">Create NFT</button>
                     </form>
                   </div>
                 </div>
