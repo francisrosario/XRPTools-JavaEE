@@ -541,8 +541,8 @@ public class BLL {
         sb.toString();
         Multihash nftHtml = createIPFS(sb.toString().getBytes(),Optional.empty());
         domainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftHtml)));
-        domainValue(1, Optional.of("ipfs-img"), Optional.of(String.valueOf(nftItem)));
-        domainValue(1, Optional.of("creator"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
+        domainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftItem)));
+        domainValue(1, Optional.of("http"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
 
         transactionHASH = domainSet(domainValue, Optional.of(nftSeed));
