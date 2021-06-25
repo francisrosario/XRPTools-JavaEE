@@ -54,7 +54,7 @@ public class BLL {
 
     //Wallet
     private String walletseed;
-    private Optional<String> walletSeed;
+    //private Optional<String> walletSeed;
 
     public void setWalletseed(String walletseed) {
         this.walletseed = walletseed;
@@ -115,7 +115,7 @@ public class BLL {
         return walletFactory;
     }
 
-    public boolean isActive() throws  JsonRpcClientErrorException{
+    public boolean setActive() throws  JsonRpcClientErrorException{
         wallet = walletFactory().fromSeed(walletseed,true);
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                 .account(wallet.classicAddress())
@@ -182,7 +182,6 @@ public class BLL {
     }
 
     public Hash256 domainSet(String domainSet, Optional<String> walletSeed) throws JsonRpcClientErrorException {
-        this.walletSeed = Optional.ofNullable(walletseed);
         String hex = DatatypeConverter.printHexBinary(domainSet.getBytes());
         wallet = walletFactory().fromSeed(walletSeed.get(),true);
 
@@ -260,7 +259,7 @@ public class BLL {
             sb.append("@xnft:\n");
         }
         if(type == 1){
-            sb.append(key+":"+value.get()+"\n");
+            sb.append(key).append(":").append(value.get()).append("\n");
         }else if(type == 3){
             sb.setLength(0);
             return domainValue = sb.toString();
