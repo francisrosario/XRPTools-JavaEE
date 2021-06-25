@@ -6,7 +6,7 @@
 <%
     BLL bll = (BLL)session.getAttribute("dashboard");
 %>
-<html lang="en"><!--begin::Head--><head><base href="../">
+<html lang="en"><!--begin::Head--><head><base href="">
     <meta charset="utf-8">
     <title>XRP Wallet Tools</title>
     <link rel="canonical" href="Https://preview.keenthemes.com/metronic8">

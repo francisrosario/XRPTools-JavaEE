@@ -2,6 +2,7 @@ package com.dev.xrpwebtools.Controller;
 
 import java.io.*;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
@@ -20,8 +21,11 @@ public class nftCreatorController extends HttpServlet{
         BLL bll = (BLL)session.getAttribute("dashboard");
         try {
             Part img = req.getPart("file");
-            byte[] byteArray = IOUtils.toByteArray(img.getInputStream());
-            System.out.println(bll.nftHTML(byteArray));
+            byte[] imageByte = IOUtils.toByteArray(img.getInputStream());
+            bll.nftHTML(imageByte);
+
+            RequestDispatcher dispatcher = req.getRequestDispatcher("view/info.jsp");
+            dispatcher.forward(req, resp);
         } catch (Exception e) {
             bll.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");
