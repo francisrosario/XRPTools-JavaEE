@@ -327,15 +327,15 @@
                     <form  action="process.xrptransaction" method="post" novalidate="novalidate">
                       <div class="mb-10">
                         <label class="form-label">Destination Address: </label>
-                        <input class="form-control form-control-solid" name="transferaddress" placeholder="Classic Address">
+                        <input name="transferAddress" class="form-control form-control-solid" placeholder="Classic Address">
                       </div>
                       <div class="mb-10">
                         <label class="form-label">Amount of XRP: </label>
-                        <input name="transferamount" class="form-control form-control-solid" type="number" placeholder="1">
+                        <input name="transferAmount" class="form-control form-control-solid" type="number" placeholder="1">
                       </div>
                       <div class="mb-10">
                       <label class="form-label">Destination Tag / Wallet Tag: </label>
-                      <input class="form-control form-control-solid" type="number" placeholder="" value="0" name="transactiontag">
+                      <input name="transactionTag" class="form-control form-control-solid" type="number" placeholder="" value="0">
                     </div>
                       <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                         Submit Transaction
