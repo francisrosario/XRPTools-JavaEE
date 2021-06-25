@@ -3,6 +3,7 @@
 <%@ page import="com.dev.xrpwebtools.Model.BLL" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="org.xrpl.xrpl4j.wallet.DefaultWalletFactory" %>
+<%@ page import="org.xrpl.xrpl4j.model.transactions.Hash256" %>
 <%
     BLL bll = (BLL)session.getAttribute("dashboard");
 %>
