@@ -23,7 +23,7 @@ public class dashboardController extends HttpServlet{
             String walletseed = req.getParameter("walletseed");
             walletseed = walletseed.replaceAll("\\s+","");
             cwallet.setWalletseed(walletseed);
-            cwallet.isActive();
+            cwallet.setActive();
             resp.sendRedirect("view/dashboard.jsp");
         } catch (Exception e) {
             cwallet.setErrorString(e.getMessage());
