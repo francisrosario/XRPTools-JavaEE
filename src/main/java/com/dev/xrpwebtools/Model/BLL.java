@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 @SuppressWarnings({"UnstableApiUsage", "DanglingJavadoc"})
@@ -176,8 +177,8 @@ public class BLL {
          **/
     }
 
-    public Hash256 domainSet(String domainSet, Optional<String> walletSeed) throws JsonRpcClientErrorException {
-        String hex = DatatypeConverter.printHexBinary(domainSet.getBytes());
+    public Hash256 domainSet(String domainValue, Optional<String> walletSeed) throws JsonRpcClientErrorException {
+        String hex = DatatypeConverter.printHexBinary(domainValue.getBytes());
         wallet = walletFactory().fromSeed(walletSeed.get(),true);
 
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
@@ -235,11 +236,11 @@ public class BLL {
     //////////////////////
     // One-Click NFT Wallet Based Creator
 
-    public Multihash createIPFS(byte[] data, Optional<String> path) throws IOException {
+    public Multihash createIPFS(byte[] dataByte, Optional<String> path) throws IOException {
         IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
         MerkleNode addResult;
-        if(data != null){
-            NamedStreamable.ByteArrayWrapper byteArrayWrapper = new NamedStreamable.ByteArrayWrapper(" ", data);
+        if(dataByte != null){
+            NamedStreamable.ByteArrayWrapper byteArrayWrapper = new NamedStreamable.ByteArrayWrapper(" ", dataByte);
             addResult = ipfs.add(byteArrayWrapper).get(0);
         }else{
             NamedStreamable.FileWrapper fileWrapper = new NamedStreamable.FileWrapper(new File(path.get()));
@@ -248,18 +249,18 @@ public class BLL {
         return addResult.hash;
     }
 
-    public String domainValue(int type, Optional<String> protocol, Optional<String> pointer, String... groupResource){
+    public String domainValue(int type, Optional<String> protocolValue, Optional<String> pointerValue, String... groupresourceValue){
         StringBuilder sb = new StringBuilder();
         if(type == 2 || domainValue.equals("")){
-            if(domainValue.equals("") && groupResource.length == 0){
+            if(domainValue.equals("") && groupresourceValue.length == 0){
                 sb.append("@xnft:\n");
-            }else if(domainValue.equals("") && groupResource.length == 1 || !domainValue.equals("") && groupResource.length == 1){
-                sb.append("@").append(groupResource[0]).append(":\n");
+            }else if(domainValue.equals("") && groupresourceValue.length == 1 || !domainValue.equals("") && groupresourceValue.length == 1){
+                sb.append("@").append(groupresourceValue[0]).append(":\n");
             }
         }
 
         if(type == 1){
-            sb.append(protocol.get()).append(":").append(pointer.get()).append("\n");
+            sb.append(protocolValue.get()).append(":").append(pointerValue.get()).append("\n");
         }else if(type == 10){
             sb.setLength(0);
             return domainValue = sb.toString();
@@ -267,8 +268,8 @@ public class BLL {
         return domainValue += sb.toString();
     }
 
-    public Hash256 NFThtml(byte[] item) throws JsonRpcClientErrorException, IOException {
-        Multihash nftItem = createIPFS(item,Optional.empty());
+    public Hash256 NFThtml(byte[] itemByte) throws JsonRpcClientErrorException, IOException {
+        Multihash nftItem = createIPFS(itemByte,Optional.empty());
 
         String METATitle = "testpage";
         String Author = "FRANCIS MICO ROSARIO";
@@ -542,6 +543,6 @@ public class BLL {
         domainValue(1, Optional.of("ipfs-img"), Optional.of(String.valueOf(nftItem)));
         domainValue(1, Optional.of("creator"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
-        return transactionHASH = domainSet(domainValue, Optional.of("sEdSiyVXArNzodLJG1SgMhw5tFyv1Lb"));
+        return transactionHASH = domainSet(domainValue, Optional.of("r3En321G7AY9yBPWx8m8VWxMgesVzhnvUc"));
     }
 }
