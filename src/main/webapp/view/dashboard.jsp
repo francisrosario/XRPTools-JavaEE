@@ -368,7 +368,7 @@
                       </span>
                       <!--end::Svg Icon-->
                       <div class="d-flex flex-column">
-                        <h5 class="mb-1">This is an alert</h5>
+                        <h5 class="mb-1">INFO:</h5>
                         <span>Take note, You need a <b>TESTNET WALLET SEED KEY</b> for the Wallet Seed field.</span>
                       </div>
                     </div>
