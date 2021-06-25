@@ -177,9 +177,9 @@ public class BLL {
          **/
     }
 
-    public Hash256 domainSet(String domainValue, Optional<String> walletSeed) throws JsonRpcClientErrorException {
+    public Hash256 domainSet(String domainValue, Optional<String> walletseedValue) throws JsonRpcClientErrorException {
         String hex = DatatypeConverter.printHexBinary(domainValue.getBytes());
-        wallet = walletFactory().fromSeed(walletSeed.get(),true);
+        wallet = walletFactory().fromSeed(walletseedValue.get(),true);
 
         AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
         FeeResult feeResult = xrplClient.fee();
@@ -249,9 +249,9 @@ public class BLL {
         return addResult.hash;
     }
 
-    public String domainValue(int type, Optional<String> protocolValue, Optional<String> pointerValue, String... groupresourceValue){
+    public String domainValue(int modeValue, Optional<String> protocolValue, Optional<String> pointerValue, String... groupresourceValue){
         StringBuilder sb = new StringBuilder();
-        if(type == 2 || domainValue.equals("")){
+        if(modeValue == 2 || domainValue.equals("")){
             if(domainValue.equals("") && groupresourceValue.length == 0){
                 sb.append("@xnft:\n");
             }else if(domainValue.equals("") && groupresourceValue.length == 1 || !domainValue.equals("") && groupresourceValue.length == 1){
@@ -259,9 +259,9 @@ public class BLL {
             }
         }
 
-        if(type == 1){
+        if(modeValue == 1){
             sb.append(protocolValue.get()).append(":").append(pointerValue.get()).append("\n");
-        }else if(type == 10){
+        }else if(modeValue == 10){
             sb.setLength(0);
             return domainValue = sb.toString();
         }
