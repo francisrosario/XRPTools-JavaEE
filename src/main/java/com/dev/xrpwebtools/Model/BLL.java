@@ -268,7 +268,7 @@ public class BLL {
         return domainValue += sb.toString();
     }
 
-    public Hash256 NFThtml(byte[] itemByte) throws JsonRpcClientErrorException, IOException {
+    public Hash256 nftHTML(byte[] itemByte) throws JsonRpcClientErrorException, IOException {
         Multihash nftItem = createIPFS(itemByte,Optional.empty());
 
         String METATitle = "testpage";
