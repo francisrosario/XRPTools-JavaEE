@@ -22,7 +22,14 @@ public class nftCreatorController extends HttpServlet{
         try {
             Part img = req.getPart("file");
             byte[] imageByte = IOUtils.toByteArray(img.getInputStream());
-            bll.nftHTML(imageByte);
+            String nftSeed = req.getParameter("nftSeed");
+            nftSeed = nftSeed.replaceAll("\\s+","");
+            String nftName = req.getParameter("nftName");
+            String nftAuthor = req.getParameter("nftAuthor");
+            String nftEmail = req.getParameter("nftEmail");
+            String nftTwitter = req.getParameter("nftTwitter");
+            String nftDescription = req.getParameter("nftDescription");
+            bll.nftHTML(imageByte, nftSeed, nftName, nftAuthor, nftEmail, nftTwitter, nftDescription);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("view/info.jsp");
             dispatcher.forward(req, resp);

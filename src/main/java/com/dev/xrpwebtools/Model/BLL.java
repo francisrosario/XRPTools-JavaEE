@@ -33,7 +33,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 @SuppressWarnings({"UnstableApiUsage", "DanglingJavadoc"})
@@ -68,6 +67,9 @@ public class BLL {
     private Hash256 transactionHASH;
     public Hash256 getTransactionHASH() {
         return transactionHASH;
+    }
+    public void setTransactionHASH(Hash256 transactionHASH) {
+        this.transactionHASH = transactionHASH;
     }
 
     //Others
@@ -266,13 +268,13 @@ public class BLL {
         return domainValue += sb.toString();
     }
 
-    public Hash256 nftHTML(byte[] itemByte) throws JsonRpcClientErrorException, IOException {
+    public String nftHTML(byte[] itemByte, String nftSeed, String nftName, String nftAuthor, String nftEmail, String nftTwitter, String nftDescription) throws JsonRpcClientErrorException, IOException {
         Multihash nftItem = createIPFS(itemByte,Optional.empty());
 
-        String METATitle = "testpage";
-        String Author = "FRANCIS MICO ROSARIO";
-        String AuthorEmail = "francismico.rosario@benilde.edu.ph";
-        String Twitter = "@FrancisRosario_";
+        String METATitle = nftName;
+        String Author = nftAuthor;
+        String AuthorEmail = nftEmail;
+        String Twitter = nftTwitter;
         String Website = "null";
         String CreatedAt = "https://xrptools-web-dev.herokuapp.com/";
         String NFTBuilder = "https://github.com/francisrosario/XRPTools-JaveEE";
@@ -442,6 +444,7 @@ public class BLL {
                 "    \n" + photo +
                 "        <div id=\"content\">\n" +
                 "            <h1>"+METATitle+"</h1>\n" +
+                "             <p>"+nftDescription+"</p>\n" +
                 "                    <table class=\"styled-table\">\n" +
                 "                <thead>\n" +
                 "                    <tr>\n" +
@@ -541,6 +544,12 @@ public class BLL {
         domainValue(1, Optional.of("ipfs-img"), Optional.of(String.valueOf(nftItem)));
         domainValue(1, Optional.of("creator"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
-        return transactionHASH = domainSet(domainValue, Optional.of("sEdSkAnFCbv9Ah4VcxG1X3yrLCAVo8N"));
+
+        transactionHASH = domainSet(domainValue, Optional.of(nftSeed));
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append("https://gateway.pinata.cloud/ipfs/"+nftHtml+"<br>");
+        sb2.append("https://testnet.xrpl.org/transactions/"+transactionHASH+"<br>");
+
+        return infoString = sb2.toString();
     }
 }

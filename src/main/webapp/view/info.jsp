@@ -66,8 +66,12 @@
                                                 <!--end::Wrapper-->
                                             </div>
             <!--ADD CODE BELOW HERE-->
-                    <p>RAW Transaction Hash: </p>
-                    <%= bll.getTransactionHASH() %>
+                    <p>INFO: </p>
+                    <%
+                        out.write("Transaction HASH" + String.valueOf(bll.getTransactionHASH()));
+                        out.write("<br><br>");
+                        out.write(bll.getInfoString());
+                    %>
                         <!--ADD CODE ABOVE HERE-->
                     <div></div><div></div></form>
                     <!--end::Form-->
