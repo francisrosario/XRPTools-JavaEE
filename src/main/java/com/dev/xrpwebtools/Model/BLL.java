@@ -235,7 +235,7 @@ public class BLL {
     // One-Click NFT Wallet Based Creator
 
     public Multihash createIPFS(byte[] dataByte, Optional<String> path) throws IOException {
-        IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
+        IPFS ipfs = new IPFS(System.getenv("IPFS_Multiaddress"));
         MerkleNode addResult;
         if(dataByte != null){
             NamedStreamable.ByteArrayWrapper byteArrayWrapper = new NamedStreamable.ByteArrayWrapper(" ", dataByte);
@@ -541,6 +541,6 @@ public class BLL {
         domainValue(1, Optional.of("ipfs-img"), Optional.of(String.valueOf(nftItem)));
         domainValue(1, Optional.of("creator"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
-        return transactionHASH = domainSet(domainValue, Optional.of("r3En321G7AY9yBPWx8m8VWxMgesVzhnvUc"));
+        return transactionHASH = domainSet(domainValue, Optional.of("sEdSkAnFCbv9Ah4VcxG1X3yrLCAVo8N"));
     }
 }
