@@ -142,7 +142,7 @@ public class BLL {
         return (ImmutablePair<classicAddress, walletSeed>) ImmutablePair.of(seedResult.wallet().classicAddress(), seedResult.seed());
     }
 
-    public Hash256 sendXRP(String transferamount, int transactiontag, String transferaddress) throws JsonRpcClientErrorException {
+    public Hash256 sendXRP(String transferAmount, int transactionTag, String transferAddress) throws JsonRpcClientErrorException {
         FeeResult feeResult = xrplClient.fee();
         AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                 .account(wallet.classicAddress())
@@ -151,13 +151,13 @@ public class BLL {
         xrplClient.accountInfo(params);
         AccountInfoResult accountInfo = xrplClient.accountInfo(params);
 
-        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transferamount)));
+        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transferAmount)));
         Payment payment = Payment.builder()
                 .account(wallet.classicAddress())
                 .fee(feeResult.drops().openLedgerFee())
                 .sequence(accountInfo.accountData().sequence())
-                .destination(Address.of(transferaddress))
-                .destinationTag(UnsignedInteger.valueOf(transactiontag))
+                .destination(Address.of(transferAddress))
+                .destinationTag(UnsignedInteger.valueOf(transactionTag))
                 .amount(amount)
                 .signingPublicKey(wallet.publicKey())
                 .build();

@@ -1,13 +1,11 @@
 package com.dev.xrpwebtools.Controller;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
 import com.dev.xrpwebtools.Model.BLL;
-import io.ipfs.multihash.Multihash;
 import org.apache.commons.io.IOUtils;
 
 
@@ -23,7 +21,7 @@ public class nftCreatorController extends HttpServlet{
         try {
             Part img = req.getPart("file");
             byte[] byteArray = IOUtils.toByteArray(img.getInputStream());
-            System.out.println(bll.NFThtml(byteArray));
+            System.out.println(bll.nftHTML(byteArray));
         } catch (Exception e) {
             bll.setErrorString(e.getMessage());
             resp.sendRedirect("view/error.jsp");
