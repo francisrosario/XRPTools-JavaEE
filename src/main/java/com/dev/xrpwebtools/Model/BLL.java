@@ -28,6 +28,7 @@ import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
 
+import javax.annotation.Nullable;
 import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.IOException;
@@ -92,12 +93,6 @@ public class BLL {
         this.contentType = contentType;
     }
     private String domainValue = "";
-    public String getDomainValue() {
-        return domainValue;
-    }
-    public void setDomainValue(String domainValue) {
-        this.domainValue = domainValue;
-    }
 
     public static class xrpledger implements XrplResult {
         @Override
@@ -195,7 +190,7 @@ public class BLL {
                 .sequence(accountInfoResult.accountData().sequence())
                 .signingPublicKey(wallet.publicKey())
                 .build();
-        domainValue(3,null, Optional.empty());
+        domainValue(10,Optional.empty(), Optional.empty());
         SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
         return transactionHASH = result.transactionResult().transaction().hash().get();
     }
@@ -253,14 +248,19 @@ public class BLL {
         return addResult.hash;
     }
 
-    public String domainValue(int type, String key, Optional<String> value){
+    public String domainValue(int type, Optional<String> protocol, Optional<String> pointer, String... groupResource){
         StringBuilder sb = new StringBuilder();
-        if(domainValue.equals("")){
-            sb.append("@xnft:\n");
+        if(type == 2 || domainValue.equals("")){
+            if(domainValue.equals("") && groupResource.length == 0){
+                sb.append("@xnft:\n");
+            }else if(domainValue.equals("") && groupResource.length == 1 || !domainValue.equals("") && groupResource.length == 1){
+                sb.append("@").append(groupResource[0]).append(":\n");
+            }
         }
+
         if(type == 1){
-            sb.append(key).append(":").append(value.get()).append("\n");
-        }else if(type == 3){
+            sb.append(protocol.get()).append(":").append(pointer.get()).append("\n");
+        }else if(type == 10){
             sb.setLength(0);
             return domainValue = sb.toString();
         }
@@ -538,10 +538,10 @@ public class BLL {
                 "</body></html>");
         sb.toString();
         Multihash nftHtml = createIPFS(sb.toString().getBytes(),Optional.empty());
-        domainValue(1,"ipfs", Optional.of(String.valueOf(nftHtml)));
-        domainValue(1,"ipfs-img", Optional.of(String.valueOf(nftItem)));
-        domainValue(1,"creator", Optional.of("https://xrptools-web-dev.herokuapp.com/"));
+        domainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftHtml)));
+        domainValue(1, Optional.of("ipfs-img"), Optional.of(String.valueOf(nftItem)));
+        domainValue(1, Optional.of("creator"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
-        return transactionHASH = domainSet(domainValue, Optional.of("sEd75LqyDkGeXyknGGSa7FFbk8Gp62d"));
+        return transactionHASH = domainSet(domainValue, Optional.of("sEdSiyVXArNzodLJG1SgMhw5tFyv1Lb"));
     }
 }
