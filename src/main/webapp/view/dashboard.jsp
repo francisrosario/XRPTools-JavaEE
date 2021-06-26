@@ -375,7 +375,7 @@
                     <form action="process.nftcreation" method="post" onsubmit="return checkSize(26214400)" novalidate="novalidate" enctype="multipart/form-data">
                       <div class="mb-10">
                         <label class="form-label">Wallet Seed:</label>
-                        <input class="form-control form-control-solid" type="text" name="nftSeed" placeholder="">
+                        <input class="form-control form-control-solid" type="text" name="nftSeed" placeholder="" autocomplete="off">
                       </div>
                       <div class="mb-10">
                         <label class="form-label">NFT Name:</label>
