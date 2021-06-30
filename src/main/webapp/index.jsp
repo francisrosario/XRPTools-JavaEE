@@ -1,4 +1,5 @@
-<html lang="en"><!--begin::Head--><head><base href="">
+<html lang="en"><!--begin::Head-->
+<head>< base href="">
     <meta charset="utf-8">
     <title>XRP Wallet Tools</title>
     <meta name="description" content="Login page example">
@@ -1331,7 +1332,8 @@
 .contract-trigger:before {
   width: 200%;
   height: 200%;
-}</style></head>
+}</style>
+</head>
   <!--end::Head-->
   <!--begin::Body-->
   <body id="kt_body" class="header-fixed subheader-enabled" data-new-gr-c-s-check-loaded="8.876.0" data-gr-ext-installed="">
