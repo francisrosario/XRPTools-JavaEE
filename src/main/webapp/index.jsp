@@ -1,5 +1,5 @@
 <html lang="en"><!--begin::Head-->
-<head>< base href="">
+<head><base href="">
     <meta charset="utf-8">
     <title>XRP Wallet Tools</title>
     <meta name="description" content="Login page example">
