@@ -3,6 +3,7 @@ package com.dev.xrpwebtools.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedInteger;
+import com.mgnt.utils.TimeUtils;
 import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
 import io.ipfs.api.NamedStreamable;
@@ -10,6 +11,8 @@ import io.ipfs.multihash.Multihash;
 import okhttp3.HttpUrl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.xrpl.xrpl4j.client.JsonRpcClient;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 import org.xrpl.xrpl4j.client.JsonRpcRequest;
@@ -22,24 +25,25 @@ import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.model.client.fees.FeeResult;
 import org.xrpl.xrpl4j.model.client.transactions.SubmitResult;
+import org.xrpl.xrpl4j.model.client.transactions.TransactionRequestParams;
+import org.xrpl.xrpl4j.model.client.transactions.TransactionResult;
 import org.xrpl.xrpl4j.model.transactions.*;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
 import org.xrpl.xrpl4j.wallet.Wallet;
 import org.xrpl.xrpl4j.wallet.WalletFactory;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import org.apache.commons.codec.binary.*;
-
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@SuppressWarnings({"UnstableApiUsage", "DanglingJavadoc"})
 public class BLL {
 
     //////////////////////
@@ -57,6 +61,12 @@ public class BLL {
 
     //Wallet
     private String walletseed;
+    private byte[] itemByte;
+    private String nftName;
+    private String nftAuthor;
+    private String nftEmail;
+    private String nftTwitter;
+    private String nftDescription;
     //private Optional<String> walletSeed;
 
     public void setWalletseed(String walletseed) {
@@ -68,23 +78,23 @@ public class BLL {
     }
 
     //Wallet Transaction
-    private Hash256 transactionHASH;
-    public Hash256 getTransactionHASH() {
-        return transactionHASH;
+    private Hash256 transactionHash;
+    public Hash256 gettransactionHash() {
+        return transactionHash;
     }
-    public void setTransactionHASH(Hash256 transactionHASH) {
-        this.transactionHASH = transactionHASH;
+    public void settransactionHash(Hash256 transactionHASH) {
+        this.transactionHash = transactionHASH;
     }
 
     //Others
-    private String errorString;
+    private String errorString = "";
     public void setErrorString(String errorString) {
         this.errorString = errorString;
     }
     public String getErrorString() {
         return errorString;
     }
-    private String infoString;
+    private String infoString = "";
     public String getInfoString() {
         return infoString;
     }
@@ -115,21 +125,33 @@ public class BLL {
         return walletFactory;
     }
 
-    public boolean setActive() throws  JsonRpcClientErrorException{
-        wallet = walletFactory().fromSeed(walletseed,true);
-        AccountInfoRequestParams params = AccountInfoRequestParams.builder()
-                .account(wallet.classicAddress())
-                .ledgerIndex(LedgerIndex.VALIDATED)
-                .build();
-        return xrplClient.accountInfo(params).validated();
+    public boolean isValidated() {
+        boolean isValidated = false;
+        try {
+            wallet = walletFactory().fromSeed(walletseed, true);
+            AccountInfoRequestParams params = AccountInfoRequestParams.builder()
+                    .account(wallet.classicAddress())
+                    .ledgerIndex(LedgerIndex.VALIDATED)
+                    .build();
+            isValidated = xrplClient.accountInfo(params).validated();
+        }catch (JsonRpcClientErrorException err){
+            logger.log(Level.SEVERE, err.getMessage());
+        }
+        return isValidated;
     }
 
-    public BigDecimal accountBalance() throws JsonRpcClientErrorException {
-        AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
-        return accountInfoResult.accountData().balance().toXrp();
+    public BigDecimal getAccountBalance() {
+        BigDecimal accountBalance = null;
+        try {
+            AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
+            accountBalance = accountInfoResult.accountData().balance().toXrp();
+        }catch (JsonRpcClientErrorException err){
+            logger.log(Level.SEVERE, err.getMessage());
+        }
+        return accountBalance;
     }
 
-    public Address classicAddress() {
+    public Address getClassicAddress() {
         return wallet.classicAddress();
     }
 
@@ -138,7 +160,6 @@ public class BLL {
 
     public <classicAddress, walletSeed> ImmutablePair<classicAddress, walletSeed> createXRPAccount(){
         SeedWalletGenerationResult seedResult = walletFactory().randomWallet(true);
-        // Perform wallet activation if current network is TESTNET
         if(URL.equals("https://s.altnet.rippletest.net:51234/")){
             FaucetClient faucetClient = FaucetClient.construct(HttpUrl.get("https://faucet.altnet.rippletest.net"));
             faucetClient.fundAccount(FundAccountRequest.of(seedResult.wallet().classicAddress()));
@@ -146,66 +167,72 @@ public class BLL {
         return (ImmutablePair<classicAddress, walletSeed>) ImmutablePair.of(seedResult.wallet().classicAddress(), seedResult.seed());
     }
 
-    public Hash256 sendXRP(String transferAmount, int transactionTag, String transferAddress) throws JsonRpcClientErrorException {
-        FeeResult feeResult = xrplClient.fee();
-        AccountInfoRequestParams params = AccountInfoRequestParams.builder()
-                .account(wallet.classicAddress())
-                .ledgerIndex(LedgerIndex.VALIDATED)
-                .build();
-        xrplClient.accountInfo(params);
-        AccountInfoResult accountInfo = xrplClient.accountInfo(params);
+    public void sendXRP(String transferAmount, int transactionTag, String transferAddress) {
+        boolean isComplete = false;
+        try {
+            FeeResult feeResult = xrplClient.fee();
+            AccountInfoRequestParams params = AccountInfoRequestParams.builder()
+                    .account(wallet.classicAddress())
+                    .ledgerIndex(LedgerIndex.VALIDATED)
+                    .build();
+            xrplClient.accountInfo(params);
+            AccountInfoResult accountInfo = xrplClient.accountInfo(params);
 
-        XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transferAmount)));
-        Payment payment = Payment.builder()
-                .account(wallet.classicAddress())
-                .fee(feeResult.drops().openLedgerFee())
-                .sequence(accountInfo.accountData().sequence())
-                .destination(Address.of(transferAddress))
-                .destinationTag(UnsignedInteger.valueOf(transactionTag))
-                .amount(amount)
-                .signingPublicKey(wallet.publicKey())
-                .build();
-
-        SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
-        return transactionHASH = result.transactionResult().transaction().hash().get();
-        /**
-         *   We just need the Transaction Hash, Below this is optional
-        System.out.println("Payment successful: https://testnet.xrpl.org/transactions/" +
-                result.transactionResult().transaction().hash()
-                        .orElseThrow(() -> new RuntimeException("Result didn't have hash."))
-        );
-        TransactionResult<Payment> transactionResult = xrplClient.transaction(
-                TransactionRequestParams.of(Hash256.of(String.valueOf(result.transactionResult().transaction().hash().get()))),
-                Payment.class
-        );
-         **/
+            XrpCurrencyAmount amount = XrpCurrencyAmount.ofXrp(BigDecimal.valueOf(Long.parseLong(transferAmount)));
+            Payment payment = Payment.builder()
+                    .account(wallet.classicAddress())
+                    .fee(feeResult.drops().openLedgerFee())
+                    .sequence(accountInfo.accountData().sequence())
+                    .destination(Address.of(transferAddress))
+                    .destinationTag(UnsignedInteger.valueOf(transactionTag))
+                    .amount(amount)
+                    .signingPublicKey(wallet.publicKey())
+                    .build();
+            SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
+            transactionHash = result.transactionResult().transaction().hash().get();
+            do{
+                TransactionResult<Payment> transactionResult = xrplClient.transaction(
+                        TransactionRequestParams.of(Hash256.of(String.valueOf(result.transactionResult().transaction().hash().get()))),
+                        Payment.class
+                );
+                if(transactionResult.metadata().isPresent()){
+                    isComplete = true;
+                    TimeUtils.sleepFor(500, TimeUnit.MILLISECONDS);
+                }
+            }while(!isComplete);
+        }catch (JsonRpcClientErrorException err){
+            logger.log(Level.SEVERE, err.getMessage());
+            errorString = "Error Code: BLL-003";
+        }
     }
 
-    public Hash256 domainSet(String domainValue, Optional<String> walletseedValue) throws JsonRpcClientErrorException {
-        String hex = DatatypeConverter.printHexBinary(domainValue.getBytes());
-        wallet = walletFactory().fromSeed(walletseedValue.get(),true);
+    public Hash256 setDomain(String domainValue, Optional<String> walletseedValue) {
+        try {
+            String hex = DatatypeConverter.printHexBinary(domainValue.getBytes());
+            wallet = walletFactory().fromSeed(walletseedValue.get(), true);
 
-        AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
-        FeeResult feeResult = xrplClient.fee();
-        AccountSet domainset = AccountSet.builder()
-                .account(wallet.classicAddress())
-                .fee(feeResult.drops().openLedgerFee())
-                .domain(hex)
-                .setFlag(AccountSet.AccountSetFlag.ACCOUNT_TXN_ID)
-                .sequence(accountInfoResult.accountData().sequence())
-                .signingPublicKey(wallet.publicKey())
-                .build();
-        domainValue(10,Optional.empty(), Optional.empty());
-        SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
-        return transactionHASH = result.transactionResult().transaction().hash().get();
+            AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
+            FeeResult feeResult = xrplClient.fee();
+            AccountSet domainset = AccountSet.builder()
+                    .account(wallet.classicAddress())
+                    .fee(feeResult.drops().openLedgerFee())
+                    .domain(hex)
+                    .setFlag(AccountSet.AccountSetFlag.ACCOUNT_TXN_ID)
+                    .sequence(accountInfoResult.accountData().sequence())
+                    .signingPublicKey(wallet.publicKey())
+                    .build();
+            createDomainValue(10, Optional.empty(), Optional.empty());
+            SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
+            transactionHash = result.transactionResult().transaction().hash().get();
+        }catch (JsonRpcClientErrorException err){
+            logger.log(Level.SEVERE, err.getMessage());
+        }
+        return transactionHash;
     }
 
-    public UnsignedInteger ownerCount() throws JsonRpcClientErrorException {
-        AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
-        return accountInfoResult.accountData().ownerCount();
-    }
-
-    public String nftCoins() throws JsonRpcClientErrorException {
+    public String getNFTCoins() {
+        JsonNode jsonArray = null;
+        try {
             JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(URL));
             ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
                     .account(Address.of(String.valueOf(wallet.classicAddress())))
@@ -215,8 +242,11 @@ public class BLL {
                     .params(ImmutableSet.of(params))
                     .build();
             jsonRpcClient.send(request, xrpledger.class);
-            JsonNode jsonArray = jsonRpcClient.postRpcRequest(request).get("result").get("send_currencies");
-            String[] currencies = new String[jsonArray.size()];
+            jsonArray = jsonRpcClient.postRpcRequest(request).get("result").get("send_currencies");
+        }catch (JsonRpcClientErrorException err){
+            logger.log(Level.SEVERE, err.getMessage());
+        }
+        String[] currencies = new String[jsonArray.size()];
             for(int x = 0; x < jsonArray.size(); x++){
                 if(jsonArray.get(x).asText().length() == 40){
                     currencies[x] = jsonArray.get(x).asText();
@@ -240,20 +270,26 @@ public class BLL {
     //////////////////////
     // One-Click NFT Wallet Based Creator
 
-    public Multihash createIPFS(byte[] dataByte, Optional<String> path) throws IOException {
-        IPFS ipfs = new IPFS(System.getenv("IPFS_Multiaddress"));
-        MerkleNode addResult;
-        if(dataByte != null){
-            NamedStreamable.ByteArrayWrapper byteArrayWrapper = new NamedStreamable.ByteArrayWrapper(" ", dataByte);
-            addResult = ipfs.add(byteArrayWrapper).get(0);
-        }else{
-            NamedStreamable.FileWrapper fileWrapper = new NamedStreamable.FileWrapper(new File(path.get()));
-            addResult = ipfs.add(fileWrapper).get(0);
+    public Multihash createIPFS(byte[] dataByte, String... path) {
+        MerkleNode addResult = null;
+        try {
+            IPFS ipfs = new IPFS(System.getenv("IPFS_Multiaddress"));
+            ipfs.timeout(1);
+            if (dataByte != null) {
+                NamedStreamable.ByteArrayWrapper byteArrayWrapper = new NamedStreamable.ByteArrayWrapper(" ", dataByte);
+                addResult = ipfs.add(byteArrayWrapper).get(0);
+            } else {
+                NamedStreamable.FileWrapper fileWrapper = new NamedStreamable.FileWrapper(new File(path[0]));
+                addResult = ipfs.add(fileWrapper).get(0);
+            }
+        }catch (IOException err){
+            logger.log(Level.SEVERE, err.getMessage());
         }
+        assert addResult != null;
         return addResult.hash;
     }
 
-    public String domainValue(int modeValue, Optional<String> protocolValue, Optional<String> pointerValue, String... groupresourceValue){
+    public String createDomainValue(int modeValue, Optional<String> protocolValue, Optional<String> pointerValue, String... groupresourceValue){
         StringBuilder sb = new StringBuilder();
         if(modeValue == 2 || domainValue.equals("")){
             if(domainValue.equals("") && groupresourceValue.length == 0){
@@ -272,13 +308,17 @@ public class BLL {
         return domainValue += sb.toString();
     }
 
-    public String nftHTML(byte[] itemByte, String nftSeed, String nftName, String nftAuthor, String nftEmail, String nftTwitter, String nftDescription) throws JsonRpcClientErrorException, IOException {
-        Multihash nftItem = createIPFS(itemByte,Optional.empty());
+    public String createHTML(byte[] itemByte, String nftSeed, String nftName, String nftAuthor, String nftEmail, String nftTwitter, String nftDescription) {
+        this.nftName = sanitizeHTMLInput(nftName);
+        this.nftAuthor = sanitizeHTMLInput(nftAuthor);
+        this.nftEmail = sanitizeHTMLInput(nftEmail);
+        this.nftTwitter = sanitizeHTMLInput(nftTwitter);
+        this.nftDescription = sanitizeHTMLInput(nftDescription);
 
-        String METATitle = nftName;
-        String Author = nftAuthor;
-        String AuthorEmail = nftEmail;
-        String Twitter = nftTwitter;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+        Multihash nftItem = createIPFS(itemByte);
+
         String Website = "null";
         String CreatedAt = "https://xrptools-web-dev.herokuapp.com/";
         String NFTBuilder = "https://github.com/francisrosario/XRPTools-JaveEE";
@@ -287,10 +327,9 @@ public class BLL {
                 "            <img src=\"https://gateway.pinata.cloud/ipfs/"+nftItem+"\" width=\"620\">\n" +
                 "        </div>";
 
-        StringBuilder sb = new StringBuilder();
         sb.append("<html lang=\"en\">\n" +
                 "    <head>\n" +
-                "        <title>XRP NFT:"+METATitle+"</title>\n" +
+                "        <title>XRP NFT:"+ this.nftName +"</title>\n" +
                 "    </head>\n" +
                 "    <style>\n" +
                 "        body,html {\n" +
@@ -447,8 +486,8 @@ public class BLL {
                 "    </div><br><br><br><br><br><br><br><br>" +
                 "    \n" + photo +
                 "        <div id=\"content\">\n" +
-                "            <h1>"+METATitle+"</h1>\n" +
-                "             <p>"+nftDescription+"</p>\n" +
+                "            <h1>"+ this.nftName +"</h1>\n" +
+                "             <p>"+this.nftDescription+"</p>\n" +
                 "                    <table class=\"styled-table\">\n" +
                 "                <thead>\n" +
                 "                    <tr>\n" +
@@ -459,7 +498,7 @@ public class BLL {
                 "                <tbody>\n" +
                 "                    <tr>\n" +
                 "                        <td>Author</td>\n" +
-                "                        <td>"+Author+"</td>\n" +
+                "                        <td>"+ this.nftAuthor +"</td>\n" +
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td>Author Wallet</td>\n" +
@@ -467,11 +506,11 @@ public class BLL {
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td>Author Email</td>\n" +
-                "                        <td>"+AuthorEmail+"</td>\n" +
+                "                        <td>"+ this.nftEmail +"</td>\n" +
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td>Author Twitter</td>\n" +
-                "                        <td>"+Twitter+"</td>\n" +
+                "                        <td>"+ this.nftTwitter +"</td>\n" +
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td>Author Website</td>\n" +
@@ -543,17 +582,33 @@ public class BLL {
                 "    </script>\n" +
                 "</body></html>");
         sb.toString();
-        Multihash nftHtml = createIPFS(sb.toString().getBytes(),Optional.empty());
-        domainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftHtml)));
-        domainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftItem)));
-        domainValue(1, Optional.of("http"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
+        Multihash nftHtml = createIPFS(sb.toString().getBytes());
+        createDomainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftHtml)));
+        createDomainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftItem)));
+        createDomainValue(1, Optional.of("http"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
-
-        transactionHASH = domainSet(domainValue, Optional.of(nftSeed));
-        StringBuilder sb2 = new StringBuilder();
+        transactionHash = setDomain(domainValue, Optional.of(nftSeed));
         sb2.append("https://gateway.pinata.cloud/ipfs/"+nftHtml+"<br>");
-        sb2.append("https://testnet.xrpl.org/transactions/"+transactionHASH+"<br>");
+        sb2.append("https://testnet.xrpl.org/transactions/"+transactionHash+"<br>");
 
         return infoString = sb2.toString();
     }
+
+    //////////////////////
+    // Helpers
+
+    public final String removeWhiteSpace(String string){
+        return string.replaceAll("\\s+","");
+    }
+
+    public final String getLocalDateTimeHEX(){
+        byte[] LocalDateTimeHEX = String.valueOf(Clock.systemUTC().instant()).getBytes(StandardCharsets.UTF_8);
+        return DatatypeConverter.printHexBinary(LocalDateTimeHEX);
+    }
+
+    public String sanitizeHTMLInput(String string){
+        PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS);
+        return policy.sanitize(string);
+    }
+
 }

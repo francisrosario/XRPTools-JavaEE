@@ -1,6 +1,7 @@
 package com.dev.xrpwebtools.Controller;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException;
@@ -17,17 +18,20 @@ public class dashboardController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
-        BLL cwallet = new BLL();
-        session.setAttribute("dashboard", cwallet);
+        BLL bll = new BLL();
+        session.setAttribute("dashboard", bll);
         try {
             String walletseed = req.getParameter("walletseed");
-            walletseed = walletseed.replaceAll("\\s+","");
-            cwallet.setWalletseed(walletseed);
-            cwallet.setActive();
-
+            walletseed = bll.removeWhiteSpace(walletseed);
+            bll.setWalletseed(walletseed);
+            if(!bll.isValidated()){
+                bll.setErrorString("Account not found, Kindly activate your account...");
+                resp.sendRedirect("view/error.jsp");
+            }
             resp.sendRedirect("view/dashboard.jsp");
-        } catch (Exception e) {
-            cwallet.setErrorString(e.getMessage());
+        } catch (Exception err) {
+            logger.log(Level.INFO, err.getMessage());
+            bll.setErrorString("Error Code: 00-"+bll.getLocalDateTimeHEX());
             resp.sendRedirect("view/error.jsp");
         }
     }

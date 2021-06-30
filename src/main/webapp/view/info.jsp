@@ -68,7 +68,7 @@
             <!--ADD CODE BELOW HERE-->
                     <p>INFO: </p>
                     <%
-                        out.write("Transaction HASH" + String.valueOf(bll.getTransactionHASH()));
+                        out.write("Transaction HASH" + bll.gettransactionHash());
                         out.write("<br><br>");
                         out.write(bll.getInfoString());
                     %>

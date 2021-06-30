@@ -15,9 +15,6 @@ public class createXRPWallet {
         return walletAddress;
     }
 
-    public createXRPWallet(){
-
-    }
     public void createXRPWalletX() throws JsonRpcClientErrorException {
         final String testnetURL = "https://faucet.altnet.rippletest.net";
 

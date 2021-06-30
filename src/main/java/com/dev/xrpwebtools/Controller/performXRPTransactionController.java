@@ -1,6 +1,7 @@
 package com.dev.xrpwebtools.Controller;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
@@ -18,19 +19,19 @@ public class performXRPTransactionController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        BLL cwallet = (BLL)session.getAttribute("dashboard");
+        BLL bll = (BLL)session.getAttribute("dashboard");
         try {
             String transferAddress = req.getParameter("transferAddress");
-            // Remove all spaces in transferaddress
-            transferAddress = transferAddress.replaceAll("\\s+","");
             String transferAmount = req.getParameter("transferAmount");
             int transactionTag = Integer.parseInt(req.getParameter("transactionTag"));
-            cwallet.sendXRP(transferAmount, transactionTag, transferAddress);
 
+            transferAddress = bll.removeWhiteSpace(transferAddress);
+            bll.sendXRP(transferAmount, transactionTag, transferAddress);
             RequestDispatcher dispatcher = req.getRequestDispatcher("view/info.jsp");
             dispatcher.forward(req, resp);
-        } catch (Exception e) {
-            cwallet.setErrorString(e.getMessage());
+        } catch (Exception err) {
+            logger.log(Level.INFO, err.getMessage());
+            bll.setErrorString("Error Code: 01-"+bll.getLocalDateTimeHEX());
             resp.sendRedirect("view/error.jsp");
         }
     }

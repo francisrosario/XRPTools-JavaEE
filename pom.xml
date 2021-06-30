@@ -101,6 +101,11 @@
             <artifactId>java-ipfs-api</artifactId>
             <version>1.3.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+            <artifactId>owasp-java-html-sanitizer</artifactId>
+            <version>20200615.1</version>
+        </dependency>
     </dependencies>
 
     <build>

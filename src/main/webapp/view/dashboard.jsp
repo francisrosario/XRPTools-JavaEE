@@ -121,9 +121,9 @@
                   <div class="card-header border-0 bg-danger py-5">
                     <h3 class="card-title align-items-start flex-column">
                       <span class="fw-bolder mb-2 text-white">Your XRP Address :</span>
-                      <span class="fw-bold fs-5 text-white"><%=bll.classicAddress()%></span>
+                      <span class="fw-bold fs-5 text-white"><%=bll.getClassicAddress()%></span>
                       <p></p>
-                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=<%=bll.classicAddress()%>&amp;bgcolor=f1416c&color=fff" alt="" title="">
+                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=<%=bll.getClassicAddress()%>&amp;bgcolor=f1416c&color=fff" alt="" title="">
                     </h3>
                   </div>
                   <div class="card-body p-0" style="position: relative;">
@@ -276,12 +276,12 @@
                           <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">Account Balance</a>
                           <div class="text-muted fs-7 fw-bold">Your XRP Balance</div>
                         </div>
-                        <div class="fw-bolder fs-3 text-primary"><p><%=bll.accountBalance()%> XRP</p></div>
+                        <div class="fw-bolder fs-3 text-primary"><p><%=bll.getAccountBalance()%> XRP</p></div>
                       </div>
                       <div class="d-flex flex-stack flex-wrap">
                         <div class="me-2">
                           <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">NFT Coins</a>
-                          <div class="text-bold fs-7 fw-bold">Tokens/IOU List: ( <%=bll.nftCoins()%> ) </div>
+                          <div class="text-bold fs-7 fw-bold">Tokens/IOU List: ( <%=bll.getNFTCoins()%> ) </div>
                         </div>
                         <div class="fw-bolder fs-3 text-primary"><p><%=bll.getNftcounter()%></p></div>
                       </div>
