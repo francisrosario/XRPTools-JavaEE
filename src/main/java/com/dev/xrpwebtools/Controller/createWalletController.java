@@ -24,9 +24,4 @@ public class createWalletController extends HttpServlet{
                     e.printStackTrace();
                 }
         }
-    @Override
-    public void destroy() {
-        System.out.println("servlet taken out of service.");
-    }
-
 }

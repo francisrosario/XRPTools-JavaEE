@@ -62,11 +62,6 @@ public class BLL {
     //Wallet
     private String walletseed;
     private byte[] itemByte;
-    private String nftName;
-    private String nftAuthor;
-    private String nftEmail;
-    private String nftTwitter;
-    private String nftDescription;
     //private Optional<String> walletSeed;
 
     public void setWalletseed(String walletseed) {
@@ -103,6 +98,11 @@ public class BLL {
     }
 
     //One-Click NFT Wallet Based Creator
+    private String nftName;
+    private String nftAuthor;
+    private String nftEmail;
+    private String nftTwitter;
+    private String nftDescription;
     private String contentType;
     public void setContentType(String contentType) {
         this.contentType = contentType;
@@ -167,7 +167,7 @@ public class BLL {
         return (ImmutablePair<classicAddress, walletSeed>) ImmutablePair.of(seedResult.wallet().classicAddress(), seedResult.seed());
     }
 
-    public void sendXRP(String transferAmount, int transactionTag, String transferAddress) {
+    public Hash256 sendXRP(String transferAmount, int transactionTag, String transferAddress) {
         boolean isComplete = false;
         try {
             FeeResult feeResult = xrplClient.fee();
@@ -204,9 +204,11 @@ public class BLL {
             logger.log(Level.SEVERE, err.getMessage());
             errorString = "Error Code: BLL-003";
         }
+        return transactionHash;
     }
 
     public Hash256 setDomain(String domainValue, Optional<String> walletseedValue) {
+        boolean isComplete = false;
         try {
             String hex = DatatypeConverter.printHexBinary(domainValue.getBytes());
             wallet = walletFactory().fromSeed(walletseedValue.get(), true);
@@ -224,6 +226,16 @@ public class BLL {
             createDomainValue(10, Optional.empty(), Optional.empty());
             SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
             transactionHash = result.transactionResult().transaction().hash().get();
+            do{
+                TransactionResult<Payment> transactionResult = xrplClient.transaction(
+                        TransactionRequestParams.of(result.transactionResult().transaction().hash().get()),
+                        Payment.class
+                );
+                if(transactionResult.metadata().isPresent()){
+                    isComplete = true;
+                    TimeUtils.sleepFor(500, TimeUnit.MILLISECONDS);
+                }
+            }while(!isComplete);
         }catch (JsonRpcClientErrorException err){
             logger.log(Level.SEVERE, err.getMessage());
         }
@@ -315,8 +327,8 @@ public class BLL {
         this.nftTwitter = sanitizeHTMLInput(nftTwitter);
         this.nftDescription = sanitizeHTMLInput(nftDescription);
 
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder htmlBuilder = new StringBuilder();
+        StringBuilder resultBuilder = new StringBuilder();
         Multihash nftItem = createIPFS(itemByte);
 
         String Website = "null";
@@ -327,7 +339,7 @@ public class BLL {
                 "            <img src=\"https://gateway.pinata.cloud/ipfs/"+nftItem+"\" width=\"620\">\n" +
                 "        </div>";
 
-        sb.append("<html lang=\"en\">\n" +
+        htmlBuilder.append("<html lang=\"en\">\n" +
                 "    <head>\n" +
                 "        <title>XRP NFT:"+ this.nftName +"</title>\n" +
                 "    </head>\n" +
@@ -581,21 +593,21 @@ public class BLL {
                 "        loop();\n" +
                 "    </script>\n" +
                 "</body></html>");
-        sb.toString();
-        Multihash nftHtml = createIPFS(sb.toString().getBytes());
+        htmlBuilder.toString();
+        Multihash nftHtml = createIPFS(htmlBuilder.toString().getBytes());
         createDomainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftHtml)));
         createDomainValue(1, Optional.of("ipfs"), Optional.of(String.valueOf(nftItem)));
         createDomainValue(1, Optional.of("http"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
         transactionHash = setDomain(domainValue, Optional.of(nftSeed));
-        sb2.append("https://gateway.pinata.cloud/ipfs/"+nftHtml+"<br>");
-        sb2.append("https://testnet.xrpl.org/transactions/"+transactionHash+"<br>");
+        resultBuilder.append("https://gateway.pinata.cloud/ipfs/"+nftHtml+"<br>");
+        resultBuilder.append("https://testnet.xrpl.org/transactions/"+transactionHash+"<br>");
 
-        return infoString = sb2.toString();
+        return infoString = resultBuilder.toString();
     }
 
     //////////////////////
-    // Helpers
+    // Others / Utils
 
     public final String removeWhiteSpace(String string){
         return string.replaceAll("\\s+","");
