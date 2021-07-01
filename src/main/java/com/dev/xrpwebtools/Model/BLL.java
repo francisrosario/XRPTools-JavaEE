@@ -13,6 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.xrpl.xrpl4j.client.JsonRpcClient;
 import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 import org.xrpl.xrpl4j.client.JsonRpcRequest;
@@ -24,9 +27,12 @@ import org.xrpl.xrpl4j.model.client.XrplResult;
 import org.xrpl.xrpl4j.model.client.accounts.*;
 import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.model.client.fees.FeeResult;
+import org.xrpl.xrpl4j.model.client.ledger.LedgerRequestParams;
+import org.xrpl.xrpl4j.model.client.ledger.LedgerResult;
 import org.xrpl.xrpl4j.model.client.transactions.SubmitResult;
 import org.xrpl.xrpl4j.model.client.transactions.TransactionRequestParams;
 import org.xrpl.xrpl4j.model.client.transactions.TransactionResult;
+import org.xrpl.xrpl4j.model.ledger.AccountRootObject;
 import org.xrpl.xrpl4j.model.transactions.*;
 import org.xrpl.xrpl4j.wallet.DefaultWalletFactory;
 import org.xrpl.xrpl4j.wallet.SeedWalletGenerationResult;
@@ -39,6 +45,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -153,6 +160,37 @@ public class BLL {
 
     public Address getClassicAddress() {
         return wallet.classicAddress();
+    }
+
+    //////////////////////
+    // Ledger related data
+
+    public XrplClient xrpclient(){
+        return new XrplClient(HttpUrl.get(URL));
+    }
+
+    public Long ledgerCI() throws JsonRpcClientErrorException {
+        LedgerResult ledgerResult = xrpclient().ledger(LedgerRequestParams.builder()
+                .ledgerIndex(LedgerIndex.CURRENT)
+                .build());
+        return Long.valueOf(String.valueOf(ledgerResult.ledger().ledgerIndex()));
+    }
+
+    public LedgerResult ledgerResult(Long ledgerIndex) throws JsonRpcClientErrorException {
+        return xrpclient().ledger(LedgerRequestParams.builder()
+                .ledgerIndex(LedgerIndex.of(String.valueOf(ledgerIndex)))
+                .transactions(true)
+                .build());
+    }
+
+    public AccountRootObject getInfo(String account, Long index) throws JsonRpcClientErrorException {
+        AccountInfoRequestParams params = AccountInfoRequestParams.builder()
+                .account(Address.of(account))
+                .ledgerIndex(LedgerIndex.of(String.valueOf(index)))
+                .build();
+        xrpclient().accountInfo(params);
+        AccountInfoResult accountInfo = xrpclient().accountInfo(params);
+        return accountInfo.accountData();
     }
 
     //////////////////////
@@ -623,4 +661,55 @@ public class BLL {
         return policy.sanitize(string);
     }
 
+    //////////////////////
+    // NFT Indexer
+
+    public abstract class indexerJob implements Job {
+        public void execute(final JobExecutionContext ctx) throws JobExecutionException {
+            long initialMarker = 0;
+            try {
+                initialMarker = ledgerCI();
+            } catch (JsonRpcClientErrorException e) {
+                e.printStackTrace();
+            }
+            boolean ledgerIsClosed = false;
+            boolean loop = true;
+            do {
+                System.out.println("Current ledger marker: " + initialMarker);
+                do {
+                    try {
+                        ledgerIsClosed = ledgerResult(initialMarker).ledger().closed();
+                    } catch (JsonRpcClientErrorException e) {
+                        e.printStackTrace();
+                    }
+                    if (ledgerIsClosed) {
+                        System.out.println("Current ledger index is closed, proceeding...\n");
+                    } else {
+                        System.out.println("Ledger is not closed waiting...\n");
+                        TimeUtils.sleepFor(650, TimeUnit.MILLISECONDS);
+                    }
+                } while (!ledgerIsClosed);
+
+                List<TransactionResult<? extends Transaction>> ledgerResult = null;
+                try {
+                    ledgerResult = ledgerResult(initialMarker).ledger().transactions();
+                } catch (JsonRpcClientErrorException e) {
+                    e.printStackTrace();
+                }
+                int transactionSize = ledgerResult.size();
+                System.out.println("Current ledger transaction size: " + transactionSize);
+
+                for (int i = 0; i < transactionSize; i++) {
+                    TransactionResult<? extends Transaction> transactionResult = ledgerResult.get(i);
+                    try {
+                        System.out.println(getInfo(String.valueOf(transactionResult.transaction().account()), initialMarker).balance().toXrp());
+                    } catch (JsonRpcClientErrorException e) {
+                        e.printStackTrace();
+                    }
+                    TimeUtils.sleepFor(650,TimeUnit.MILLISECONDS);
+                }
+                initialMarker++;
+            }while(loop);
+        }
+    }
 }
