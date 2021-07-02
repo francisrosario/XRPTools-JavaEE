@@ -6,9 +6,7 @@
 <%@ page import="org.apache.commons.lang3.tuple.ImmutablePair" %>
 <%
 	request.getSession(false);
-	createXRPWallet wallet = (createXRPWallet)session.getAttribute("xrpwallet");
 	xrp4j bll = new xrp4j();
-
 	ImmutablePair<Object, Object> data = bll.createXRPAccount();
 %>
 <html lang="en"><!--begin::Head--><head><base href="../">
@@ -70,9 +68,6 @@
 												<!--end::Wrapper-->
 											</div>
             <!--ADD CODE BELOW HERE-->
-
-					<%= wallet.getWalletAddress() %>
-						<br><br>
 					<%= "Classic Address: "+data.left + "\nWallet Seed: " + data.right %>
 						<!--ADD CODE ABOVE HERE-->
 					<div></div><div></div></form>
