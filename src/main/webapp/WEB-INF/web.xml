@@ -13,27 +13,27 @@
         <url-pattern>/process.walletcreation</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>dashboardController</servlet-name>
+        <servlet-name>dashboard</servlet-name>
         <servlet-class>com.dev.xrpwebtools.Controller.dashboardController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>dashboardController</servlet-name>
+        <servlet-name>dashboard</servlet-name>
         <url-pattern>/process.dashboard</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>performXRPTransactionController</servlet-name>
-        <servlet-class>com.dev.xrpwebtools.Controller.performXRPTransactionController</servlet-class>
+        <servlet-name>sendXRPController</servlet-name>
+        <servlet-class>com.dev.xrpwebtools.Controller.sendXRPController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>performXRPTransactionController</servlet-name>
-        <url-pattern>/process.xrptransaction</url-pattern>
+        <servlet-name>sendXRPController</servlet-name>
+        <url-pattern>/process.sendxrp</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>nftCreatorController</servlet-name>
-        <servlet-class>com.dev.xrpwebtools.Controller.nftCreatorController</servlet-class>
+        <servlet-name>createNFTWalletController</servlet-name>
+        <servlet-class>com.dev.xrpwebtools.Controller.createNFTWalletController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>nftCreatorController</servlet-name>
+        <servlet-name>createNFTWalletController</servlet-name>
         <url-pattern>/process.nftcreation</url-pattern>
     </servlet-mapping>
 

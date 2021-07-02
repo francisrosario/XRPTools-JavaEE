@@ -11,10 +11,10 @@ import org.apache.commons.io.IOUtils;
 
 
 @MultipartConfig
-public class nftCreatorController extends HttpServlet{
+public class createNFTWalletController extends HttpServlet{
     //////////////////////
     //Utils
-    private final Logger logger = Logger.getLogger(nftCreatorController.class.getName());
+    private final Logger logger = Logger.getLogger(createNFTWalletController.class.getName());
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);

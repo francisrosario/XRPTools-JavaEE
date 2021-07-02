@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.dev.xrpwebtools.Model.xrp4j;
 
-public class performXRPTransactionController extends HttpServlet{
+public class sendXRPController extends HttpServlet{
     //////////////////////
     //Utils
     private final Logger logger = Logger.getLogger(dashboardController.class.getName());

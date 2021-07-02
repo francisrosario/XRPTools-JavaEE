@@ -324,7 +324,7 @@
                     </div>
                   </div>
                   <div class="card-body pt-2">
-                    <form  action="process.xrptransaction" method="post" novalidate="novalidate">
+                    <form  action="process.sendxrp" method="post" novalidate="novalidate">
                       <div class="mb-10">
                         <label class="form-label">Destination Address: </label>
                         <input name="transferAddress" class="form-control form-control-solid" placeholder="Classic Address">
