@@ -169,14 +169,14 @@ public class xrp4j {
         return new XrplClient(HttpUrl.get(URL));
     }
 
-    public Long ledgerCI() throws JsonRpcClientErrorException {
+    public Long getledgerCI() throws JsonRpcClientErrorException {
         LedgerResult ledgerResult = xrpclient().ledger(LedgerRequestParams.builder()
                 .ledgerIndex(LedgerIndex.CURRENT)
                 .build());
         return Long.valueOf(String.valueOf(ledgerResult.ledger().ledgerIndex()));
     }
 
-    public LedgerResult ledgerResult(Long ledgerIndex) throws JsonRpcClientErrorException {
+    public LedgerResult getledgerResult(Long ledgerIndex) throws JsonRpcClientErrorException {
         return xrpclient().ledger(LedgerRequestParams.builder()
                 .ledgerIndex(LedgerIndex.of(String.valueOf(ledgerIndex)))
                 .transactions(true)

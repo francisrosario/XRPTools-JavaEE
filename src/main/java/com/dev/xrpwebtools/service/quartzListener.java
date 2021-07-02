@@ -4,22 +4,25 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebListener;
 
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
+import org.quartz.*;
 import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.quartz.impl.StdSchedulerFactory;
+
+import java.util.Properties;
 
 @WebListener
 public class quartzListener extends QuartzInitializerListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        Properties prop = new Properties();
         super.contextInitialized(sce);
         ServletContext ctx = sce.getServletContext();
         StdSchedulerFactory factory = (StdSchedulerFactory) ctx.getAttribute(QUARTZ_FACTORY_KEY);
+        prop.setProperty("org.quartz.threadPool.threadCount", String.valueOf(5));
+        try {
+            factory.initialize(prop);
+        } catch (SchedulerException e) { }
         try {
             Scheduler scheduler = factory.getScheduler();
             JobDetail jobDetail = JobBuilder.newJob(com.dev.xrpwebtools.service.indexerJob.class).build();

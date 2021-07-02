@@ -1,5 +1,6 @@
 package com.dev.xrpwebtools.service;
 
+import com.dev.xrpwebtools.Model.xrp4j;
 import com.mgnt.utils.TimeUtils;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -13,12 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 public class indexerJob implements Job {
     public void execute(final JobExecutionContext ctx) throws JobExecutionException {
-        /**
-        ledger lg = new ledger();
+
+        xrp4j lg = new xrp4j();
 
         long initialMarker = 0;
         try {
-            initialMarker = lg.getLedgerCI();
+            initialMarker = lg.getledgerCI();
         } catch (JsonRpcClientErrorException e) {
             e.printStackTrace();
         }
@@ -28,7 +29,7 @@ public class indexerJob implements Job {
             System.out.println("Current ledger marker: " + initialMarker);
             do {
                 try {
-                    ledgerIsClosed = lg.getLedgerResult(initialMarker).ledger().closed();
+                    ledgerIsClosed = lg.getledgerResult(initialMarker).ledger().closed();
                 } catch (JsonRpcClientErrorException e) {
                     e.printStackTrace();
                 }
@@ -42,7 +43,7 @@ public class indexerJob implements Job {
 
             List<TransactionResult<? extends Transaction>> getLedgerResult = null;
             try {
-                getLedgerResult = lg.getLedgerResult(initialMarker).ledger().transactions();
+                getLedgerResult = lg.getledgerResult(initialMarker).ledger().transactions();
             } catch (JsonRpcClientErrorException e) {
                 e.printStackTrace();
             }
@@ -52,7 +53,7 @@ public class indexerJob implements Job {
             for (int i = 0; i < transactionSize; i++) {
                 TransactionResult<? extends Transaction> transactionResult = getLedgerResult.get(i);
                 try {
-                    System.out.println(lg.getAccountRootObject(String.valueOf(transactionResult.transaction().account()), initialMarker).balance().toXrp());
+                    System.out.println(lg.getInfo(String.valueOf(transactionResult.transaction().account()), initialMarker).balance().toXrp());
                 } catch (JsonRpcClientErrorException e) {
                     e.printStackTrace();
                 }
@@ -60,6 +61,6 @@ public class indexerJob implements Job {
             }
             initialMarker++;
         }while(loop);
-         **/
+
     }
 }
