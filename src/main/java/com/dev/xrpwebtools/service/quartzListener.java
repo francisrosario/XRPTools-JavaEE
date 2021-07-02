@@ -1,4 +1,4 @@
-package com.dev.xrpwebtools.Model;
+package com.dev.xrpwebtools.service;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -13,7 +13,7 @@ import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.quartz.impl.StdSchedulerFactory;
 
 @WebListener
-public class asyncListener extends QuartzInitializerListener {
+public class quartzListener extends QuartzInitializerListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -22,7 +22,7 @@ public class asyncListener extends QuartzInitializerListener {
         StdSchedulerFactory factory = (StdSchedulerFactory) ctx.getAttribute(QUARTZ_FACTORY_KEY);
         try {
             Scheduler scheduler = factory.getScheduler();
-            JobDetail jobDetail = JobBuilder.newJob(BLL.indexerJob.class).build();
+            JobDetail jobDetail = JobBuilder.newJob(com.dev.xrpwebtools.service.indexerJob.class).build();
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity("NFTIndexer", "g1")
                     .startNow()
