@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.dev.xrpwebtools.Model.BLL" %>
+<%@ page import="com.dev.xrpwebtools.Model.xrp4j" %>
 <%
-    BLL bll = (BLL)session.getAttribute("dashboard");
+    xrp4j bll = (xrp4j)session.getAttribute("dashboard");
 
     ////////////////
     //Additional Message

@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
-import com.dev.xrpwebtools.Model.BLL;
+import com.dev.xrpwebtools.Model.xrp4j;
 import org.apache.commons.io.IOUtils;
 
 
@@ -18,7 +18,7 @@ public class nftCreatorController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);
-        BLL bll = (BLL)session.getAttribute("dashboard");
+        xrp4j bll = (xrp4j)session.getAttribute("dashboard");
         try {
             Part img = req.getPart("file");
             byte[] imageByte = IOUtils.toByteArray(img.getInputStream());

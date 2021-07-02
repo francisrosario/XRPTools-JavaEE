@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dev.xrpwebtools.Model.BLL;
+import com.dev.xrpwebtools.Model.xrp4j;
 
 public class performXRPTransactionController extends HttpServlet{
     //////////////////////
@@ -19,7 +19,7 @@ public class performXRPTransactionController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        BLL bll = (BLL)session.getAttribute("dashboard");
+        xrp4j bll = (xrp4j)session.getAttribute("dashboard");
         try {
             String transferAddress = req.getParameter("transferAddress");
             String transferAmount = req.getParameter("transferAmount");
