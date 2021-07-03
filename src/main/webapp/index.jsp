@@ -1389,8 +1389,8 @@
                 <!--end::Form group-->
                 <!--begin::Action-->
                 <div class="pb-lg-0 pb-5">
-                  <button type="submit" id="kt_login_signin_submit" formaction="process.dashboard" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Submit</button>
-
+                  <button type="submit" id="kt_login_signin_submit" formaction="process.dashboard" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign in with Family Seed Key<div></div></button>
+                  <button type="submit" id="kt_login_signin_submit" formaction="process.dashboardxumm" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign in with XUMM ✔<div></div></button>
                 </div>
                 <button type="submit" formaction="process.walletcreation" class="btn btn-light-primary font-weight-bolder px-8 py-4 my-3 font-size-lg">
                   <span class="svg-icon svg-icon-md">
