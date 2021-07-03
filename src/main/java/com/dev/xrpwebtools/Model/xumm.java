@@ -1,21 +1,28 @@
 package com.dev.xrpwebtools.Model;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.primitives.UnsignedInteger;
-import com.google.common.primitives.UnsignedLong;
 import okhttp3.*;
-import org.xrpl.xrpl4j.codec.binary.XrplBinaryCodec;
-import org.xrpl.xrpl4j.model.client.accounts.AccountInfoRequestParams;
-import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
-import org.xrpl.xrpl4j.model.client.fees.FeeResult;
-import org.xrpl.xrpl4j.model.jackson.ObjectMapperFactory;
-import org.xrpl.xrpl4j.model.transactions.Address;
-import org.xrpl.xrpl4j.model.transactions.Payment;
-import org.xrpl.xrpl4j.model.transactions.XrpCurrencyAmount;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
 public class xumm {
-
+    public String requestSignIn(){
+        JSONObject jo = new JSONObject();
+        jo.put("TransactionType", "SignIn");
+        return jo.toString();
+    }
+    public String okhttpclient(String jsonObject) throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(JSON, "{\"txjson\":"+jsonObject+"}");
+        Request request = new Request.Builder()
+                .url("https://xumm.app/api/v1/platform/payload")
+                .addHeader("X-API-Key", System.getenv("apiKey"))
+                .addHeader("X-API-Secret",System.getenv("xApi"))
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
 }
