@@ -55,10 +55,6 @@
         <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
         <async-supported>true</async-supported>
         <init-param>
-            <param-name>antiClickJackingOption</param-name>
-            <param-value>DENY</param-value>
-        </init-param>
-        <init-param>
             <param-name>hstsEnabled</param-name>
             <param-value>true</param-value>
         </init-param>
