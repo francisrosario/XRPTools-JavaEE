@@ -36,6 +36,53 @@
         <servlet-name>createNFTWalletController</servlet-name>
         <url-pattern>/process.nftcreation</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>dashboardXUMMController</servlet-name>
+        <servlet-class>com.dev.xrpwebtools.Controller.dashboardXUMMController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dashboardXUMMController</servlet-name>
+        <url-pattern>/process.dashboardxumm</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>httpHeaderSecurity</filter-name>
+        <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
+        <async-supported>true</async-supported>
+        <init-param>
+            <param-name>antiClickJackingOption</param-name>
+            <param-value>DENY</param-value>
+        </init-param>
+        <init-param>
+            <param-name>hstsEnabled</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>hstsIncludeSubDomains</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>antiClickJackingEnabled</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>antiClickJackingOption</param-name>
+            <param-value>DENY</param-value>
+        </init-param>
+        <init-param>
+            <param-name>blockContentTypeSniffingEnabled</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>xssProtectionEnabled</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>httpHeaderSecurity</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
 
     <listener>
         <listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>
