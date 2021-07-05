@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class indexerJob implements Job {
     public void execute(final JobExecutionContext ctx) throws JobExecutionException {
-
+        /**
         xrp4j lg = new xrp4j();
 
         long initialMarker = 0;
@@ -61,6 +61,6 @@ public class indexerJob implements Job {
             }
             initialMarker++;
         }while(loop);
-
+         **/
     }
 }

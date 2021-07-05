@@ -29,13 +29,13 @@ public class createNFTWalletController extends HttpServlet{
             String nftTwitter = req.getParameter("nftTwitter");
             String nftDescription = req.getParameter("nftDescription");
 
-            nftSeed = bll.removeWhiteSpace(nftSeed);
-            bll.createHTML(imageByte, nftSeed, nftName, nftAuthor, nftEmail, nftTwitter, nftDescription);
+            //nftSeed = bll.removeWhiteSpace(nftSeed);
+            //bll.createHTML(imageByte, nftSeed, nftName, nftAuthor, nftEmail, nftTwitter, nftDescription);
             RequestDispatcher dispatcher = req.getRequestDispatcher("view/info.jsp");
             dispatcher.forward(req, resp);
         } catch (Exception err) {
             logger.log(Level.INFO, err.getMessage());
-            bll.setErrorString("Error Code: 02-"+bll.getLocalDateTimeHEX());
+            //bll.setErrorString("Error Code: 02-"+bll.getLocalDateTimeHEX());
             resp.sendRedirect("view/error.jsp");
         }
     }

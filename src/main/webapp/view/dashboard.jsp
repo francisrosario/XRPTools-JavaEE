@@ -281,7 +281,7 @@
                       <div class="d-flex flex-stack flex-wrap">
                         <div class="me-2">
                           <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">NFT Coins</a>
-                          <div class="text-bold fs-7 fw-bold">Tokens/IOU List: ( <%=bll.getNFTCoins()%> ) </div>
+                          <div class="text-bold fs-7 fw-bold">Tokens/IOU List: ( <%=bll.getCuratedAssets()%> ) </div>
                         </div>
                         <div class="fw-bolder fs-3 text-primary"><p><%=bll.getNftcounter()%></p></div>
                       </div>

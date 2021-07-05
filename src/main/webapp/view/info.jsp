@@ -1,5 +1,4 @@
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.dev.xrpwebtools.Model.createXRPWallet" %>
 <%@ page import="com.dev.xrpwebtools.Model.xrp4j" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="org.xrpl.xrpl4j.wallet.DefaultWalletFactory" %>
