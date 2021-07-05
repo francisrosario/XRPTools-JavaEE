@@ -20,7 +20,6 @@ import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.model.client.fees.FeeResult;
 import org.xrpl.xrpl4j.model.client.ledger.LedgerRequestParams;
 import org.xrpl.xrpl4j.model.client.ledger.LedgerResult;
-import org.xrpl.xrpl4j.model.client.transactions.ImmutableSubmitResult;
 import org.xrpl.xrpl4j.model.client.transactions.SubmitResult;
 import org.xrpl.xrpl4j.model.client.transactions.TransactionRequestParams;
 import org.xrpl.xrpl4j.model.client.transactions.TransactionResult;
@@ -197,7 +196,7 @@ public class xrp4j {
                     .build();
             SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
             getMetadata(result);
-        return transactionHash;
+        return transactionHash = result.transactionResult().transaction().hash().get();
     }
 
     public Hash256 setDomain(String domainValue, Optional<String> walletseedValue) throws JsonRpcClientErrorException {
@@ -218,10 +217,10 @@ public class xrp4j {
             utlt.createDomainValue(10, Optional.empty(), Optional.empty());
             SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
             getMetadata(result);
-        return transactionHash;
+        return transactionHash = result.transactionResult().transaction().hash().get();
     }
 
-    public TransactionMetadata getMetadata(SubmitResult<?> transaction) throws JsonRpcClientErrorException {
+    public String getMetadata(SubmitResult<?> transaction) throws JsonRpcClientErrorException {
         TransactionResult<Payment> transactionResult;
         boolean isComplete = false;
         do{
@@ -234,7 +233,7 @@ public class xrp4j {
             }
             TimeUtils.sleepFor(500, TimeUnit.MILLISECONDS);
         }while(!isComplete);
-        return transactionResult.metadata().get();
+        return transactionResult.metadata().get().transactionResult();
     }
 
     public String getCuratedAssets() throws JsonRpcClientErrorException {
