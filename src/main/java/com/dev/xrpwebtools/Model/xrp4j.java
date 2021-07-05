@@ -20,6 +20,7 @@ import org.xrpl.xrpl4j.model.client.common.LedgerIndex;
 import org.xrpl.xrpl4j.model.client.fees.FeeResult;
 import org.xrpl.xrpl4j.model.client.ledger.LedgerRequestParams;
 import org.xrpl.xrpl4j.model.client.ledger.LedgerResult;
+import org.xrpl.xrpl4j.model.client.transactions.ImmutableSubmitResult;
 import org.xrpl.xrpl4j.model.client.transactions.SubmitResult;
 import org.xrpl.xrpl4j.model.client.transactions.TransactionRequestParams;
 import org.xrpl.xrpl4j.model.client.transactions.TransactionResult;
@@ -54,9 +55,9 @@ public class xrp4j {
 
     //Wallet
     private String walletseed;
-    private byte[] itemByte;
-    private Payment result;
-    private Object object;
+    //private byte[] itemByte;
+    //private Payment result;
+    //private Object object;
 
     public void setWalletseed(String walletseed) {
         this.walletseed = walletseed;
@@ -106,18 +107,14 @@ public class xrp4j {
         return walletFactory;
     }
 
-    public boolean isValidated() {
-        boolean isValidated = false;
-        try {
+    public boolean isValidated() throws JsonRpcClientErrorException {
+        boolean isValidated;
             wallet = walletFactory().fromSeed(walletseed, true);
             AccountInfoRequestParams params = AccountInfoRequestParams.builder()
                     .account(wallet.classicAddress())
                     .ledgerIndex(LedgerIndex.VALIDATED)
                     .build();
             isValidated = xrplClient.accountInfo(params).validated();
-        }catch (JsonRpcClientErrorException err){
-            logger.log(Level.SEVERE, err.getMessage());
-        }
         return isValidated;
     }
 
@@ -179,7 +176,6 @@ public class xrp4j {
         return (ImmutablePair<classicAddress, walletSeed>) ImmutablePair.of(seedResult.wallet().classicAddress(), seedResult.seed());
     }
 
-    @SuppressWarnings("unchecked")
     public Hash256 sendXRP(String transferAmount, int transactionTag, String transferAddress) throws JsonRpcClientErrorException {
             FeeResult feeResult = xrplClient.fee();
             AccountInfoRequestParams params = AccountInfoRequestParams.builder()
@@ -200,29 +196,12 @@ public class xrp4j {
                     .signingPublicKey(wallet.publicKey())
                     .build();
             SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
-            //transactionHash = result.transactionResult().transaction().hash().get();
             getMetadata(result);
         return transactionHash;
     }
 
-    public TransactionMetadata getMetadata(Object transaction) throws JsonRpcClientErrorException {
-        TransactionResult<Payment> transactionResult;
-        SubmitResult<Payment> casted = (SubmitResult<Payment>) transaction;
-        boolean isComplete = false;
-        do{
-            transactionResult = xrplClient.transaction(
-                    TransactionRequestParams.of(casted.transactionResult().transaction().hash().get()),
-                    Payment.class
-            );
-            if(transactionResult.metadata().isPresent()){
-                isComplete = true;
-            }
-            TimeUtils.sleepFor(500, TimeUnit.MILLISECONDS);
-        }while(!isComplete);
-        return transactionResult.metadata().get();
-    }
-
     public Hash256 setDomain(String domainValue, Optional<String> walletseedValue) throws JsonRpcClientErrorException {
+            Utility.mainUtilities utlt = new Utility.mainUtilities();
             String hex = DatatypeConverter.printHexBinary(domainValue.getBytes());
             wallet = walletFactory().fromSeed(walletseedValue.get(), true);
 
@@ -236,14 +215,30 @@ public class xrp4j {
                     .sequence(accountInfoResult.accountData().sequence())
                     .signingPublicKey(wallet.publicKey())
                     .build();
-            //createDomainValue(10, Optional.empty(), Optional.empty());
+            utlt.createDomainValue(10, Optional.empty(), Optional.empty());
             SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
-            //transactionHash = result.transactionResult().transaction().hash().get();
+            getMetadata(result);
         return transactionHash;
     }
 
+    public TransactionMetadata getMetadata(SubmitResult<?> transaction) throws JsonRpcClientErrorException {
+        TransactionResult<Payment> transactionResult;
+        boolean isComplete = false;
+        do{
+            transactionResult = xrplClient.transaction(
+                    TransactionRequestParams.of(transaction.transactionResult().transaction().hash().get()),
+                    Payment.class
+            );
+            if(transactionResult.metadata().isPresent()){
+                isComplete = true;
+            }
+            TimeUtils.sleepFor(500, TimeUnit.MILLISECONDS);
+        }while(!isComplete);
+        return transactionResult.metadata().get();
+    }
+
     public String getCuratedAssets() throws JsonRpcClientErrorException {
-        JsonNode jsonArray = null;
+        JsonNode jsonArray;
             JsonRpcClient jsonRpcClient = JsonRpcClient.construct(okhttp3.HttpUrl.get(URL));
             ImmutableAccountChannelsRequestParams params = ImmutableAccountChannelsRequestParams.builder()
                     .account(Address.of(String.valueOf(wallet.classicAddress())))
