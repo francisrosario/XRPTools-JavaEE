@@ -12,6 +12,7 @@ import javax.swing.text.Utilities;
 
 import com.dev.xrpwebtools.Model.Utility;
 import com.dev.xrpwebtools.Model.xrp4j;
+import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
 
 
 public class dashboardController extends HttpServlet {
@@ -26,7 +27,6 @@ public class dashboardController extends HttpServlet {
         session.setAttribute("dashboard", bll);
         try {
             String walletseed = req.getParameter("walletseed");
-            //walletseed = bll.removeWhiteSpace(walletseed);
             walletseed = utlt.removeWhiteSpace(walletseed);
             bll.setWalletseed(walletseed);
             if(!bll.isValidated()){
@@ -36,7 +36,7 @@ public class dashboardController extends HttpServlet {
             resp.sendRedirect("view/dashboard.jsp");
         } catch (Exception err) {
             logger.log(Level.INFO, err.getMessage());
-            //bll.setErrorString("Error Code: 00-"+bll.getLocalDateTimeHEX());
+            bll.setErrorString("Error Code: 00-"+err.getMessage());
             resp.sendRedirect("view/error.jsp");
         }
     }

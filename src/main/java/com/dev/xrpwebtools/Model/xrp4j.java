@@ -199,10 +199,10 @@ public class xrp4j {
         return transactionHash = result.transactionResult().transaction().hash().get();
     }
 
-    public Hash256 setDomain(String domainValue, Optional<String> walletseedValue) throws JsonRpcClientErrorException {
+    public Hash256 setDomain(String domainValue, String... walletseedValue) throws JsonRpcClientErrorException {
             Utility.mainUtilities utlt = new Utility.mainUtilities();
             String hex = DatatypeConverter.printHexBinary(domainValue.getBytes());
-            wallet = walletFactory().fromSeed(walletseedValue.get(), true);
+            wallet = walletFactory().fromSeed(walletseedValue[0], true);
 
             AccountInfoResult accountInfoResult = xrplClient.accountInfo(AccountInfoRequestParams.of(wallet.classicAddress()));
             FeeResult feeResult = xrplClient.fee();

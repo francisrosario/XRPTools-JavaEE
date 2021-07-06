@@ -27,10 +27,8 @@ public class sendXRPController extends HttpServlet{
             String transferAddress = req.getParameter("transferAddress");
             String transferAmount = req.getParameter("transferAmount");
             int transactionTag = Integer.parseInt(req.getParameter("transactionTag"));
-
-            //transferAddress = utlt.removeWhiteSpace(transferAddress);
             transferAddress = utlt.removeWhiteSpace(transferAddress);
-            System.out.println(transferAddress);
+
             bll.sendXRP(transferAmount, transactionTag, transferAddress);
             RequestDispatcher dispatcher = req.getRequestDispatcher("view/info.jsp");
             dispatcher.forward(req, resp);

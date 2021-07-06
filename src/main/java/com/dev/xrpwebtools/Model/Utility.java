@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class Utility {
     public static class mainUtilities{
-        private String domainValue;
+        private String domainValue = "";
 
         public Multihash createIPFS(byte[] dataByte, String... path) throws IOException {
             MerkleNode addResult = null;
@@ -76,10 +76,9 @@ public class Utility {
         private String nftTwitter;
         private String nftDescription;
 
-        public void createHTML(byte[] item, String nftSeed, String nftName, String nftAuthor, String nftEmail, String nftTwitter, String nftDescription) throws IOException {
+        public String createHTML(byte[] item, String nftName, String nftAuthor, String nftEmail, String nftTwitter, String nftDescription) throws IOException {
             Utility.mainUtilities utlt = new mainUtilities();
             StringBuilder htmlBuilder = new StringBuilder();
-            StringBuilder resultBuilder = new StringBuilder();
 
             this.nftName = utlt.sanitizeHTMLInput(nftName);
             this.nftAuthor = utlt.sanitizeHTMLInput(nftAuthor);
@@ -358,11 +357,7 @@ public class Utility {
             utlt.createDomainValue(2, Optional.of("ipfs"), Optional.of(String.valueOf(nftItem)));
             utlt.createDomainValue(2, Optional.of("http"), Optional.of("https://xrptools-web-dev.herokuapp.com/"));
 
-            //transactionHash = setDomain(domainValue, Optional.of(nftSeed));
-            //resultBuilder.append("https://gateway.pinata.cloud/ipfs/"+nftHtml+"<br>");
-            //resultBuilder.append("https://testnet.xrpl.org/transactions/"+transactionHash+"<br>");
-
-            //return infoString = resultBuilder.toString();
+            return utlt.domainValue;
         }
     }
 }
