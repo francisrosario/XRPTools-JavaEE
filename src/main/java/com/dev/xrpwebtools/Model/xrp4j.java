@@ -194,7 +194,7 @@ public class xrp4j {
                     .amount(amount)
                     .signingPublicKey(wallet.publicKey())
                     .build();
-            SubmitResult<Payment> result = xrplClient.submit(wallet, payment);
+            SubmitResult<?> result = submitTransaction(wallet, payment);
             getMetadata(result);
         return transactionHash = result.transactionResult().transaction().hash().get();
     }
@@ -215,9 +215,13 @@ public class xrp4j {
                     .signingPublicKey(wallet.publicKey())
                     .build();
             utlt.createDomainValue(10, Optional.empty(), Optional.empty());
-            SubmitResult<AccountSet> result = xrplClient.submit(wallet, domainset);
+            SubmitResult<?> result = submitTransaction(wallet,domainset);
             getMetadata(result);
         return transactionHash = result.transactionResult().transaction().hash().get();
+    }
+
+    public SubmitResult<?> submitTransaction(Wallet wallet, Transaction transaction) throws JsonRpcClientErrorException {
+        return xrplClient.submit(wallet, transaction);
     }
 
     public String getMetadata(SubmitResult<?> transaction) throws JsonRpcClientErrorException {
