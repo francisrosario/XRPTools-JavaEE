@@ -1,4 +1,4 @@
-package com.dev.xrpwebtools.Model;
+package com.dev.xrpwebtools.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableSet;

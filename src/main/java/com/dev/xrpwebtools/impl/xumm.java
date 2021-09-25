@@ -1,4 +1,4 @@
-package com.dev.xrpwebtools.Model;
+package com.dev.xrpwebtools.impl;
 
 import okhttp3.*;
 import org.json.JSONObject;

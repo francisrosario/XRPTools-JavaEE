@@ -1,4 +1,4 @@
-package com.dev.xrpwebtools.Model;
+package com.dev.xrpwebtools.impl;
 
 import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
