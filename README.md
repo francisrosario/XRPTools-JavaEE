@@ -1,4 +1,4 @@
-<h1 align="center"> XRP Wallet Tools - JavaEE
+<h1 align="center"> XRP Wallet Tools - JavaEE (WIP README for XRPLGrant)
   
 ![](XRPWALLET.gif)
   
