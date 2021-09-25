@@ -1,4 +1,4 @@
-package com.dev.xrpwebtools.Controller;
+package com.dev.xrpwebtools.controller.xrpl;
 
 import java.io.*;
 import java.util.logging.Level;
@@ -7,16 +7,16 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
-import com.dev.xrpwebtools.Model.Utility;
-import com.dev.xrpwebtools.Model.xrp4j;
+import com.dev.xrpwebtools.impl.Utility;
+import com.dev.xrpwebtools.impl.xrp4j;
 import org.apache.commons.io.IOUtils;
 
 
 @MultipartConfig
-public class createNFTWalletController extends HttpServlet{
+public class CreateNFTWallet extends HttpServlet{
     //////////////////////
     //Utils
-    private final Logger logger = Logger.getLogger(createNFTWalletController.class.getName());
+    private final Logger logger = Logger.getLogger(CreateNFTWallet.class.getName());
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);

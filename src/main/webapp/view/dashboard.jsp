@@ -1,4 +1,4 @@
-<%@ page import="com.dev.xrpwebtools.Model.xrp4j" %>
+<%@ page import="com.dev.xrpwebtools.impl.xrp4j" %>
 <%
   ///request.getSession(false);
   xrp4j bll = (xrp4j)session.getAttribute("dashboard");

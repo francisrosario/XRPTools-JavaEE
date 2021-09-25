@@ -1,4 +1,4 @@
-package com.dev.xrpwebtools.Controller;
+package com.dev.xrpwebtools.controller.xrpl;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
@@ -7,10 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dev.xrpwebtools.Model.xrp4j;
-import org.xrpl.xrpl4j.client.JsonRpcClientErrorException;
+import com.dev.xrpwebtools.impl.xrp4j;
 
-public class createWalletController extends HttpServlet{
+public class CreateWallet extends HttpServlet{
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             HttpSession session = req.getSession();

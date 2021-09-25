@@ -6,6 +6,7 @@
         <exploded>true</exploded>
         <module>XRPTools-JaveEE</module>
         <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
       </options>
     </properties>
     <root id="root">
@@ -53,6 +54,22 @@
           <element id="library" level="project" name="Maven: com.github.michaelgantman:MgntUtils:1.5.0.2" />
           <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.3.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.13" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.11" />
+          <element id="library" level="project" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" />
+          <element id="library" level="project" name="Maven: jakarta.activation:jakarta.activation-api:1.2.2" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.10.0" />
+          <element id="library" level="project" name="Maven: com.github.ipfs:java-ipfs-api:1.3.3" />
+          <element id="library" level="project" name="Maven: com.github.multiformats:java-multiaddr:v1.4.1" />
+          <element id="library" level="project" name="Maven: com.github.ipld:java-cid:v1.3.1" />
+          <element id="library" level="project" name="Maven: com.github.multiformats:java-multihash:v1.3.0" />
+          <element id="library" level="project" name="Maven: com.github.multiformats:java-multibase:v1.1.0" />
+          <element id="library" level="project" name="Maven: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20200615.1" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.2.1" />
+          <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.1" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz-jobs:2.3.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

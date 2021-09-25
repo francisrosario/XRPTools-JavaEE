@@ -11,7 +11,7 @@
     </session-config>
     <servlet>
         <servlet-name>createWalletController</servlet-name>
-        <servlet-class>com.dev.xrpwebtools.Controller.createWalletController</servlet-class>
+        <servlet-class>com.dev.xrpwebtools.controller.xrpl.CreateWallet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>createWalletController</servlet-name>
@@ -19,7 +19,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>dashboard</servlet-name>
-        <servlet-class>com.dev.xrpwebtools.Controller.dashboardController</servlet-class>
+        <servlet-class>com.dev.xrpwebtools.controller.Dashboard</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>dashboard</servlet-name>
@@ -27,7 +27,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>sendXRPController</servlet-name>
-        <servlet-class>com.dev.xrpwebtools.Controller.sendXRPController</servlet-class>
+        <servlet-class>com.dev.xrpwebtools.controller.xrpl.SendXRP</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>sendXRPController</servlet-name>
@@ -35,7 +35,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>createNFTWalletController</servlet-name>
-        <servlet-class>com.dev.xrpwebtools.Controller.createNFTWalletController</servlet-class>
+        <servlet-class>com.dev.xrpwebtools.controller.xrpl.CreateNFTWallet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>createNFTWalletController</servlet-name>
@@ -43,7 +43,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>dashboardXUMMController</servlet-name>
-        <servlet-class>com.dev.xrpwebtools.Controller.dashboardXUMMController</servlet-class>
+        <servlet-class>com.dev.xrpwebtools.controller.xrpl.dashboardXUMMController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>dashboardXUMMController</servlet-name>

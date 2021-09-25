@@ -84,5 +84,21 @@
     <orderEntry type="library" name="Maven: com.github.michaelgantman:MgntUtils:1.5.0.2" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.13" level="project" />
+    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.activation:jakarta.activation-api:1.2.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.10.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.ipfs:java-ipfs-api:1.3.3" level="project" />
+    <orderEntry type="library" name="Maven: com.github.multiformats:java-multiaddr:v1.4.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.ipld:java-cid:v1.3.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.multiformats:java-multihash:v1.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.multiformats:java-multibase:v1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20200615.1" level="project" />
+    <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz:2.2.1" level="project" />
+    <orderEntry type="library" name="Maven: c3p0:c3p0:0.9.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz-jobs:2.3.1" level="project" />
   </component>
 </module>
