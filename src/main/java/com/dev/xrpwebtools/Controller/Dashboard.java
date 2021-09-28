@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dev.xrpwebtools.impl.Utility;
-import com.dev.xrpwebtools.impl.xrp4j;
+import com.dev.xrpwebtools.impl.UtilityImpl;
+import com.dev.xrpwebtools.impl.XRPLImpl;
+
+import static com.dev.xrpwebtools.impl.UtilityImpl.*;
 
 
 public class Dashboard extends HttpServlet {
@@ -20,13 +22,13 @@ public class Dashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
-        Utility.mainUtilities utlt = new Utility.mainUtilities();
-        xrp4j bll = new xrp4j();
+
+        XRPLImpl bll = new XRPLImpl();
         session.setAttribute("dashboard", bll);
         try {
             String walletseed = req.getParameter("walletseed");
-            walletseed = utlt.removeWhiteSpace(walletseed);
-            bll.setWalletseed(walletseed);
+
+            bll.setWalletseed(removeWhiteSpace(walletseed));
             if(!bll.isValidated()){
                 bll.setErrorString("Account not found, Kindly activate your account...");
                 resp.sendRedirect("view/error.jsp");

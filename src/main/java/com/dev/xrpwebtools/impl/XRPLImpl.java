@@ -1,5 +1,6 @@
 package com.dev.xrpwebtools.impl;
 
+import com.dev.xrpwebtools.api.Client;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.UnsignedInteger;
@@ -37,11 +38,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class xrp4j {
+public class XRPLImpl implements Client {
 
     //////////////////////
     //Utils
-    private final Logger logger = Logger.getLogger(xrp4j.class.getName());
+    private final Logger logger = Logger.getLogger(XRPLImpl.class.getName());
 
     //////////////////////
     //XRP4j
@@ -199,8 +200,9 @@ public class xrp4j {
         return transactionHash = result.transactionResult().transaction().hash().get();
     }
 
+    /**
     public Hash256 setDomain(String domainValue, String... walletseedValue) throws JsonRpcClientErrorException {
-            Utility.mainUtilities utlt = new Utility.mainUtilities();
+            UtilityImpl.mainUtilities utlt = new UtilityImpl.mainUtilities();
             String hex = DatatypeConverter.printHexBinary(domainValue.getBytes());
             wallet = walletFactory().fromSeed(walletseedValue[0], true);
 
@@ -219,6 +221,7 @@ public class xrp4j {
             getMetadata(result);
         return transactionHash = result.transactionResult().transaction().hash().get();
     }
+    **/
 
     public SubmitResult<?> submitTransaction(Wallet wallet, Transaction transaction) throws JsonRpcClientErrorException {
         return xrplClient.submit(wallet, transaction);

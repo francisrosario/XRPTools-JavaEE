@@ -1,7 +1,7 @@
-<%@ page import="com.dev.xrpwebtools.impl.xrp4j" %>
+<%@ page import="com.dev.xrpwebtools.impl.XRPLImpl" %>
 <%
   ///request.getSession(false);
-  xrp4j bll = (xrp4j)session.getAttribute("dashboard");
+  XRPLImpl bll = (XRPLImpl)session.getAttribute("dashboard");
 %>
 <html lang="en"><head><base href="../">
   <meta charset="utf-8">

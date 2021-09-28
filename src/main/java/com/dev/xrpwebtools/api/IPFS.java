@@ -1,4 +1,4 @@
 package com.dev.xrpwebtools.api;
 
-public interface XRPLConfig {
+public interface IPFS {
 }

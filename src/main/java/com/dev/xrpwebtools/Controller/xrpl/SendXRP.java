@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dev.xrpwebtools.controller.Dashboard;
-import com.dev.xrpwebtools.impl.Utility;
-import com.dev.xrpwebtools.impl.xrp4j;
+import com.dev.xrpwebtools.impl.UtilityImpl;
+import com.dev.xrpwebtools.impl.XRPLImpl;
+
+import static com.dev.xrpwebtools.impl.UtilityImpl.*;
 
 public class SendXRP extends HttpServlet{
     //////////////////////
@@ -21,16 +23,14 @@ public class SendXRP extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        xrp4j bll = (xrp4j)session.getAttribute("dashboard");
-        Utility.mainUtilities utlt = new Utility.mainUtilities();
+        XRPLImpl bll = (XRPLImpl)session.getAttribute("dashboard");
 
         try {
             String transferAddress = req.getParameter("transferAddress");
             String transferAmount = req.getParameter("transferAmount");
             int transactionTag = Integer.parseInt(req.getParameter("transactionTag"));
-            transferAddress = utlt.removeWhiteSpace(transferAddress);
 
-            bll.sendXRP(transferAmount, transactionTag, transferAddress);
+            bll.sendXRP(transferAmount, transactionTag, removeWhiteSpace(transferAddress));
             RequestDispatcher dispatcher = req.getRequestDispatcher("view/info.jsp");
             dispatcher.forward(req, resp);
         } catch (Exception err) {

@@ -1,10 +1,10 @@
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.dev.xrpwebtools.impl.xrp4j" %>
+<%@ page import="com.dev.xrpwebtools.impl.XRPLImpl" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="org.xrpl.xrpl4j.wallet.DefaultWalletFactory" %>
 <%@ page import="org.xrpl.xrpl4j.model.transactions.Hash256" %>
 <%
-    xrp4j bll = (xrp4j)session.getAttribute("dashboard");
+    XRPLImpl bll = (XRPLImpl)session.getAttribute("dashboard");
 %>
 <html lang="en"><!--begin::Head--><head><base href="">
     <meta charset="utf-8">

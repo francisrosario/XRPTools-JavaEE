@@ -1,4 +1,4 @@
 package com.dev.xrpwebtools.api;
 
-public interface XummConfig {
+public interface Utility {
 }

@@ -1,11 +1,11 @@
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.dev.xrpwebtools.impl.xrp4j" %>
+<%@ page import="com.dev.xrpwebtools.impl.XRPLImpl" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="org.xrpl.xrpl4j.wallet.DefaultWalletFactory" %>
 <%@ page import="org.apache.commons.lang3.tuple.ImmutablePair" %>
 <%
 	request.getSession(false);
-	xrp4j bll = new xrp4j();
+	XRPLImpl bll = new XRPLImpl();
 	ImmutablePair<Object, Object> data = bll.createXRPAccount();
 %>
 <html lang="en"><!--begin::Head--><head><base href="../">
