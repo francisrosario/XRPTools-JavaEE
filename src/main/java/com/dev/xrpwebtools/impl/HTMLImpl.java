@@ -5,7 +5,7 @@ import io.ipfs.multihash.Multihash;
 import java.io.IOException;
 import java.util.Optional;
 
-import static com.dev.xrpwebtools.impl.IPFSImpl.*;
+import static com.dev.xrpwebtools.api.IPFS.createIPFS;
 import static com.dev.xrpwebtools.impl.UtilityImpl.*;
 
 public class HTMLImpl {
