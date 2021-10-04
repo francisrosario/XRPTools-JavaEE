@@ -79,3 +79,5 @@ fabric.properties
 .idea/vcs.xml
 
 XRPTools-JaveEE.iml
+
+src/main/java/com/dev/xrpwebtools/api/main.java
