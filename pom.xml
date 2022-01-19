@@ -24,6 +24,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.francisrosario</groupId>
+            <artifactId>xumm4j</artifactId>
+            <version>0.3.2</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>8.0.1</version>
